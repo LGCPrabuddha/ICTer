@@ -115,40 +115,18 @@ tr:nth-child(even){background-color: #f2f2f2}
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="Edit1.html"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="Publicity.html">Publicity Group</a></li>
-                      <li><a href="form_advanced.html">Sponsorship Hndling Group</a></li>
-                      <li><a href="form_validation.html">Bag Quatation Group</a></li>
-                      <li><a href="form_wizards.html">Food Allocation Group</a></li>
-                      <li><a href="form_upload.html">Paper Handling Group</a></li>
-                      <li><a href="form_buttons.html">Keynote Group</a></li>
-                      <li><a href="#">Hotel Quataion Group</a></li>   
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     
                   </li>
-                  <li><a><i class="fa fa-table"></i> Committee Database <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="publicityDetail.html">Publicity Group</a></li>
-                      <li><a href="form_advanced.html">Sponsorship Hndling Group</a></li>
-                      <li><a href="form_validation.html">Bag Quatation Group</a></li>
-                      <li><a href="form_wizards.html">Food Allocation Group</a></li>
-                      <li><a href="form_upload.html">Paper Handling Group</a></li>
-                      <li><a href="form_buttons.html">Keynote Group</a></li>
-                      <li><a href="#">Hotel Quataion Group</a></li>   
-                    </ul>
+                  
+                  <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
+                  
+                </li>
+                  <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
+                    
                   </li>
-                  
-                  
+                  <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                   
                 </ul>
               </div>
               
