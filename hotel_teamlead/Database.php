@@ -1,7 +1,7 @@
 <?php require_once('inc1/connection.php'); ?>
 
 <?php
-
+//insert data
 if(isset($_POST['submit'])){
     $task=$_POST['task'];
     $coment=$_POST['comment'];
