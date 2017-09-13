@@ -32,6 +32,7 @@ mysqli_close($connection);
 <html lang="en">
   <head>
     
+    
 
     <title>User Interface </title>
     <!-- Our customize file -->
@@ -57,6 +58,13 @@ mysqli_close($connection);
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <style>
     
+
+div.contain {
+   /*// border: 1px solid red;*/
+    margin-left: 720px;
+    
+}
+
 table, td, th {    
     border: 1px solid #ddd;
     text-align: left;
@@ -307,6 +315,13 @@ tr:nth-child(even){background-color: #f2f2f2}
   </tr><?php } ?>
  </tbody></form>
 </table>
+<div class="contain">
+      <a href="hotelm.php" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-arrow-left"></span> Back
+        </a>
+      </div>
+
+
 </div>
                 </div>
                 
