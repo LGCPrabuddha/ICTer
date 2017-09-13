@@ -250,9 +250,14 @@ if(isset($_POST['btnsave'])){
     </tr>
     
     <tr>
-        <td colspan="2"><button type="submit" name="btnsave" class="btn btn-default" id="save">
+        <td><button type="submit" name="btnsave" class="btn btn-default" id="save">
         <span class="glyphicon glyphicon-save"></span> &nbsp; save
         </button>
+        </td>
+        <td align="right">
+           <a href="hotelm.php" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-arrow-left"></span> Back
+        </a>
         </td>
     </tr>
     
