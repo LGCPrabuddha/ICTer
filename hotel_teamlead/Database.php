@@ -59,10 +59,12 @@ mysqli_close($connection);
     <style>
     
 
-div.contain {
+#contain {
    /*// border: 1px solid red;*/
-    margin-left: 720px;
-    
+    margin-left: 90%;
+    margin-top: 100px;
+
+
 }
 
 table, td, th {    
@@ -315,10 +317,10 @@ tr:nth-child(even){background-color: #f2f2f2}
   </tr><?php } ?>
  </tbody></form>
 </table>
-<div class="contain">
-      <a href="hotelm.php" class="btn btn-info btn-lg">
-          <span class="glyphicon glyphicon-arrow-left"></span> Back
-        </a>
+<div id="contain">
+      <a href="hotelm.php" class="btn btn-info btn-lg" >
+          <span class="glyphicon glyphicon-arrow-left" ></span> Back
+        </a>        
       </div>
 
 

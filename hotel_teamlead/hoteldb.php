@@ -80,7 +80,7 @@
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
+            <!-- <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
@@ -93,7 +93,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
-            </div>
+            </div> -->
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -405,6 +405,11 @@
                       </tbody>
                     </table>
                   </div>
+                  <div>
+                     <a href="hotelm.php" class="btn btn-info btn-lg">
+                       <span class="glyphicon glyphicon-arrow-left"></span> Back
+                      </a>
+                  </div>  
                 </div>
               </div>
 
