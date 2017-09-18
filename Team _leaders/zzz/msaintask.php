@@ -1,3 +1,4 @@
+
 <?php /*require_once('inc1/connection.php'); */?>
 <?php
 $connection = mysqli_connect('localhost','root','','trial');
@@ -136,7 +137,7 @@ tr:nth-child(even){background-color: #f2f2f2}
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
+            <!-- <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
@@ -149,7 +150,7 @@ tr:nth-child(even){background-color: #f2f2f2}
               <a data-toggle="tooltip" data-placement="top" title="Logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
-            </div>
+            </div> -->
             <!-- /menu footer buttons -->
           </div>
         </div>
