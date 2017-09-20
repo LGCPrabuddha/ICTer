@@ -242,7 +242,7 @@
         </div>
 
    <div class="right_col" role="main">
-       <div class="">
+       <!-- <div class="">
             <div class="row top_tiles">
                  <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -298,7 +298,43 @@
                 </div>
               </div>
 
-    </div>
+    </div> -->
+
+<body>
+
+<div class="container">
+  <h2><b>Review Commitee Progress</b></h2>
+  <p>current progress in the review commitee</p>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Recieved paper code</th>
+        <th>Status</th>
+        <th>Reviewer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>123  </td>
+        <td>done</td>
+        <td>dr. Rohana</td>
+      </tr>
+      <tr>
+        <td>234</td>
+        <td>progress</td>
+        <td>dr. Perera</td>
+      </tr>
+      <tr>
+        <td>345</td>
+        <td>progress</td>
+        <td>dr. Silva</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+
 </div>
     
 

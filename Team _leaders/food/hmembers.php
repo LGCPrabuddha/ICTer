@@ -207,6 +207,7 @@
                           <th>Name</th>
                           <th>Tel-No</th>
                           <th>Email</th>
+                          <th>Committee</th>
                           
                         </tr>
                       </thead>

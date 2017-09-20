@@ -1,31 +1,26 @@
 <?php require_once('inc1/connection.php'); ?>
 <?php  
-  $admin_list = '';
-    $query = "SELECT * FROM gro_member WHERE m_group= 'Review' ORDER BY 'm_mail' ";
-    $members = mysqli_query($connection,$query);
+  $data_list = '';
+  $query = "SELECT * FROM members";
+  $hotels = mysqli_query($connection,$query);
 
-    $query1 = "SELECT * FROM (user,gro_member) WHERE gro_member.m_group= 'Review' AND user.email = gro_member.m_mail ORDER BY 'm_mail' ";
-    $members1 = mysqli_query($connection,$query1);
+  if($hotels){
+    while ($hotel = mysqli_fetch_assoc($hotels)) {
+      $data_list .= "<tr>";
+      $data_list .= "<td>{$hotel['name']}</td>";
+      $data_list .= "<td>{$hotel['tel']}</td>";
+      $data_list .= "<td>{$hotel['email']}</td>";
+      $data_list .= "<td>{$hotel['committee']}</td>";
+      
+      $data_list .= "</tr>";}
 
-    if ($members1) {
-      while ($member1 = mysqli_fetch_assoc($members1)) {
-        $admin_list .= "<tr style=\"font-size: 15px; color:#4d4d4d;\">";
-        $admin_list .= "<td><label for=\"example\" class=\"option-input radio\">{$member1['user_name']}</label></td>";
-        $admin_list .= "<td><label for=\"example\" class=\"option-input radio\">{$member1['tele_no']}</label></td>";
-        $admin_list .= "<td><label for=\"example\" class=\"option-input radio\">{$member1['email']}</label></td>";
-      }
-    }else{
-      echo "Database query failed";
-    }
-    /*if ($members) {
-      while ($member = mysqli_fetch_assoc($members)) {
-        $admin_list .= "<tr style=\"font-size: 15px; color:#4d4d4d;\">";
-        $admin_list .= "<td><label for=\"example\" class=\"option-input radio\">{$member['m_group']}</label></td>";
-        $admin_list .= "</tr>";
-      }
-    }else{
-      echo "Database query1 failed";
-    }*/
+
+  }else{
+    echo "Database query failed";
+  }
+
+
+
 ?>
 
 <meta charset="utf-8">
@@ -207,13 +202,14 @@
                           <th>Name</th>
                           <th>Tel-No</th>
                           <th>Email</th>
+                          <th>Committee</th>
                           
                         </tr>
                       </thead>
 
 
                       <tbody>
-                      <?php echo $admin_list; ?>
+                      <?php echo $data_list; ?>
                       </tbody>
 
                     </table>
