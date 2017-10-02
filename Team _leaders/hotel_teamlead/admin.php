@@ -308,18 +308,30 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Recieved paper code</th>
+        <th>Paaper Id</th>
+        <th>Reviewer Id</th>
         <th>Status</th>
-        <th>Reviewer</th>
+        <th>Acceptance</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>123  </td>
         <td>done</td>
-        <td>dr. Rohana</td>
+        <td><select>
+  <option value="n">Reviewed</option>
+  <option value="sa">Not Reviewed</option>
+</select>
+</td>
+        <td><select>
+  <option value="n">-</option>
+  <option value="sa">Strongly Accepted</option>
+  <option value="wa">Weakly Accepted</option>
+  <option value="wr">Weakly Rejected</option>
+  <option value="sr">Strongly Rejected</option>
+</select></td>
       </tr>
-      <tr>
+     <!--  <tr>
         <td>234</td>
         <td>progress</td>
         <td>dr. Perera</td>
@@ -328,7 +340,7 @@
         <td>345</td>
         <td>progress</td>
         <td>dr. Silva</td>
-      </tr>
+      </tr> -->
     </tbody>
   </table>
 </div>
