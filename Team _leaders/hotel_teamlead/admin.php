@@ -317,10 +317,42 @@
     <tbody>
       <tr>
         <td>123  </td>
-        <td>done</td>
+        <td>01345</td>
         <td><select>
-  <option value="n">Reviewed</option>
-  <option value="sa">Not Reviewed</option>
+  <option value="n">Not Reviewed</option>
+  <option value="sa">Reviewed</option>
+</select>
+</td>
+        <td><select>
+  <option value="n">-</option>
+  <option value="sa">Strongly Accepted</option>
+  <option value="wa">Weakly Accepted</option>
+  <option value="wr">Weakly Rejected</option>
+  <option value="sr">Strongly Rejected</option>
+</select></td>
+      </tr>
+      <tr>
+        <td>456  </td>
+        <td>34671</td>
+        <td><select>
+  <option value="n">Not Reviewed</option>
+  <option value="sa">Reviewed</option>
+</select>
+</td>
+        <td><select>
+  <option value="n">-</option>
+  <option value="sa">Strongly Accepted</option>
+  <option value="wa">Weakly Accepted</option>
+  <option value="wr">Weakly Rejected</option>
+  <option value="sr">Strongly Rejected</option>
+</select></td>
+      </tr>
+      <tr>
+        <td>678  </td>
+        <td>09562</td>
+        <td><select>
+  <option value="n">Not Reviewed</option>
+  <option value="sa">Reviewed</option>
 </select>
 </td>
         <td><select>
