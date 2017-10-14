@@ -1,31 +1,75 @@
+<?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
-<?php  
-  $data_list = '';
-  $query = "SELECT * FROM hotel_table";
-  $hotels = mysqli_query($connection,$query);
+<?php require_once('inc1/functions.php'); ?>
 
-  if($hotels){
-    while ($hotel = mysqli_fetch_assoc($hotels)) {
-      $data_list .= "<tr>";
-      $data_list .= "<td>{$hotel['h-id']}</td>";
-      $data_list .= "<td>{$hotel['company']}</td>";
-      $data_list .= "<td>{$hotel['addr']}</td>";
-      $data_list .= "<td>{$hotel['email']}</td>";
-      $data_list .= "<td>{$hotel['tel']}</td>";
-      $data_list .= "<td>{$hotel['sroom']}</td>";
-      $data_list .= "<td>{$hotel['droom']}</td>";
-      $data_list .= "<td>{$hotel['website']}</td>";
-      $data_list .= "<td>{$hotel['distance']}</td>";
-      $data_list .= "</tr>";}
+<?php
+
+  //checking that user logged into the system
+  if (!isset($_SESSION['user_id'])){
+    header('Location: index.php');
+  }
+
+  $errors = array();
+
+  $paper='';
+  $review='';
+  $status= '';
+  $acceptance= ''; 
+
+  if (isset($_POST['submit'])){
+
+    $paper= $_POST['paper'];
+    $review= $_POST['review'];
+    $status= $_POST['status'];
+    $acceptance= $_POST['acceptance'];
+    //checking required fields
+
+    $req_fields= array('paper','review','status','acceptance');
+    $errors=array_merge($errors,check_req_fields($req_fields));  
+    
+  
+  //checking max length
+//   $max_length_fields = array('first_name' =>10,'last_name' => 10,'email' => 100,'password' => 40);
+// $errors=array_merge($errors,check_max_len($max_length_fields));
+  
+
+//checking email is already exist
 
 
+// $query ="SELECT * FROM user WHERE email='{$email}' LIMIT 1";
+// $result_set=mysqli_query($connection,$query);
+
+// if($result_set){
+//   if (mysqli_num_rows($result_set)==1){
+//     $errors[]='email already exists'; }
+// }
+
+if(empty($errors)){
+  //adding new records
+
+  $paper = mysqli_real_escape_string($connection,$_POST['paper']);
+  $review = mysqli_real_escape_string($connection,$_POST['review']);
+  $status = mysqli_real_escape_string($connection,$_POST['status']);
+  $acceptance = mysqli_real_escape_string($connection,$_POST['acceptance']);
+  //email already sanitized
+  // $hashed_password = sha1($password);
+
+  $query= "INSERT INTO review (paper,reviewer,status,acceptance)VALUES('{$paper}','{$review}','{$status}','{$acceptance}')";
+
+  $result = mysqli_query($connection,$query);
+
+  if($result){
+    //query success redirect to users.php
+    header('Location:admin.php?data_added=true ');
   }else{
-    echo "Database query failed";
+    $errors[]='Failed to addd new record';
   }
 
 
-
+}
+    }
 ?>
+
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -308,7 +352,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Paaper Id</th>
+        <th>Paper Id</th>
         <th>Reviewer Id</th>
         <th>Status</th>
         <th>Acceptance</th>
@@ -316,14 +360,14 @@
     </thead>
     <tbody>
       <tr>
-        <td>123  </td>
-        <td>01345</td>
-        <td><select>
+        <td><input type="text" name="paper" style=" height: 10px;  <?php echo 'value="'.$first_name.'"';    ?>"> </td>
+        <td><input type="text" name="review" style=" height: 10px;""></td>
+        <td><select name="status">
   <option value="n">Not Reviewed</option>
   <option value="sa">Reviewed</option>
 </select>
 </td>
-        <td><select>
+        <td><select name="acceptance">
   <option value="n">-</option>
   <option value="sa">Strongly Accepted</option>
   <option value="wa">Weakly Accepted</option>
@@ -331,50 +375,13 @@
   <option value="sr">Strongly Rejected</option>
 </select></td>
       </tr>
-      <tr>
-        <td>456  </td>
-        <td>34671</td>
-        <td><select>
-  <option value="n">Not Reviewed</option>
-  <option value="sa">Reviewed</option>
-</select>
-</td>
-        <td><select>
-  <option value="n">-</option>
-  <option value="sa">Strongly Accepted</option>
-  <option value="wa">Weakly Accepted</option>
-  <option value="wr">Weakly Rejected</option>
-  <option value="sr">Strongly Rejected</option>
-</select></td>
-      </tr>
-      <tr>
-        <td>678  </td>
-        <td>09562</td>
-        <td><select>
-  <option value="n">Not Reviewed</option>
-  <option value="sa">Reviewed</option>
-</select>
-</td>
-        <td><select>
-  <option value="n">-</option>
-  <option value="sa">Strongly Accepted</option>
-  <option value="wa">Weakly Accepted</option>
-  <option value="wr">Weakly Rejected</option>
-  <option value="sr">Strongly Rejected</option>
-</select></td>
-      </tr>
-     <!--  <tr>
-        <td>234</td>
-        <td>progress</td>
-        <td>dr. Perera</td>
-      </tr>
-      <tr>
-        <td>345</td>
-        <td>progress</td>
-        <td>dr. Silva</td>
-      </tr> -->
+     
+   
     </tbody>
   </table>
+
+
+  <button type="submit" name="submit">Save</button> 
 </div>
 
 </body>
