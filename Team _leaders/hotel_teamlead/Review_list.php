@@ -1,42 +1,13 @@
-
-<?php
-$connection = mysqli_connect('localhost','root','','group');
-
-  
-    
-
-if(isset($_POST['submit'])){
-    $task=$_POST['task'];
-    $coment=$_POST['comment'];
-    $duration=$_POST['duration'];
-    $inadd="INSERT INTO trial (task, satus, comment, Duration) Values ('$task', '0', '$coment','$duration')";
-    $enter=mysqli_query($connection,$inadd);
-    
-    header("location:msaintask.php");
-}
-if(isset($_POST['done'])){
-    if(!empty($_POST['status'])){
-        foreach($_POST['status'] as $select){
-            $sql3 = "UPDATE trial SET status = '1' WHERE task = '$select'";
-            $enter3=mysqli_query($connection,$sql3);
-            
-        }
-    }else{
-        echo "plz enter the task";
-    }     
- }    
-   
-$result=mysqli_query($connection,"SELECT * FROM trial");
-
- ?>
+<?php session_start(); ?>
+<?php require_once('inc1/connection.php'); ?>
+<?php require_once('inc1/functions.php'); ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>User Interface </title>
+    <title>Hotel Database </title>
     <!-- Our customize file -->
     <link href="css/CDetail.css" rel="stylesheet">
     <!-- Bootstrap -->
@@ -59,30 +30,8 @@ $result=mysqli_query($connection,"SELECT * FROM trial");
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <style>
-	
-table, td, th {    
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th, td {
-    padding: 15px;
-}
-th {
-    background-color: #4CAF50;
-    color: white;
-}
-tr:nth-child(even){background-color: #f2f2f2}
-
-.progress {height: 20px;}
-</style>
-    
-    
+    .progress {height: 20px;}
+    </style>
   </head>
 
   <body class="nav-md">
@@ -91,7 +40,7 @@ tr:nth-child(even){background-color: #f2f2f2}
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>ICTER</span></a>
+              <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span>ICTER</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -136,7 +85,7 @@ tr:nth-child(even){background-color: #f2f2f2}
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
+            <!-- <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
@@ -149,7 +98,7 @@ tr:nth-child(even){background-color: #f2f2f2}
               <a data-toggle="tooltip" data-placement="top" title="Logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
-            </div>
+            </div> -->
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -164,7 +113,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <a href="javascript:" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="images/img.jpg" alt="">John Doe
                     <span class=" fa fa-angle-down"></span>
                   </a>
@@ -176,8 +125,8 @@ tr:nth-child(even){background-color: #f2f2f2}
                         <span>Settings</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="javascript:">Help</a></li>
+                    <li><a href="index.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
@@ -268,138 +217,112 @@ tr:nth-child(even){background-color: #f2f2f2}
             </nav>
           </div>
         </div>
-     <!-- page content -->
-        <div class="right_col" role="main">
-            <div class="container">
-              <div class="page-title">
-                <div class="task-center">
-                </div>
-                </div>
-				
-                <div class="insert-option">
-				<div class="insert-head">
-					<h2><b>Insert the Data</b></h2><hr>
-					
-				</div>
-				<div class="insert-content">
-				<form method="POST" action="msaintask.php">
-        <?php
-        $connection = mysqli_connect('localhost','root','','group');
-        ?>
-        Users:
-        <select>
-        <?php
-        $userq="SELECT * FROM trial";
-        $answer=mysqli_query($connection,$userq);
-        while($row2=mysqli_fetch_array($answer)){ ?>
-          <option value=<?php echo '"'.$row2['task'].'"'; ?>><?php echo $row2['task']; ?></option>
-          <?php  }   ?>
-        </select>
-         <br>         
-          
-        
-        
-        
-				Task<br><input type="text" name="task"><br>
-                Members<br><input type="text" name="comment"><br>
-                Duration<br><input type="text" name="duration">
-                <select>
-                <option selected>days</option>
-                <option>weeks</option>
-                <option>month</option>
-                </select>
-                <br>
-                <input type="submit" name="submit" value="submit"><input type="submit" name="done" value="done">
-				
-				
-	<!--	<div class="task-content">
-			<div class="task-head">
-			<h2><b>Details of Tasks</b></h2><hr>
-			</div>
-			<div class="task-body">-->
-				<table>
-  <tr>
-    <th width="5%">Status</th>
-    <th>Task</th>
-    <th>Members</th>
-    <th>Duration</th>
-  </tr>
-  <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
-  <tr>
-    <td width="5%"><input type="checkbox" name="status[]" value=<?php echo '"' . $row['task'] . '"'; if($row['status'] == "1") {echo "checked='checked'"; } ?>></td>
-    <td><?php echo $row['task']; ?></td>
-    <td><?php echo $row['comment']; ?></td>
-    <td><?php echo $row['duration'];  ?></td>
-  </tr><?php } ?>
- </tbody></form>
-</table>
-</div>
-				</div>
-				
-        			
-               
-              
 
-
-
-
-                       <!--<tr>
-                          <td></td>
-                          <td>
-                          <input type="radio" class="option-input radio" name="example" />
-    
-                          </td>
-                          <td><input type="radio" class="option-input radio" name="example" id="ket"/>
-    
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><input type="radio" class="option-input radio" name="example2"/>
-    
-                          </td>
-                          <td><input type="radio" class="option-input radio" name="example2" id="ket"/>
-    
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><input type="radio" class="option-input radio" name="example3"/>
-    
-                          </td>
-                          <td><input type="radio" class="option-input radio" name="example3" id="ket"/>
-    
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td><input type="radio" class="option-input radio" name="example4"/>
-    
-                          </td>
-                          <td><input type="radio" class="option-input radio" name="example4" id="ket"/>
-    
-                          </td>
-                          <td></td>
-                        </tr>
-                     
-                        
-                      </tbody>-->
-                    
-                   </div>
+   <div class="right_col" role="main">
+       <!-- <div class="">
+            <div class="row top_tiles">
+                 <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
                   </div>
+                  <div class="x_content">
+                    <button type="button" class="btn btn-round btn-primary">Add</button><button type="button" class="btn btn-round btn-danger">Delete</button>
+                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+                      <thead>
+                        <tr>
+                          
+                          <th >H-Id</th>
+                          <th>Company name</th>
+                          <th>Address</th>
+                          <th>Email</th>
+                          <th>Tel-No</th>
+                          <th>Single room price</th>
+                          <th>Double room price</th>
+                          <th>Website</th>
+                          <th>Distance</th>
+                        </tr>
+                      </thead>
+
+
+                      <tbody>
+
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                     <a href="hotelm.php" class="btn btn-info btn-lg">
+                       <span class="glyphicon glyphicon-arrow-left"></span> Back
+                      </a>
+                  </div>  
                 </div>
               </div>
-            
-          
-               
-            
-            
-        
-          
-   <!-- jQuery -->
+
+    </div> -->
+
+<body>
+<!-- <form action="admin.php" method="post">
+<div class="container">
+  <h2><b>Review Commitee Progress</b></h2>
+  <p>current progress in the review commitee</p>            
+        <div class="col-md-3"><label>Paper Id</label> <input type="text" name="paper" style=" height: 10px;"></div>
+         <div class="col-md-3"><label> Reviewer Id</label> <input type="text" name="review" style=" height: 10px;"></div>
+         <div class="col-md-3"><label>Status</label><select name="status" id="stat">
+  <option value="n">Not Reviewed</option>
+  <option value="sa">Reviewed</option></select></div>
+<div class="col-md-3"><label> Acceptance</label>
+<select name="acceptance" id="accpt" readonly="readonly">
+  <option value="n">-</option>
+  <option value="sa">Strongly Accepted</option>
+  <option value="wa">Weakly Accepted</option>
+  <option value="wr">Weakly Rejected</option>
+  <option value="sr">Strongly Rejected</option>
+</select></div>
+
+<div class="col-md-12">
+  <button type="submit" name="submit" class="pull-left">Save</button> </div>
+</div>
+</form> -->
+</body>
+<div class="container">
+  <table class="table">
+  <thead>
+    <tr><td>Paper</td><td>reviewer</td><td>status</td><tr>
+  </thead>
+  <tbody>
+    <?php
+$query1="SELECT * FROM reviewer";
+$result=mysqli_query($connection,$query1);
+while($row=mysqli_fetch_array($result)){
+echo "<tr><td>".$row['Code']."</td><td>".$row['Name']."</td><td>".$row['University']."</td></tr>";
+
+}
+
+    ?>
+  </tbody>
+</table>
+</div>
+</div>
+    
+
+<!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -431,6 +354,22 @@ tr:nth-child(even){background-color: #f2f2f2}
 
     <!-- Datatables -->
     <script>
+       $('#stat').on('change',function(){
+       if(this.value=="sa"){
+$('#accpt').removeAttr('disabled');
+}
+else{
+$('#accpt').attr("disabled", true);
+}
+      });
+//       $('#stat').on('change',function(){
+//        if(this.value=="sa"){
+// $('#accpt').removeAttr('readonly');
+// }
+// else{
+// $('#accpt').attr("readonly", readonly);
+// }
+//       });
       $(document).ready(function() {
         var handleDataTableButtons = function() {
           if ($("#datatable-buttons").length) {
@@ -509,5 +448,6 @@ tr:nth-child(even){background-color: #f2f2f2}
         TableManageButtons.init();
       });
     </script>
+    <!-- /Datatables -->
   </body>
-</html>            
+</html>        
