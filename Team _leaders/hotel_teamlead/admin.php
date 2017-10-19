@@ -312,7 +312,7 @@
   <option value="n">Not Reviewed</option>
   <option value="sa">Reviewed</option></select></div>
 <div class="col-md-3"><label> Acceptance</label>
-<select name="acceptance" id="accpt" readonly="readonly">
+<select name="acceptance" id="accpt">
   <option value="n">-</option>
   <option value="sa">Strongly Accepted</option>
   <option value="wa">Weakly Accepted</option>
@@ -332,10 +332,12 @@
   </thead>
   <tbody>
     <?php
+
 $query1="SELECT * FROM review";
 $result=mysqli_query($connection,$query1);
 while($row=mysqli_fetch_array($result)){
-echo "<tr><td>".$row['paper']."</td><td><a href=\"Review_list.php\">".$row['reviewer']."</a></td><td>".$row['status']."</td><td>".$row['acceptance']."</td></tr>";
+  $code = $row['paper'];
+  echo "<tr><td><a href='viewPaper.php?code=$code'>".$row['paper']."</a></td><td><a href=\"Review_list.php\">".$row['reviewer']."</a></td><td>".$row['status']."</td><td>".$row['acceptance']."</td></tr>";
 
 }
 
@@ -379,12 +381,22 @@ echo "<tr><td>".$row['paper']."</td><td><a href=\"Review_list.php\">".$row['revi
     <!-- Datatables -->
     <script>
        $('#stat').on('change',function(){
-       if(this.value=="sa"){
-$('#accpt').removeAttr('disabled');
+       
+       if(this.value=="n"){
+        
+         document.getElementById('accpt').selectedIndex =0;
 }
-else{
-$('#accpt').attr("disabled", true);
+
+      });
+        $('#accpt').on('change',function(){
+         
+       if(this.value=="n"){
+        
+document.getElementById('stat').selectedIndex =0;
 }
+else
+document.getElementById('stat').selectedIndex =1;
+
       });
 //       $('#stat').on('change',function(){
 //        if(this.value=="sa"){

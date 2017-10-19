@@ -277,7 +277,6 @@
 
     </div> -->
 
-<body>
 <!-- <form action="admin.php" method="post">
 <div class="container">
   <h2><b>Review Commitee Progress</b></h2>
@@ -300,7 +299,7 @@
   <button type="submit" name="submit" class="pull-left">Save</button> </div>
 </div>
 </form> -->
-</body>
+
 <div class="container">
   <table class="table">
   <thead>
@@ -308,7 +307,7 @@
   </thead>
   <tbody>
     <?php
-$query1="SELECT * FROM reviewer";
+$query1="SELECT * FROM reviewer WHERE University='Unviersity of Miami'";
 $result=mysqli_query($connection,$query1);
 while($row=mysqli_fetch_array($result)){
 echo "<tr><td>".$row['Code']."</td><td>".$row['Name']."</td><td>".$row['University']."</td></tr>";
@@ -318,6 +317,11 @@ echo "<tr><td>".$row['Code']."</td><td>".$row['Name']."</td><td>".$row['Universi
     ?>
   </tbody>
 </table>
+<div>
+                     <a href="admin.php" class="btn btn-info btn-lg">
+                       <span class="glyphicon glyphicon-arrow-left"></span> Back
+                      </a>
+                  </div> 
 </div>
 </div>
     
