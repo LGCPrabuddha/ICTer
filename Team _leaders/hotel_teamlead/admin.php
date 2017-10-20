@@ -1,73 +1,30 @@
 <?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
 <?php require_once('inc1/functions.php'); ?>
-
 <?php
-
   //checking that user logged into the system
-  if (!isset($_SESSION['user_id'])){
-    header('Location: index.php');
-  }
-
-  $errors = array();
+ // if (!isset($_SESSION['user_id'])){
+ //    header('Location: index.php');
+ //  }
+// 
+    $errors = array();
 
   $paper='';
   $review='';
   $status= '';
   $acceptance= ''; 
 
-  if (isset($_POST['submit'])){
+    
+   if (isset($_POST['submit'])){ //added by me
 
     $paper= $_POST['paper'];
     $review= $_POST['review'];
     $status= $_POST['status'];
     $acceptance= $_POST['acceptance'];
-    //checking required fields
-
-    $req_fields= array('paper','review','status','acceptance');
-    $errors=array_merge($errors,check_req_fields($req_fields));  
-    
-  
-  //checking max length
-//   $max_length_fields = array('first_name' =>10,'last_name' => 10,'email' => 100,'password' => 40);
-// $errors=array_merge($errors,check_max_len($max_length_fields));
-  
-
-//checking email is already exist
-
-
-// $query ="SELECT * FROM user WHERE email='{$email}' LIMIT 1";
-// $result_set=mysqli_query($connection,$query);
-
-// if($result_set){
-//   if (mysqli_num_rows($result_set)==1){
-//     $errors[]='email already exists'; }
-// }
-
-if(empty($errors)){
-  //adding new records
-
-  $paper = mysqli_real_escape_string($connection,$_POST['paper']);
-  $review = mysqli_real_escape_string($connection,$_POST['review']);
-  $status = mysqli_real_escape_string($connection,$_POST['status']);
-  $acceptance = mysqli_real_escape_string($connection,$_POST['acceptance']);
-  //email already sanitized
-  // $hashed_password = sha1($password);
-
-  $query= "INSERT INTO review (paper,reviewer,status,acceptance)VALUES('{$paper}','{$review}','{$status}','{$acceptance}')";
-
-  $result = mysqli_query($connection,$query);
-
-  if($result){
-    //query success redirect to users.php
-    header('Location:admin.php?data_added=true ');
-  }else{
-    $errors[]='Failed to addd new record';
+    $query="INSERT INTO review VALUES($paper,$review,'$status','$acceptance')";
+    mysqli_query($connection,$query);
+  header('Location:admin.php'); 
   }
-
-
-}
-    }
 ?>
 
 <meta charset="utf-8">
@@ -107,7 +64,7 @@ if(empty($errors)){
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>ICTER</span></a>
+              <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span>ICTER</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -180,7 +137,7 @@ if(empty($errors)){
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <a href="javascript:" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="images/img.jpg" alt="">John Doe
                     <span class=" fa fa-angle-down"></span>
                   </a>
@@ -192,8 +149,8 @@ if(empty($errors)){
                         <span>Settings</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="javascript:">Help</a></li>
+                    <li><a href="index.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
@@ -329,7 +286,7 @@ if(empty($errors)){
 
 
                       <tbody>
-                       <?php echo $data_list; ?>
+
                         
                       </tbody>
                     </table>
@@ -345,47 +302,49 @@ if(empty($errors)){
     </div> -->
 
 <body>
-
+<form action="admin.php" method="post">
 <div class="container">
   <h2><b>Review Commitee Progress</b></h2>
   <p>current progress in the review commitee</p>            
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Paper Id</th>
-        <th>Reviewer Id</th>
-        <th>Status</th>
-        <th>Acceptance</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input type="text" name="paper" style=" height: 10px;  <?php echo 'value="'.$first_name.'"';    ?>"> </td>
-        <td><input type="text" name="review" style=" height: 10px;""></td>
-        <td><select name="status">
+        <div class="col-md-3"><label>Paper Id</label> <input type="text" name="paper" style=" height: 10px;"></div>
+         <div class="col-md-3"><label> Reviewer Id</label> <input type="text" name="review" style=" height: 10px;"></div>
+         <div class="col-md-3"><label>Status</label><select name="status" id="stat">
   <option value="n">Not Reviewed</option>
-  <option value="sa">Reviewed</option>
-</select>
-</td>
-        <td><select name="acceptance">
+  <option value="sa">Reviewed</option></select></div>
+<div class="col-md-3"><label> Acceptance</label>
+<select name="acceptance" id="accpt">
   <option value="n">-</option>
   <option value="sa">Strongly Accepted</option>
   <option value="wa">Weakly Accepted</option>
   <option value="wr">Weakly Rejected</option>
   <option value="sr">Strongly Rejected</option>
-</select></td>
-      </tr>
-     
-   
-    </tbody>
-  </table>
+</select></div>
 
-
-  <button type="submit" name="submit">Save</button> 
+<div class="col-md-12">
+  <button type="submit" name="submit" class="pull-left">Save</button> </div>
 </div>
-
+</form>
 </body>
+<div class="container">
+  <table class="table">
+  <thead>
+    <tr><td>Paper</td><td>reviewer</td><td>status</td><td>acceptence</td><tr>
+  </thead>
+  <tbody>
+    <?php
 
+$query1="SELECT * FROM review";
+$result=mysqli_query($connection,$query1);
+while($row=mysqli_fetch_array($result)){
+  $code = $row['paper'];
+  echo "<tr><td><a href='viewPaper.php?code=$code'>".$row['paper']."</a></td><td><a href=\"Review_list.php\">".$row['reviewer']."</a></td><td>".$row['status']."</td><td>".$row['acceptance']."</td></tr>";
+
+}
+
+    ?>
+  </tbody>
+</table>
+</div>
 </div>
     
 
@@ -421,6 +380,32 @@ if(empty($errors)){
 
     <!-- Datatables -->
     <script>
+       $('#stat').on('change',function(){
+       
+       if(this.value=="n"){
+        
+         document.getElementById('accpt').selectedIndex =0;
+}
+
+      });
+        $('#accpt').on('change',function(){
+         
+       if(this.value=="n"){
+        
+document.getElementById('stat').selectedIndex =0;
+}
+else
+document.getElementById('stat').selectedIndex =1;
+
+      });
+//       $('#stat').on('change',function(){
+//        if(this.value=="sa"){
+// $('#accpt').removeAttr('readonly');
+// }
+// else{
+// $('#accpt').attr("readonly", readonly);
+// }
+//       });
       $(document).ready(function() {
         var handleDataTableButtons = function() {
           if ($("#datatable-buttons").length) {
