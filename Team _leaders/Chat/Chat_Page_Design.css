@@ -100,7 +100,7 @@ background-attachment: fixed;.
 	
 .main{
 
-	width:58%;
+	width:100%;
 	margin:0.5%;
 	float:left;
 	height:78.7%;
@@ -110,21 +110,23 @@ background-attachment: fixed;.
 }
 
 .chatlog{								/*chat log area(all the messages will display here)*/
-	width: 94%; 
+	 
 	height: 70%; 
-	background-image:url('chat.jpg');
+	
 	background-size: cover;
-	margin: 10px 10px 10px 10px;
+	
 	overflow-y: auto;					/*when area is full automatically appear scroll bar*/
 	text-align: left;
 	font-family: helvetica, serif;
 	font-size: 14px;
+	
 }
 		
 .typing-area{ 						/*message typing area div*/
 	background-color:#A4A4A4;					
 	width:100%; 
-	font-size: 16px; 
+	font-size: 16px;
+	
 }	
 
 .typehere{					/*type here text(<p>)*/
@@ -132,15 +134,10 @@ background-attachment: fixed;.
 	padding: 10%;
 }	
 
-.txt{
-	width: 100%;
-	height: 8%;
-}
+
 
 .textarea{							/*message typing area text box*/
-	margin-left:5%;
-	margin-right: 0px;
-	margin-top:1%;
+	
 	height:100%;
 	width: 80%;
 	text-align: left;
@@ -228,4 +225,3 @@ footer{
 	text-decoration: none;
 
 }
-

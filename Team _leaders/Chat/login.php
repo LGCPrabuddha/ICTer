@@ -7,10 +7,10 @@ if(isset($_POST['login'])){
 	$_SESSION['user']=$name; 
 	$myuser=$_SESSION['user'];
 	$password=$_POST['password'];
-	$sql1="SELECT * FROM login WHERE name='$name' and password='$password'" ;
-	$sql2="UPDATE login SET status='1' WHERE name='$myuser'";
+	$sql1="SELECT * FROM namelist WHERE name='$name' and password='$password'" ;
+	$sql2="UPDATE namelist SET status='1' WHERE name='$myuser'";
 	if(mysqli_query($link,$sql1)){
-		header ('location:home.php');
+		header ('location:Home_UI.php');
 	}else{
 		echo "Type proper password and name";
 	}

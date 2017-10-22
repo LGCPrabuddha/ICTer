@@ -2,7 +2,7 @@
 $(document).ready(function(e){
 		$.ajaxSetup({cache:false});
 		setInterval(function(){
-			$('#user_list').load("user_list.php");
+			$('.user_list').load("user_list.php");
 		}, 1000);
 });
 
@@ -10,7 +10,7 @@ $(document).ready(function(e){
 $(document).ready(function(e){
 	$.ajaxSetup({cache:false});
 	setInterval(function(){
-		$('#content').load('Display_Messages.php');
+		$('.chatlog').load('Display_Messages.php');
 	}, 1000); //delay has been set to 1000 miliseconds
 });
 
