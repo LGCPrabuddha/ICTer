@@ -1,6 +1,6 @@
-<?php /*require_once('inc1/connection.php'); */?>
+
 <?php
-$connection = mysqli_connect('localhost','root','','trial');
+$connection = mysqli_connect('localhost','root','','group');
 
   
     
@@ -9,15 +9,15 @@ if(isset($_POST['submit'])){
     $task=$_POST['task'];
     $coment=$_POST['comment'];
     $duration=$_POST['duration'];
-    $inadd="INSERT INTO trial (task, bill, comment, Duration) Values ('$task', '0', '$coment','$duration')";
+    $inadd="INSERT INTO trial (task, satus, comment, Duration) Values ('$task', '0', '$coment','$duration')";
     $enter=mysqli_query($connection,$inadd);
     
     header("location:msaintask.php");
 }
 if(isset($_POST['done'])){
-    if(!empty($_POST['bill'])){
-        foreach($_POST['bill'] as $select){
-            $sql3 = "UPDATE trial SET bill = '1' WHERE task = '$select'";
+    if(!empty($_POST['status'])){
+        foreach($_POST['status'] as $select){
+            $sql3 = "UPDATE trial SET status = '1' WHERE task = '$select'";
             $enter3=mysqli_query($connection,$sql3);
             
         }
@@ -326,10 +326,10 @@ tr:nth-child(even){background-color: #f2f2f2}
   </tr>
   <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
   <tr>
-    <td width="5%"><input type="checkbox" name="bill[]" value=<?php echo '"' . $row['task'] . '"'; if($row['bill'] == "1") {echo "checked='checked'"; } ?>></td>
+    <td width="5%"><input type="checkbox" name="status[]" value=<?php echo '"' . $row['task'] . '"'; if($row['status'] == "1") {echo "checked='checked'"; } ?>></td>
     <td><?php echo $row['task']; ?></td>
     <td><?php echo $row['comment']; ?></td>
-    <td><?php echo $row['Duration'];  ?></td>
+    <td><?php echo $row['duration'];  ?></td>
   </tr><?php } ?>
  </tbody></form>
 </table>
@@ -400,114 +400,114 @@ tr:nth-child(even){background-color: #f2f2f2}
         
           
    <!-- jQuery -->
-    <script src="jquery-3.2.1.min.js"></script>
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="bootstrap.min.js"></script>
-    
-<!--	<script>
-	var table="#mytable";
-	$('#maxRows').on('change',function(){
-		$('.pagination').html('');
-		var trnum=0;
-		var maxRows=parseint($(this).val());
-		var totalRows=$(table+' Tbody tr ').length;
-		$(table+'tr:gt(0)').each(function(){
-			trnum++;
-			if(trnum > maxRows){
-				$(this).hide();
-			}
-			if(trnum <= maxRows){
-				$(this).show();
-			}
-		})
-		if(totalRows > maxRows){
-			var pagenum=Math.ceil(totalRows/maxRows);
-			for(var i=1;i<=pagenum;){
-				$('.pagination').append('<li dat-page="'+i+'">\<span>'+ i++ +'</span class="sr-only">(current)</span></span>\</li>').show();
-				
-			}
-		}
-		$('.pagination li:first-child').addClass('active');
-		$('.pagination li').on('click',function(){
-			var pagenum=$(this).attr('dat-page');
-			var trIndex = 0;
-			$('.pagination').removeClass('active');
-			$(this).addClass('active');
-			$(table+'tr:gt(0)').each(function(){
-				trIndex++;
-				if(trIndex > (maxRows+pageNum) || trIndex <= ((maxRows+pageNum)-maxRows)){
-					$(this).hide();
-				}else{
-					$(this).show();
-				}
-			})
-		})
-	})
-	$(function(){
-		$('table tr:eq(0)').prepend('<th>10</th>');
-		var id=0;
-		$('table tr:gt(0)').each(function(){
-			id++;
-			$(this).prepand('<td>'+id+'</td>');
-		})
-	})
-	</script>-->
-    
-    
-        <!-- Custom Theme Scripts -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
-    <!-- Get the input and print in the table -->
- <!--   <script>
-    $(function(){
-       $("#usr").keypress(function(event){
-         if(event.which==13){
-           $("#addinto").click();
-           event.preventDefault();
-         }
-       })
-       $("#addinto").click(function(){
-         var task=$("#usr").val();
-         $("#content").html(task);
-                 
-         $("#usr").val("");
-       }) 
-    })
-    </script> -->  
-<!--<script>
-$(document).ready(function(){
-    $("#usr").keypress(function(event){ 
-        if(event.which==13){
-          
-        }
-    })
-    
-    function applyRemoveEvent(){
-    $('#addinto').on('click',function() {
-        alert("aa");
-      $(this).closest( 'tr').remove();
-      
-    });
-};
-$('#addinto').on('click', function() {
-    $('#btn').trigger('click');
-            var info=$("#usr").val();
-            $.ajax({
-                method:"POST",
-                url:"task.php",
-                data:{task:info},
-                success:function(status){
-                    $("thead").append("<tr> <td>"+status+"</td><td><label><input type='radio' class='option-input radio' name="+status+" id='t1'/></label></td><td><input type='radio' class='option-input radio' name="+status+"checked='checked'/></td><td></td></tr>");
-                    $(this).closest('tr').remove();
-                    //$(".intention").html(status);
-                    $("#usr").val('');
-                }
-            })
-            
-            event.preventDefault();
-});    
-    
-})
-</script>-->
+    <!-- Datatables -->
+    <script>
+      $(document).ready(function() {
+        var handleDataTableButtons = function() {
+          if ($("#datatable-buttons").length) {
+            $("#datatable-buttons").DataTable({
+              dom: "Bfrtip",
+              buttons: [
+                {
+                  extend: "copy",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "csv",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "excel",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "pdfHtml5",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "print",
+                  className: "btn-sm"
+                },
+              ],
+              responsive: true
+            });
+          }
+        };
+
+        TableManageButtons = function() {
+          "use strict";
+          return {
+            init: function() {
+              handleDataTableButtons();
+            }
+          };
+        }();
+
+        $('#datatable').dataTable();
+
+        $('#datatable-keytable').DataTable({
+          keys: true
+        });
+
+        $('#datatable-responsive').DataTable();
+
+        $('#datatable-scroller').DataTable({
+          ajax: "js/datatables/json/scroller-demo.json",
+          deferRender: true,
+          scrollY: 380,
+          scrollCollapse: true,
+          scroller: true
+        });
+
+        $('#datatable-fixed-header').DataTable({
+          fixedHeader: true
+        });
+
+        var $datatable = $('#datatable-checkbox');
+
+        $datatable.dataTable({
+          'order': [[ 1, 'asc' ]],
+          'columnDefs': [
+            { orderable: false, targets: [0] }
+          ]
+        });
+        $datatable.on('draw.dt', function() {
+          $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-green'
+          });
+        });
+
+        TableManageButtons.init();
+      });
+    </script>
   </body>
 </html>            

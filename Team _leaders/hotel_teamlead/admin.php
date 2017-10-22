@@ -1,31 +1,32 @@
+<?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
-<?php  
-  $data_list = '';
-  $query = "SELECT * FROM hotel_table";
-  $hotels = mysqli_query($connection,$query);
+<?php require_once('inc1/functions.php'); ?>
+<?php
+  //checking that user logged into the system
+ // if (!isset($_SESSION['user_id'])){
+ //    header('Location: index.php');
+ //  }
+// 
+    $errors = array();
 
-  if($hotels){
-    while ($hotel = mysqli_fetch_assoc($hotels)) {
-      $data_list .= "<tr>";
-      $data_list .= "<td>{$hotel['h-id']}</td>";
-      $data_list .= "<td>{$hotel['company']}</td>";
-      $data_list .= "<td>{$hotel['addr']}</td>";
-      $data_list .= "<td>{$hotel['email']}</td>";
-      $data_list .= "<td>{$hotel['tel']}</td>";
-      $data_list .= "<td>{$hotel['sroom']}</td>";
-      $data_list .= "<td>{$hotel['droom']}</td>";
-      $data_list .= "<td>{$hotel['website']}</td>";
-      $data_list .= "<td>{$hotel['distance']}</td>";
-      $data_list .= "</tr>";}
+  $paper='';
+  $review='';
+  $status= '';
+  $acceptance= ''; 
 
+    
+   if (isset($_POST['submit'])){ //added by me
 
-  }else{
-    echo "Database query failed";
+    $paper= $_POST['paper'];
+    $review= $_POST['review'];
+    $status= $_POST['status'];
+    $acceptance= $_POST['acceptance'];
+    $query="INSERT INTO review VALUES($paper,$review,'$status','$acceptance')";
+    mysqli_query($connection,$query);
+  header('Location:admin.php'); 
   }
-
-
-
 ?>
+
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,7 +64,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>ICTER</span></a>
+              <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span>ICTER</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -136,7 +137,7 @@
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <a href="javascript:" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="images/img.jpg" alt="">John Doe
                     <span class=" fa fa-angle-down"></span>
                   </a>
@@ -148,8 +149,8 @@
                         <span>Settings</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="javascript:">Help</a></li>
+                    <li><a href="index.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
@@ -285,7 +286,7 @@
 
 
                       <tbody>
-                       <?php echo $data_list; ?>
+
                         
                       </tbody>
                     </table>
@@ -301,40 +302,49 @@
     </div> -->
 
 <body>
-
+<form action="admin.php" method="post">
 <div class="container">
   <h2><b>Review Commitee Progress</b></h2>
   <p>current progress in the review commitee</p>            
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Recieved paper code</th>
-        <th>Status</th>
-        <th>Reviewer</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>123  </td>
-        <td>done</td>
-        <td>dr. Rohana</td>
-      </tr>
-      <tr>
-        <td>234</td>
-        <td>progress</td>
-        <td>dr. Perera</td>
-      </tr>
-      <tr>
-        <td>345</td>
-        <td>progress</td>
-        <td>dr. Silva</td>
-      </tr>
-    </tbody>
-  </table>
+        <div class="col-md-3"><label>Paper Id</label> <input type="text" name="paper" style=" height: 10px;"></div>
+         <div class="col-md-3"><label> Reviewer Id</label> <input type="text" name="review" style=" height: 10px;"></div>
+         <div class="col-md-3"><label>Status</label><select name="status" id="stat">
+  <option value="n">Not Reviewed</option>
+  <option value="sa">Reviewed</option></select></div>
+<div class="col-md-3"><label> Acceptance</label>
+<select name="acceptance" id="accpt">
+  <option value="n">-</option>
+  <option value="sa">Strongly Accepted</option>
+  <option value="wa">Weakly Accepted</option>
+  <option value="wr">Weakly Rejected</option>
+  <option value="sr">Strongly Rejected</option>
+</select></div>
+
+<div class="col-md-12">
+  <button type="submit" name="submit" class="pull-left">Save</button> </div>
 </div>
-
+</form>
 </body>
+<div class="container">
+  <table class="table">
+  <thead>
+    <tr><td>Paper</td><td>reviewer</td><td>status</td><td>acceptence</td><tr>
+  </thead>
+  <tbody>
+    <?php
 
+$query1="SELECT * FROM review";
+$result=mysqli_query($connection,$query1);
+while($row=mysqli_fetch_array($result)){
+  $code = $row['paper'];
+  echo "<tr><td><a href='viewPaper.php?code=$code'>".$row['paper']."</a></td><td><a href=\"Review_list.php\">".$row['reviewer']."</a></td><td>".$row['status']."</td><td>".$row['acceptance']."</td></tr>";
+
+}
+
+    ?>
+  </tbody>
+</table>
+</div>
 </div>
     
 
@@ -370,6 +380,32 @@
 
     <!-- Datatables -->
     <script>
+       $('#stat').on('change',function(){
+       
+       if(this.value=="n"){
+        
+         document.getElementById('accpt').selectedIndex =0;
+}
+
+      });
+        $('#accpt').on('change',function(){
+         
+       if(this.value=="n"){
+        
+document.getElementById('stat').selectedIndex =0;
+}
+else
+document.getElementById('stat').selectedIndex =1;
+
+      });
+//       $('#stat').on('change',function(){
+//        if(this.value=="sa"){
+// $('#accpt').removeAttr('readonly');
+// }
+// else{
+// $('#accpt').attr("readonly", readonly);
+// }
+//       });
       $(document).ready(function() {
         var handleDataTableButtons = function() {
           if ($("#datatable-buttons").length) {

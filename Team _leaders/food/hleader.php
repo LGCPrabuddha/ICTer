@@ -1,4 +1,4 @@
-﻿<?php session_start(); ?>
+<?php session_start(); ?>
 <?php //require_once('inc1/connection.php'); ?>
 
 <?php
@@ -65,7 +65,7 @@ mysqli_close($conn);
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>ICTER</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-group"></i> <span>ICTER</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -76,12 +76,8 @@ mysqli_close($conn);
                 <img src="images/img.jpg" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
+                <span>Welcome</span>
+                <h2>Admin</h2> </div> </div> <!-- /menu profile quick info -->
             <br />
 
             <!-- sidebar menu -->
@@ -143,7 +139,7 @@ mysqli_close($conn);
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt="">Admin
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -169,7 +165,7 @@ mysqli_close($conn);
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>John Smith</span>
+                          <span>Admin </span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -181,7 +177,7 @@ mysqli_close($conn);
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>John Smith</span>
+                          <span>Admin </span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -193,7 +189,7 @@ mysqli_close($conn);
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>John Smith</span>
+                          <span>Admin </span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -205,7 +201,7 @@ mysqli_close($conn);
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>John Smith</span>
+                          <span>Admin </span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -232,7 +228,7 @@ mysqli_close($conn);
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>John Smith</span>
+                          <span>Admin </span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">

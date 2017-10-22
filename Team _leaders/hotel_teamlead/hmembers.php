@@ -1,5 +1,12 @@
+<?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
 <?php  
+
+if (!isset($_SESSION['user_id'])){
+    header('Location: index.php');
+  }
+
+
   $data_list = '';
   $query = "SELECT * FROM members";
   $hotels = mysqli_query($connection,$query);
@@ -146,7 +153,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 

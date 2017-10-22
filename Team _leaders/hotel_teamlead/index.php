@@ -1,69 +1,70 @@
-<?php session_start(); ?>
-<?php require_once('inc1/connection.php'); ?>
-<?php 
-  //check for form submission
-  if (isset($_POST['submit'])) {
-    
-    $errors = array();
-    //check if the username and password has been enterd
-    if (!isset($_POST['email']) || strlen(trim($_POST['email']))<1) {
-      $errors[] = 'Email is Missing / Invalid';
-    }
+ <?php session_start(); ?>
+ <?php require_once('inc1/connection.php'); ?>
+ <?php require_once('inc1/functions.php'); ?>
+<?php
+//check for submission
+ if (isset($_POST['submit'])){
 
-    if (!isset($_POST['password']) || strlen(trim($_POST['password']))<1) {
-      $errors[] = 'Password is Missing / Invalid';
-    }
+  $errors=array();
 
-    //check if there are any errors inthe form 
-    if (empty($errors)) {
-      # code...
-      // save username and password into variables
-      $email    = mysqli_real_escape_string($connection,$_POST['email']);
-      $password = mysqli_real_escape_string($connection,$_POST['password']);
-      $hashed_password = sha1($password);
-      $table= $_POST['pro_type'];
-
-
-      // prepare database query
-
-       $query = "SELECT * FROM user
-            WHERE email = '{$email}'
-            AND password = '{$hashed_password}'
-            LIMIT 1";
-
-       $result_set = mysqli_query($connection,$query);
-
-
-
-
-       if ($result_set) {
-        // query succesfful
-
-        
-
-        if (mysqli_num_rows($result_set) == 1) {
-          # code...
-          $user = mysqli_fetch_assoc($result_set);
-          $_SESSION['email'] = $user['email'];
-          $_SESSION['user_name'] = $user['user_name'];
-
-
-          if ($table == "leader") {
-            # code...
-            header('Location: hleader.php');
-          }elseif ($table == "member") {
-            # code...
-            header('Location: member.php');
-          }
-        }
-
-
-       }else{
-        $errors[] = 'Database query faile';
-       }
-       
-    }
+//check username passwod entered
+  if(!isset($_POST['email']) || strlen(trim($_POST['email']))<1){
+    $errors[]='username is missing / invalid';
   }
+
+  if(!isset($_POST['password']) || strlen(trim($_POST['password']))<1){
+    $errors[]='password is missing / invalid';
+  }
+
+//check for errors
+if(empty($errors)){
+//save user name password to variables
+    $email = mysqli_real_escape_string($connection,$_POST['email']);
+    $password = mysqli_real_escape_string($connection,$_POST['password']);
+    $hashed_password = sha1($password);
+
+//prepare database query
+$query="SELECT * FROM user
+WHERE email='{$email}'
+AND password= '{$hashed_password}'
+LIMIT 1";
+
+$result_set = mysqli_query($connection,$query);
+//var_dump($result_set);
+
+verify_query($result_set);
+  //query success
+  if(mysqli_num_rows($result_set)==1){
+    //valid user found
+    $user= mysqli_fetch_assoc($result_set);
+    //var_dump($user);
+    $_SESSION['user_id']= $user['id'];
+    $_SESSION['first_name']= $user['fname'];
+
+    //updating last login
+    // $query= "UPDATE user SET last_login= NOW()";
+    // $query .= "WHERE id ={$_SESSION['user_id']} LIMIT 1";
+
+    // $result_set= mysqli_query($connection,$query);
+
+    // verify_query($result_set);
+      //die("database connection failed");
+    
+    //redirect users.php 
+    header('location: hleader.php');
+  }else{
+    //username password invalid
+    $errors[]='invalid username / password';
+  }
+
+
+
+
+
+//if not display error
+} 
+ }
+
 ?>
 
 
@@ -104,7 +105,7 @@
 
               <?php 
                 if (isset($errors) && !empty($errors)) {
-                  echo '<p class="error">Invalide User Name or Password</p>';
+                  echo '<p style="color:red;font-size:20px;">Invalid User Name or Password</p>';
                  } 
                ?>
 
@@ -151,3 +152,5 @@
     </div>
   </body>
 </html>
+
+<?php mysqli_close($connection); ?> 
