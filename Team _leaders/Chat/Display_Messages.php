@@ -2,11 +2,11 @@
 	.myMessage{
 		background-color:#1FAFFA;
 		background-size:contain;
-		padding: 2%;
+		padding: 1%;
 		margin: 1%;
 		height:auto;
 		width: 55%;
-		text-align: center;
+		text-align: left;
 		border-radius: 10px;
 		overflow-x: auto;
 		float: left;
@@ -17,12 +17,12 @@
 	.otherMessage{
 		background-color: #6056F2;
 		background-size:contain;
-		padding: 2%;
+		padding: 1%;
 		margin: 1%;
 		height:auto;
 		width: 55%;
 		border-radius: 10px;
-		text-align: center;
+		text-align: left;
 		overflow-x: auto;
 		float: right;
 		display:block;
@@ -34,6 +34,7 @@
 	//***Displaying messages***
 require('connection.php');	
 session_start();
+
 
 $my_username = $_SESSION['user'];
 $quat="SELECT commity FROM namelist WHERE name='$my_username'";
@@ -52,9 +53,9 @@ $count=mysqli_num_rows($rolling);
 
 for($i=0;$i<$count;$i++){
 	if ($ord_user[$i] == $my_username){
-		echo "<br><span class='myMessage'>".$my_username."<br>".$msg[$i]."</span><br>";
+		echo "<br><span class='myMessage'><b>".$my_username."</b><br>".$msg[$i]."</span><br>";
 	}else{
-		echo "<br><span class='otherMessage'>".$ord_user[$i]."<br>".$msg[$i]."</span><br>"; 
+		echo "<br><span class='otherMessage'><b>".$ord_user[$i]."</b><br>".$msg[$i]."</span><br>"; 
 	}
 
 }

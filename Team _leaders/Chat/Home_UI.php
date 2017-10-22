@@ -41,6 +41,13 @@ session_start();
     margin-top: 100px;
 
   }
+  .chathead{
+    font-family: system-ui;
+    padding-top: 10px;
+    padding-left: 10px;
+    background-color: black;
+    height: 60px;
+  }
   .userhead{
     font-family: system-ui;
     padding-top: 10px;
@@ -66,7 +73,7 @@ session_start();
     padding-top:10px;
     padding-right: 10px;
     padding-left: 10px;
-    height: 500px;
+    height: 440px;
     width:100%;
     overflow-y: auto; 
   }
@@ -80,12 +87,15 @@ session_start();
 <body>
 <div class="over">
     <div class="chatbox">
+      <div class="chathead">
+        <h3>Commity Name</h3>
+      </div>
       <div class="chatlog">
 
       </div>
        <div class="message">
           <form id="send_message" method='post' action='send.php' class="typing-area">
-              <input type="text" name='message' id="messageToBeSent" class="textarea" maxlength = '500' placeholder=" Type here..." />  
+              <input type="text" name='message' id="messageToBeSent" class="textarea" maxlength = '500' placeholder=" Type here..." autocomplete="off" />  
               <input type='submit' name='send' value='Send' class="send-button"  />
           </form>
        </div> 
