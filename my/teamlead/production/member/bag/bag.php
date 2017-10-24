@@ -1,4 +1,6 @@
 <?php require_once('basefile/header.php'); ?>
+<?php require_once('../basefile/functions.php'); ?>
+
 
         <!-- page content -->
         <div style="height: 700px;" class="right_col" role="main">
@@ -15,21 +17,21 @@
               
               <div class="process" id="process-body">
                 <p><h4> Publicity Handling</h4></p>
-                <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                   </div>
+              <div class="progress">
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percent1; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $percent1; ?>%</div>
+                </div>
                   <p><h4> Sponsorship Handling</h4></p>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 35%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">35%</div>
-                   </div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percent2; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $percent2; ?>%</div>
+                </div>
                   <p><h4>Conference bag</h4></p>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 45%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">45%</div>
-                   </div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percent3; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $percent3; ?>%</div>
+                </div>
                   <p><h4> Refreshment Handling</h4></p>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 55%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">55%</div>
-                   </div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percent4; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $percent4; ?>%</div>
+                </div>
                   <p><h4> Paper Review Handling</h4></p>
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 65%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">65%</div>
@@ -40,8 +42,8 @@
                    </div>
                   <p><h4> Accommodation Handling</h4></p>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                   </div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percent7; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $percent7; ?>%</div>
+                </div>
 
               </div>
             </div>
