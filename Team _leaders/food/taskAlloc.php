@@ -76,7 +76,7 @@
 
       if ($result) {
         // query successfull.... redireting to modify-admin page
-        header('Location:test2.php?admin_added=true');
+        header('Location:tastAlloc.php?admin_added=true');
 
       }else{
         echo "error";
