@@ -76,7 +76,7 @@
 
       if ($result) {
         // query successfull.... redireting to modify-admin page
-        header('Location:test2.php?admin_added=true');
+        header('Location:taskAlloc.php?admin_added=true');
 
       }else{
         echo "error";
@@ -118,12 +118,12 @@
       <div >
         <div class="animate form login_form">
           <section class="login_content">
-            <form method="POST" action="test2.php">
+            <form method="POST" action="taskAlloc.php">
               <h1>Signup User</h1>
               
               
               <main>
-                <form action="test2.php" method="post" class="userform">
+                <form action="taskAlloc.php" method="post" class="userform">
                   
                   
                   <p>
