@@ -39,6 +39,7 @@ if (isset($_POST['submit'])){ //added by me
 <title>Paper Status</title>
 <!-- Our customize file -->
 <link href="css/CDetail.css" rel="stylesheet">
+
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome -->
@@ -323,20 +324,45 @@ if (isset($_POST['submit'])){ //added by me
             </form>
             </body>
             <div class="container">
-                <table class="table">
+              <table>
+                
+              </table>
+
+            </div>
+            <div class="container">
+                <table class="table table-hover">
                     <thead>
-                    <tr><td>Paper id</td><td>Acceptance</td><tr>
+                    <tr><td><b>Paper id</b></td><td><b>Acceptance</b></td><tr>
                     </thead>
                     <tbody>
                     <?php
 
-                    $query1="SELECT * FROM paper_detail";
+                    $query1="SELECT pid FROM paper_detail";
                     $result=mysqli_query($connection,$query1);
-                    while($row=mysqli_fetch_array($result)){
-                        $code = $row['pid'];
-                        echo "<tr><td><a href='viewPaper.php?code=$code'>".$row['pid']."</a></td><td><a href=\"Review_list.php\">".$row['author']."</a></td></tr>";
+                    while($row=mysqli_fetch_assoc($result)){
+                        $answer = $row['pid'];
+                        $query3="SELECT pid from reviewer_assign where status='Reviewed' and pid='$answer' Group by 'pid'";
+                        $result3 = mysqli_query($connection, $query3);
 
-                    }
+                         while($row2=mysqli_fetch_assoc($result3)){
+    $answer2=$row2['pid'];
+    $pass1="Strongly Accepatance";
+    $pass2="Weakly Accepatance";
+    $query2="SELECT pid,accpt,status FROM reviewer_assign WHERE pid='$answer2' AND status='Reviewed' AND (accpt='$pass1' OR accpt='$pass2')";
+    $result2=mysqli_query($connection,$query2);
+    $count=mysqli_num_rows($result2);
+
+    if($count>=2){
+      echo "<tr><td><a href='viewPaper.php?code=$answer2'>".$row2['pid']."</a></td>"."<td>Accepted</td></tr>";
+    }else{
+      echo "<tr><td><a href='viewPaper.php?code=$answer2'>".$row2['pid']."</a></td>"."<td>Not accepted</td></tr>";
+    }
+  }
+}
+
+                        // echo "<tr><td><a href='viewPaper.php?code=$code'>".$row['pid']."</a></td><td><a href=\"Review_list.php\">".$row['author']."</a></td></tr>";
+
+                    
 
                     ?> 
                     </tbody>
