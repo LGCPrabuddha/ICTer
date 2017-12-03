@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
     $coment=$_POST['comment'];
     $user=$_POST['member'];
     $duration=$_POST['duration'];
-    $inadd="INSERT INTO trial (task, user_name, comment, Duration) Values ('$task', '$user', '$coment','$duration')";
+    $inadd="INSERT INTO trial (task, user_name, comment, Duration) Values ('$task', '$user', '$coment','$duration'  )";
     $enter=mysqli_query($connection,$inadd);
     
     header("location:msaintask.php");
@@ -35,8 +35,10 @@ $result=mysqli_query($connection,"SELECT * FROM trial");
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
     <title>User Interface </title>
     <!-- Our customize file -->
@@ -60,7 +62,33 @@ $result=mysqli_query($connection,"SELECT * FROM trial");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+
     <style>
+
+    .select-style {
+    border: 1px solid #ccc;
+    width: 400px;
+    height: 30px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("img/icon-select.png") no-repeat 90% 50%;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    width: 200%;
+    height: 200%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
 	
 table, td, th {    
     border: 1px solid #ddd;
@@ -288,8 +316,9 @@ tr:nth-child(even){background-color: #f2f2f2}
         <?php
         $connection = mysqli_connect('localhost','root','','trial');
         ?>
-        Member
-        <select name="member" >
+        Member <br>
+        <select class="select-style" name="member" >
+          <option>Select a member to assign a task</option>
         <?php
         $userq="SELECT user_name FROM trial";
         $answer=mysqli_query($connection,$userq);
@@ -297,7 +326,7 @@ tr:nth-child(even){background-color: #f2f2f2}
           <option value=<?php echo '"'.$row2['user_name'].'"'; ?>><?php echo $row2['user_name']; ?></option>
           <?php  }   ?>
         </select>
-         <br>         
+         <br> <br>      
           
         
         
@@ -410,6 +439,7 @@ tr:nth-child(even){background-color: #f2f2f2}
     <script src="jquery-3.2.1.min.js"></script>
     <!-- Bootstrap -->
     <script src="bootstrap.min.js"></script>
+    <script></script>
     
 <!--	<script>
 	var table="#mytable";
