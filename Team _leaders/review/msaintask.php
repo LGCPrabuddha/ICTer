@@ -8,23 +8,24 @@ $connection = mysqli_connect('localhost','root','','trial');
 if(isset($_POST['submit'])){
     $task=$_POST['task'];
     $coment=$_POST['comment'];
+    $user=$_POST['member'];
     $duration=$_POST['duration'];
-    $inadd="INSERT INTO trial (task, bill, comment, Duration) Values ('$task', '0', '$coment','$duration')";
+    $inadd="INSERT INTO trial (task, user_name, comment, Duration) Values ('$task', '$user', '$coment','$duration'  )";
     $enter=mysqli_query($connection,$inadd);
     
     header("location:msaintask.php");
 }
-if(isset($_POST['done'])){
-    if(!empty($_POST['bill'])){
-        foreach($_POST['bill'] as $select){
-            $sql3 = "UPDATE trial SET bill = '1' WHERE task = '$select'";
-            $enter3=mysqli_query($connection,$sql3);
+// if(isset($_POST['done'])){
+//     if(!empty($_POST['bill'])){
+//         foreach($_POST['bill'] as $select){
+//             $sql3 = "UPDATE trial SET bill = '1' WHERE task = '$select'";
+//             $enter3=mysqli_query($connection,$sql3);
             
-        }
-    }else{
-        echo "plz enter the task";
-    }     
- }    
+//         }
+//     }else{
+//         echo "plz enter the task";
+//     }     
+//  }    
    
 $result=mysqli_query($connection,"SELECT * FROM trial");
 
@@ -34,12 +35,12 @@ $result=mysqli_query($connection,"SELECT * FROM trial");
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    
-
-    <title>User Interface </title>
+    <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
+    <title>User Interface </title>
     <!-- Our customize file -->
     <link href="css/CDetail.css" rel="stylesheet">
     <!-- Bootstrap -->
@@ -61,7 +62,33 @@ $result=mysqli_query($connection,"SELECT * FROM trial");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+
     <style>
+
+    .select-style {
+    border: 1px solid #ccc;
+    width: 400px;
+    height: 30px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("img/icon-select.png") no-repeat 90% 50%;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    width: 200%;
+    height: 200%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
 	
 table, td, th {    
     border: 1px solid #ddd;
@@ -281,38 +308,39 @@ tr:nth-child(even){background-color: #f2f2f2}
 				
                 <div class="insert-option">
 				<div class="insert-head">
-					<h2><b>Insert the Data</b></h2><hr>
+					<center><h2><b>Task Allocation</b></h2></center><hr>
 					
 				</div>
 				<div class="insert-content">
 				<form method="POST" action="msaintask.php">
         <?php
-        $connection = mysqli_connect('localhost','root','','group');
+        $connection = mysqli_connect('localhost','root','','trial');
         ?>
-        Users:
-        <select>
+        Member <br>
+        <select class="select-style" name="member" >
+          <option>Select a member to assign a task</option>
         <?php
-        $userq="SELECT * FROM trial";
+        $userq="SELECT user_name FROM trial";
         $answer=mysqli_query($connection,$userq);
         while($row2=mysqli_fetch_array($answer)){ ?>
-          <option value=<?php echo '"'.$row2['task'].'"'; ?>><?php echo $row2['task']; ?></option>
+          <option value=<?php echo '"'.$row2['user_name'].'"'; ?>><?php echo $row2['user_name']; ?></option>
           <?php  }   ?>
         </select>
-         <br>         
+         <br> <br>      
           
         
         
         
 				Task<br><input type="text" name="task"><br>
-                Members<br><input type="text" name="comment"><br>
-                Duration<br><input type="text" name="duration">
-                <select>
+                Comment<br><input type="text" name="comment"><br>
+                Duration<br><input type="text" placeholder="Duration in days" name="duration">
+                <!-- <select>
                 <option selected>days</option>
                 <option>weeks</option>
                 <option>month</option>
-                </select>
+                </select> -->
                 <br>
-                <input type="submit" name="submit" value="submit"><input type="submit" name="done" value="done">
+                <input type="submit" name="submit" class="btn btn-default submit" value="submit"><!-- <input type="submit" name="done" value="done"> -->
 				
 				
 	<!--	<div class="task-content">
@@ -322,17 +350,22 @@ tr:nth-child(even){background-color: #f2f2f2}
 			<div class="task-body">-->
 				<table>
   <tr>
-    <th width="5%">Status</th>
+    <!-- <th width="5%">Status</th> -->
+    <th>Member</th>
     <th>Task</th>
-    <th>Members</th>
+    <th>Comment</th>
     <th>Duration</th>
+    <th>Status</th>
   </tr>
   <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
   <tr>
-    <td width="5%"><input type="checkbox" name="bill[]" value=<?php echo '"' . $row['task'] . '"'; if($row['bill'] == "1") {echo "checked='checked'"; } ?>></td>
-    <td><?php echo $row['task']; ?></td>
+<!--     <td width="5%"><input type="checkbox" name="bill[]" value=<?php// echo '"' . $row['task'] . '"'; if($row['bill'] == "1") {echo "checked='checked'"; } ?>></td>
+ -->    
+<td><?php echo $row['user_name']; ?></td>
+ <td><?php echo $row['task']; ?></td>
     <td><?php echo $row['comment']; ?></td>
     <td><?php echo $row['Duration'];  ?></td>
+    <td><?php echo $row['Status'];  ?></td>
   </tr><?php } ?>
  </tbody></form>
 </table>
@@ -406,6 +439,7 @@ tr:nth-child(even){background-color: #f2f2f2}
     <script src="jquery-3.2.1.min.js"></script>
     <!-- Bootstrap -->
     <script src="bootstrap.min.js"></script>
+    <script></script>
     
 <!--	<script>
 	var table="#mytable";

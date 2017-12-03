@@ -1,44 +1,38 @@
-<?php /*require_once('inc1/connection.php'); */?>
+<?php require_once('inc1/connection.php'); ?>
+
 <?php
-$connection = mysqli_connect('localhost','root','','trial');
-
-  
-    
-
+//insert data
 if(isset($_POST['submit'])){
     $task=$_POST['task'];
     $coment=$_POST['comment'];
-    $user=$_POST['member'];
     $duration=$_POST['duration'];
-    $inadd="INSERT INTO trial (task, user_name, comment, Duration) Values ('$task', '$user', '$coment','$duration'  )";
+    $inadd="INSERT INTO trial (task, bill, comment, Duration) Values ('$task', '0', '$coment','$duration')";
     $enter=mysqli_query($connection,$inadd);
     
-    header("location:msaintask.php");
+    header("location:Database.php");
 }
-// if(isset($_POST['done'])){
-//     if(!empty($_POST['bill'])){
-//         foreach($_POST['bill'] as $select){
-//             $sql3 = "UPDATE trial SET bill = '1' WHERE task = '$select'";
-//             $enter3=mysqli_query($connection,$sql3);
+if(isset($_POST['done'])){
+    if(!empty($_POST['bill'])){
+        foreach($_POST['bill'] as $select){
+            $sql3 = "UPDATE trial SET bill = '1' WHERE task = '$select'";
+            $enter3=mysqli_query($connection,$sql3);
             
-//         }
-//     }else{
-//         echo "plz enter the task";
-//     }     
-//  }    
+        }
+    }else{
+        echo "plz enter the task";
+    }     
+ }    
    
 $result=mysqli_query($connection,"SELECT * FROM trial");
-
+mysqli_close($connection);
  ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    
+    
 
     <title>User Interface </title>
     <!-- Our customize file -->
@@ -62,34 +56,17 @@ $result=mysqli_query($connection,"SELECT * FROM trial");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-
-
     <style>
+    
 
-    .select-style {
-    border: 1px solid #ccc;
-    width: 400px;
-    height: 30px;
-    border-radius: 3px;
-    overflow: hidden;
-    background: #fafafa url("img/icon-select.png") no-repeat 90% 50%;
+#contain {
+   /*// border: 1px solid red;*/
+    margin-left: 90%;
+    margin-top: 100px;
+
+
 }
 
-.select-style select {
-    padding: 5px 8px;
-    width: 200%;
-    height: 200%;
-    border: none;
-    box-shadow: none;
-    background: transparent;
-    background-image: none;
-    -webkit-appearance: none;
-}
-
-.select-style select:focus {
-    outline: none;
-}
-	
 table, td, th {    
     border: 1px solid #ddd;
     text-align: left;
@@ -305,74 +282,52 @@ tr:nth-child(even){background-color: #f2f2f2}
                 <div class="task-center">
                 </div>
                 </div>
-				
+                
                 <div class="insert-option">
-				<div class="insert-head">
-					<center><h2><b>Task Allocation</b></h2></center><hr>
-					
-				</div>
-				<div class="insert-content">
-				<form method="POST" action="msaintask.php">
-        <?php
-        $connection = mysqli_connect('localhost','root','','trial');
-        ?>
-        Member <br>
-        <select class="select-style" name="member" >
-          <option>Select a member to assign a task</option>
-        <?php
-        $userq="SELECT user_name FROM trial";
-        $answer=mysqli_query($connection,$userq);
-        while($row2=mysqli_fetch_array($answer)){ ?>
-          <option value=<?php echo '"'.$row2['user_name'].'"'; ?>><?php echo $row2['user_name']; ?></option>
-          <?php  }   ?>
-        </select>
-         <br> <br>      
-          
-        
-        
-        
-				Task<br><input type="text" name="task"><br>
+                <div class="insert-head">
+                    <h2><b>Task Completed</b></h2><hr>
+                    
+                </div>
+                <div class="insert-content" style="height: 600px;">
+                <form method="POST" action="Database.php">
+                <!-- Task<br><input type="text" name="task"><br>
                 Comment<br><input type="text" name="comment"><br>
-                Duration<br><input type="text" placeholder="Duration in days" name="duration">
-                <!-- <select>
-                <option selected>days</option>
-                <option>weeks</option>
-                <option>month</option>
-                </select> -->
-                <br>
-                <input type="submit" name="submit" class="btn btn-default submit" value="submit"><!-- <input type="submit" name="done" value="done"> -->
-				
-				
-	<!--	<div class="task-content">
-			<div class="task-head">
-			<h2><b>Details of Tasks</b></h2><hr>
-			</div>
-			<div class="task-body">-->
-				<table>
+                Duration<br><input type="text" name="duration"><br>
+                <input type="submit" name="submit" value="submit"><input type="submit" name="done" value="done"> -->
+                
+                
+    <!--    <div class="task-content">
+            <div class="task-head">
+            <h2><b>Details of Tasks</b></h2><hr>
+            </div>
+            <div class="task-body">-->
+                <table>
   <tr>
-    <!-- <th width="5%">Status</th> -->
-    <th>Member</th>
+    <th width="5%">Status</th>
     <th>Task</th>
     <th>Comment</th>
     <th>Duration</th>
-    <th>Status</th>
   </tr>
   <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
   <tr>
-<!--     <td width="5%"><input type="checkbox" name="bill[]" value=<?php// echo '"' . $row['task'] . '"'; if($row['bill'] == "1") {echo "checked='checked'"; } ?>></td>
- -->    
-<td><?php echo $row['user_name']; ?></td>
- <td><?php echo $row['task']; ?></td>
+    <td width="5%"><input type="checkbox" name="bill[]" value=<?php echo '"' . $row['task'] . '"'; if($row['bill'] == "1") {echo "checked='checked'"; } ?>></td>
+    <td><?php echo $row['task']; ?></td>
     <td><?php echo $row['comment']; ?></td>
     <td><?php echo $row['Duration'];  ?></td>
-    <td><?php echo $row['Status'];  ?></td>
   </tr><?php } ?>
  </tbody></form>
 </table>
+<div id="contain">
+      <a href="hotelm.php" class="btn btn-info btn-lg" >
+          <span class="glyphicon glyphicon-arrow-left" ></span> Back
+        </a>        
+      </div>
+
+
 </div>
-				</div>
-				
-        			
+                </div>
+                
+                    
                
               
 
@@ -439,56 +394,55 @@ tr:nth-child(even){background-color: #f2f2f2}
     <script src="jquery-3.2.1.min.js"></script>
     <!-- Bootstrap -->
     <script src="bootstrap.min.js"></script>
-    <script></script>
     
-<!--	<script>
-	var table="#mytable";
-	$('#maxRows').on('change',function(){
-		$('.pagination').html('');
-		var trnum=0;
-		var maxRows=parseint($(this).val());
-		var totalRows=$(table+' Tbody tr ').length;
-		$(table+'tr:gt(0)').each(function(){
-			trnum++;
-			if(trnum > maxRows){
-				$(this).hide();
-			}
-			if(trnum <= maxRows){
-				$(this).show();
-			}
-		})
-		if(totalRows > maxRows){
-			var pagenum=Math.ceil(totalRows/maxRows);
-			for(var i=1;i<=pagenum;){
-				$('.pagination').append('<li dat-page="'+i+'">\<span>'+ i++ +'</span class="sr-only">(current)</span></span>\</li>').show();
-				
-			}
-		}
-		$('.pagination li:first-child').addClass('active');
-		$('.pagination li').on('click',function(){
-			var pagenum=$(this).attr('dat-page');
-			var trIndex = 0;
-			$('.pagination').removeClass('active');
-			$(this).addClass('active');
-			$(table+'tr:gt(0)').each(function(){
-				trIndex++;
-				if(trIndex > (maxRows+pageNum) || trIndex <= ((maxRows+pageNum)-maxRows)){
-					$(this).hide();
-				}else{
-					$(this).show();
-				}
-			})
-		})
-	})
-	$(function(){
-		$('table tr:eq(0)').prepend('<th>10</th>');
-		var id=0;
-		$('table tr:gt(0)').each(function(){
-			id++;
-			$(this).prepand('<td>'+id+'</td>');
-		})
-	})
-	</script>-->
+<!--    <script>
+    var table="#mytable";
+    $('#maxRows').on('change',function(){
+        $('.pagination').html('');
+        var trnum=0;
+        var maxRows=parseint($(this).val());
+        var totalRows=$(table+' Tbody tr ').length;
+        $(table+'tr:gt(0)').each(function(){
+            trnum++;
+            if(trnum > maxRows){
+                $(this).hide();
+            }
+            if(trnum <= maxRows){
+                $(this).show();
+            }
+        })
+        if(totalRows > maxRows){
+            var pagenum=Math.ceil(totalRows/maxRows);
+            for(var i=1;i<=pagenum;){
+                $('.pagination').append('<li dat-page="'+i+'">\<span>'+ i++ +'</span class="sr-only">(current)</span></span>\</li>').show();
+                
+            }
+        }
+        $('.pagination li:first-child').addClass('active');
+        $('.pagination li').on('click',function(){
+            var pagenum=$(this).attr('dat-page');
+            var trIndex = 0;
+            $('.pagination').removeClass('active');
+            $(this).addClass('active');
+            $(table+'tr:gt(0)').each(function(){
+                trIndex++;
+                if(trIndex > (maxRows+pageNum) || trIndex <= ((maxRows+pageNum)-maxRows)){
+                    $(this).hide();
+                }else{
+                    $(this).show();
+                }
+            })
+        })
+    })
+    $(function(){
+        $('table tr:eq(0)').prepend('<th>10</th>');
+        var id=0;
+        $('table tr:gt(0)').each(function(){
+            id++;
+            $(this).prepand('<td>'+id+'</td>');
+        })
+    })
+    </script>-->
     
     
         <!-- Custom Theme Scripts -->
