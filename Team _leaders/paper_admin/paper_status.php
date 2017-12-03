@@ -1,36 +1,7 @@
 <?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
 <?php require_once('inc1/functions.php'); ?>
-<?php
-//checking that user logged into the system
-// if (!isset($_SESSION['user_id'])){
-//    header('Location: index.php');
-//  }
-//
-$errors = array();
 
-$rid='';
-$name='';
-$institute= '';
-$email= '';
-
-
-if (isset($_POST['submit'])){ //added by me
-
-    $rid= $_POST['rid'];
-    $name= $_POST['name'];
-    $institute= $_POST['institute'];
-    $email= $_POST['email'];
-   
-    $query="INSERT INTO reviewer_detail VALUES($rid,'$name','$institute','$email')";
-    $test = mysqli_query($connection,$query);
-    if ($test) {
-        # code...
-        echo "ok";
-    }
-    header('Location:reviewer_details.php');
-}
-?>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

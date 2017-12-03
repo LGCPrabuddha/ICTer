@@ -375,7 +375,7 @@ if (isset($_POST['submit'])){ //added by me
                     $result=mysqli_query($connection,$query1);
                     while($row=mysqli_fetch_array($result)){
                         $code = $row['pid'];
-                        echo "<tr><td><a href='viewPaper.php?code=$code'>".$row['pid']."</a></td><td><a href=\"Review_list.php\">".$row['content']."</a></td><td>".$row['author']."</td><td>".$row['institute']."</td></tr>";
+                        echo "<tr><td><a href='paper_edit.php?code=$code'>".$row['pid']."</a></td><td><a href=\"Review_list.php\">".$row['content']."</a></td><td>".$row['author']."</td><td>".$row['institute']."</td></tr>";
 
                     }
 

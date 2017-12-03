@@ -1,3 +1,8 @@
+<?php
+  $code1 = $_GET['code'];
+ echo $code1;
+?>
+
 <?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
 <?php require_once('inc1/functions.php'); ?>
@@ -9,26 +14,32 @@
 //
 $errors = array();
 
-$rid='';
-$name='';
+$code='';
+$pid='';
+$content='';
+$author= '';
 $institute= '';
-$email= '';
 
 
 if (isset($_POST['submit'])){ //added by me
-
-    $rid= $_POST['rid'];
-    $name= $_POST['name'];
+    
+    $code=$_POST['code'];
+    $pid= $_POST['pid'];
+    $content= $_POST['content'];
+    $author= $_POST['author'];
     $institute= $_POST['institute'];
-    $email= $_POST['email'];
    
-    $query="INSERT INTO reviewer_detail VALUES($rid,'$name','$institute','$email')";
+   
+
+    $query= "UPDATE paper_detail SET pid=$pid,  content='{$content}',
+      author='{$author}', institute='{$institute}' WHERE pid=$code ";
+
     $test = mysqli_query($connection,$query);
     if ($test) {
         # code...
         echo "ok";
     }
-    header('Location:reviewer_details.php');
+    header('Location:paper_detail.php');
 }
 ?>
 
@@ -36,7 +47,7 @@ if (isset($_POST['submit'])){ //added by me
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Reviewer Details</title>
+<title>Paper Details</title>
 <!-- Our customize file -->
 <link href="css/CDetail.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -307,18 +318,18 @@ if (isset($_POST['submit'])){ //added by me
          </div> -->
 
             <body>
-            <form action="reviewer_details.php" method="post">
+            <form action="paper_edit.php" method="post">
                 <div class="container">
-                    <h2><b>Reviewers registration for the ICTer paper review</b></h2>
-                    <p>Insert the details below</p>
+                    <h2><b>Research Papers submitted for the ICTer Conference</b></h2>
+                    <p>Insert the paper details below</p>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Reviewer id</th>
-                                <th>Reviwer Name</th>
+                                <th>Paper id</th>
+                                <th>Content</th>
+                                <th>Author</th>
                                 <th>Institute</th>
-                                <th>Email</th>
                                
 
 
@@ -327,23 +338,42 @@ if (isset($_POST['submit'])){ //added by me
                             <tbody>
                             <tr>
 
+                               <?php
 
+                    $query1="SELECT * FROM paper_detail WHERE pid='$code1'";
+                    $result=mysqli_query($connection,$query1);
+                    while($row=mysqli_fetch_array($result)){
+                        $pid = $row['pid']; 
+                        $content =$row['content'];
+                        $author=$row['author'];
+                        $institute=$row['institute'];
+                      }
+
+                        ?>
+                                
+
+                                
+
+<input type="hidden" name="code" class="form-control" id="pid" value="<?php echo($code1) ?>"> 
+                                        
+                                    
                                 <td><div class="form-group">
 
-                                        <input type="text" name="rid" class="form-control" id="rid" placeholder="Enter Reviwer id">
+                                        <input type="text" name="pid" class="form-control" id="pid" <?php echo 'value="'.$pid.'"';    ?>>
                                     </div></td>
                                 <td><div class="form-group">
 
-                                        <input type="text" name="name" class="form-control" id="name" placeholder="Enter Reviwer Name">
+                                        <input type="text" name="content" class="form-control" id="content" <?php echo 'value="'.$content.'"';    ?>>
                                     </div></td>
                                 <td><div class="form-group">
 
-                                        <input type="text" name="institute" class="form-control" id="institute" placeholder="Enter Institute">
+                                        <input type="text" name="author" class="form-control" id="author" <?php echo 'value="'.$author.'"';    ?> >
                                     </div></td>
                                 <td><div class="form-group">
 
-                                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email">
-                                    </divname                               
+                                        <input type="text" name="institute" class="form-control" id="institute" <?php echo 'value="'.$institute.'"';    ?> >
+                                    </div></td>
+                               
 
                                 
                             </tr>
@@ -358,23 +388,23 @@ if (isset($_POST['submit'])){ //added by me
 
 
                     <div class="col-md-12">
-                        <button type="submit" name="submit" class="pull-left" value="submit">Save</button> </div>
+                        <button type="submit" name="submit" class="pull-left" value="submit">Update</button> </div>
                 </div>
             </form>
             </body>
             <div class="container">
                 <table class="table">
                     <thead>
-                    <tr><td>Reviewer id</td><td>Name</td><td>Institute</td><td>Email</td><tr>
-                    </thead>
+                     <tr><td>Paper</td><td>Content</td><td>Author</td><td>Institute</td><tr>
+                   </thead>
                     <tbody>
                     <?php
 
-                    $query1="SELECT * FROM reviewer_detail";
+                    $query1="SELECT * FROM paper_detail WHERE pid='$code1'";
                     $result=mysqli_query($connection,$query1);
                     while($row=mysqli_fetch_array($result)){
-                        $code = $row['rid'];
-                        echo "<tr><td><a href='reviewer_edit.php?code=$code'>".$row['rid']."</a></td><td>" .$row['name']."</td><td>".$row['institute']."</td><td>".$row['email']."</td></tr>";
+                        $code = $row['pid'];
+                        echo "<tr><td><a href='viewPaper.php?code=$code'>".$row['pid']."</a></td><td><a href=\"Review_list.php\">".$row['content']."</a></td><td>".$row['author']."</td><td>".$row['institute']."</td></tr>";
 
                     }
 
