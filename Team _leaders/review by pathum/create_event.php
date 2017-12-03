@@ -68,23 +68,47 @@ if(isset($_POST['submit'])) {
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <style type="text/css">
-    .login_wrapper{
+   /* .login_wrapper{
       margin-top: 0px;
     }
+    .man{
+      padding-bottom:70%;
+
+    } 
+    .footerTab {
+width: 100%; background-color: black; height: 100px; margin-top: 1000px;
+      }*/
+
+/*div.relative {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    border: 3px solid #8AC007;
+}*/
+
+/*div.absolute {
+    position: absolute;
+    margin-top:  70px;
+    width: 200px;
+    height: 100px;
+   
+} */
+
+    
     </style>
   </head>
 
   <body class="login">
-    <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
+   
+      <!-- <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a> -->
 
-      <div class="login_wrapper">
-        <div class="animate form login_form">
+      <div class="login_wrapper" style="min-height: 1200px">
+        <div class="">
           <section class="login_content">
             <form method="POST" action="create_event.php">
               <h1>Create Event</h1>              
-
+                <div>
               <div>
                 Year <br>
                 <input type="text" name="year" class="form-control" placeholder="Event year" required="" />
@@ -101,41 +125,30 @@ if(isset($_POST['submit'])) {
               <div>Treasurer <br>
                 <input type="text" name="tresurer" class="form-control" placeholder="Treasurer" required="" />
               </div>
-              <h1>Assign Group Leaders</h1>   
-              <div>Publicity Group <br>
-                <input type="email" name="publicity" class="form-control" placeholder="Email Address of group leader" required="" />
-              </div>
-              <div>Bag Quotation Group <br>
-                <input type="email" name="bag" class="form-control" placeholder="Email Address of group leader" required="" />
-              </div>
-              <div>Keynote Inviting Group <br>
-                <input type="email" name="keynote" class="form-control" placeholder="Email Address of group leader" required="" />
-              </div>
-              <div>Sponsorship Handling Group <br>
-                <input type="email" name="sponsorship" class="form-control" placeholder="Email Address of group leader" required="" />
-              </div>
-              <div>Hotel Quotation Group <br>
-                <input type="email" name="hotel" class="form-control" placeholder="Email Address of group leader" required="" />
-              </div>
-              <div>Refreshmnts Arranging Group <br>
-                <input type="email" name="refreshment" class="form-control" placeholder="Email Address of group leader" required="" />
-              </div>
-              <div>Paper Handling Group <br>
-                <input type="email" name="paper" class="form-control" placeholder="Email Address of group leader" required="" />
-              </div>
+              
 
               <div>
                 <input type="submit" class="btn btn-success submit" name="submit" value="Create"> 
-                  <h1><i class="fa fa-paw"></i> ICTER EVENT PLANNER</h1>
-                  <p>©2017 All Rights Reserved.By University of Colombo School of Computing</p>
+                  
                 </div>
               </div>
-            </form>
-          </section>
-        </div>
+               </form>
+            </section>
+              </div>
+           <!-- <div><font size="6"><u>Assign Team Leaders</u></font></div>
+ -->
+<div><font size="6"><span class="label label-info" align="center">Assign Team Leaders</span></font></div>
 
+  </div>
+
+ 
+
+
+ <footer class="footer">     
+  <h1 align="center"><i class="fa fa-paw"></i> ICTER EVENT PLANNER</h1>
+                  <p align="center">©2017 All Rights Reserved.By University of Colombo School of Computing</p>
+          
+      </footer>
         
-      </div>
-    </div>
-  </body>
+         </body>
 </html>
