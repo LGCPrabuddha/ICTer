@@ -326,10 +326,10 @@ if (isset($_POST['submit'])){ //added by me
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Paper id</th>
-                                <th>Content</th>
-                                <th>Author</th>
+                                <th>Reviewer id</th>
+                                <th>Name</th>                                
                                 <th>Institute</th>
+                                <th>Email</th>
                                
 
 
@@ -354,25 +354,25 @@ if (isset($_POST['submit'])){ //added by me
 
                                 
 
-<input type="hidden" name="code" class="form-control" id="pid" value="<?php echo($code1) ?>"> 
+<input type="hidden" name="code" class="form-control" id="" value="<?php echo($code1) ?>"> 
                                         
                                     
                                 <td><div class="form-group">
 
-                                        <input type="text" name="pid" class="form-control" id="pid" <?php echo 'value="'.$rid.'"';    ?>>
+                                        <input type="text" name="rid" class="form-control" id="pid" <?php echo 'value="'.$rid.'"';    ?>>
                                     </div></td>
                                 <td><div class="form-group">
 
-                                        <input type="text" name="content" class="form-control" id="content" <?php echo 'value="'.$name.'"';    ?>>
+                                        <input type="text" name="name" class="form-control" id="content" <?php echo 'value="'.$name.'"';    ?>>
                                     </div></td>
                                 
                                 <td><div class="form-group">
 
-                                        <input type="text" name="institute" class="form-control" id="institute" <?php echo 'value="'.$institute.'"';    ?> >
+                                        <input type="text" name="email" class="form-control" id="institute" <?php echo 'value="'.$institute.'"';    ?> >
                                     </div></td>
                                     <td><div class="form-group">
 
-                                        <input type="text" name="author" class="form-control" id="author" <?php echo 'value="'.$email.'"';    ?> >
+                                        <input type="text" name="institute" class="form-control" id="author" <?php echo 'value="'.$email.'"';    ?> >
                                     </div></td>
                                
 
@@ -396,7 +396,7 @@ if (isset($_POST['submit'])){ //added by me
             <div class="container">
                 <table class="table">
                     <thead>
-                     <tr><td>Paper</td><td>Content</td><td>Author</td><td>Institute</td><tr>
+                     <tr><td>Reviewer id</td><td>Name</td><td>Institute</td><td>Email</td><tr>
                    </thead>
                     <tbody>
                     <?php
