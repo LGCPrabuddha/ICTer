@@ -1,30 +1,98 @@
-<?php require_once('inc1/connection.php'); ?>
-<?php  
-  $data_list = '';
-  $query = "SELECT * FROM hotel_table";
-  $hotels = mysqli_query($connection,$query);
 
-  if($hotels){
-    while ($hotel = mysqli_fetch_assoc($hotels)) {
-      $data_list .= "<tr>";
-      $data_list .= "<td>{$hotel['h-id']}</td>";
-      $data_list .= "<td>{$hotel['company']}</td>";
-      $data_list .= "<td>{$hotel['addr']}</td>";
-      $data_list .= "<td>{$hotel['email']}</td>";
-      $data_list .= "<td>{$hotel['tel']}</td>";
-      $data_list .= "<td>{$hotel['sroom']}</td>";
-      $data_list .= "<td>{$hotel['droom']}</td>";
-      $data_list .= "<td>{$hotel['website']}</td>";
-      $data_list .= "<td>{$hotel['distance']}</td>";
-      $data_list .= "</tr>";}
+<?php 
+
+//to include the connection
+include_once('pathumConnection.php');
+?>
 
 
-  }else{
-    echo "Database query failed";
-  }
+<?php
+
+// for insert query 
+
+if (isset($_POST['save_button'])) {
+
+      //echo "Sav button if";
+
+        $hotel_name = $_POST['h_name'];
+        $hotel_address = $_POST['address'];
+        $hot_line = $_POST['h_line'];
+        $email = $_POST['email'];
+        $single_room_price = $_POST['srp'];
+        $double_room_price = $_POST['drp'];
+        $web = $_POST['web'];
+        $distance=$_POST['distance'];
+
+        $query="INSERT INTO hoteldb(company_name,address,email,tell_no,s_room_price,d_room_price,web_site,distance) VALUES ('{$hotel_name}','{$hotel_address}','{$email}',{$hot_line},'{$single_room_price}','{$double_room_price}','{$web}','{$distance}')";
+        $result=mysqli_query($db_connection,$query);
+
+        if ($result) {
+          //echo "Successfully saved your record";
+        }else{
+          echo "Database query failed";
+        }
+}
 
 
+//searching part
+// else if ($_POST['button']=="search") {
+    
+//   $index_number = $_POST['indexnumber'];
+//         $first_name = $_POST['firstname'];
+//         $last_name = $_POST['lastname'];
+//         $tell_no = $_POST['tellno'];
 
+//         $query="SELECT* FROM user WHERE index_num = {$index_number}";
+//         $result=mysqli_query($db_connection,$query);
+//         //result set assign to an associtive array called $row
+//         $row=mysqli_fetch_assoc($result);
+//         //here we can retrive values from calling by index
+//         printf ("%s %s %s %s\n",$row["index_num"],$row["first_name"],$row["last_name"],$row["tel_no"]);
+
+//         if ($result) {
+//           //echo mysqli_affected_rows($db_connection)." record updated";
+//         }else{
+//           echo "Database query failed";
+//         }
+// }
+
+//for update query
+else if (isset($_POST['update_button'])) {
+    
+  $hotel_name = $_POST['h_name'];
+        $hotel_address = $_POST['address'];
+        $hot_line = $_POST['h_line'];
+        $email = $_POST['email'];
+        $single_room_price = $_POST['srp'];
+        $double_room_price = $_POST['drp'];
+        $web = $_POST['web'];
+        $distance=$_POST['distance'];
+
+        
+        
+        $query="UPDATE hoteldb SET company_name='{$hotel_name}',address='{$hotel_name}',email='{$email}',tell_no={$hot_line},s_room_price='{$single_room_price}',d_room_price='{$double_room_price}',web_site='{$web}',distance='{$distance}' WHERE company_name='{$hotel_name}'";
+        $result=mysqli_query($db_connection,$query);
+
+        if ($result) {
+          //echo mysqli_affected_rows($db_connection)." record updated";
+        }else{
+          echo "Database query failed";
+        }
+}
+//for delete query
+else if (isset($_POST['delete_button'])) {
+    
+  $hotel_name = $_POST['h_name'];
+        
+        $query="DELETE FROM hoteldb WHERE company_name = '{$hotel_name}' LIMIT 1";
+        $result=mysqli_query($db_connection,$query);
+
+        if ($result) {
+          echo mysqli_affected_rows($db_connection)." record deleted";
+        }else{
+          echo "Database query failed";
+        }
+}
 ?>
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -75,7 +143,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>Admin</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -241,6 +309,8 @@
           </div>
         </div>
 
+
+
    <div class="right_col" role="main">
        <div class="">
             <div class="row top_tiles">
@@ -265,14 +335,68 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
+
+
+    <div class="form-group">               
+    <form class="form" role="form" method="post"  action="hoteldb.php">
+      <div class="container">
+                    <h2  align="center"><b>Accomodations for the ICTer Conference</b></h2>
+                    <p align="center">Insert the Hotel quatation details below</p>
+      <label for="name">Hotel Name</label>
+    <input type="text" class="form-control" name="h_name" id="h_name" placeholder="Enter name" >
+   </div>
+   <div class="form-group">
+      <label >Address</label>
+    <input type="text" class="form-control" name="address" id="address" placeholder="Enter name" >
+   </div> 
+   <div class="form-group">
+      <label >Email</label>
+    <input type="text" class="form-control" name="email" id="email" placeholder="Enter email" >
+ </div>
+   <div class="form-group">
+      <label >Hot line</label>
+    <input type="text" class="form-control" name="h_line" id="h_line" placeholder="Enter name" >
+   </div> 
+   <div class="form-group">
+      <label >Single Room Price</label>
+    <input type="text" class="form-control" name="srp" id="srp" placeholder="Enter name" >
+   </div>
+   <div class="form-group">
+      <label >Double Room Price</label>
+    <input type="text" class="form-control" name="drp" id="drp" placeholder="Enter name" >
+   </div>
+   <div class="form-group">
+      <label >Web site</label>
+    <input type="text" class="form-control" name="web" id="web" placeholder="Enter name" >
+   </div>
+   <div class="form-group">
+      <label >Distance</label>
+    <input type="text" class="form-control" name="distance" id="distance" placeholder="Enter name" >
+   </div>
+   <div>
+   <button type="submit" class="btn btn-default" name="save_button" >Save</button>
+   <button type="submit" class="btn btn-default" name="delete_button" >Delete</button>
+   <button type="submit" class="btn btn-default" name="update_button" >Update</button>
+   <button type="reset" class="btn btn-default">Reset</button>
+ </div>
+ </div>
+</form>
+<hr>
+
+<?php
+        $userq="SELECT * FROM hoteldb";
+        $result=mysqli_query($db_connection,$userq);
+        //$row=mysqli_fetch_array($answer)
+        ?>
+
                   <div class="x_content">
-                    <button type="button" class="btn btn-round btn-primary">Add</button><button type="button" class="btn btn-round btn-danger">Delete</button>
+                   
                     <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
                       <thead>
                         <tr>
                           
-                          <th >H-Id</th>
-                          <th>Company name</th>
+                          
+                          <th>Hotel name</th>
                           <th>Address</th>
                           <th>Email</th>
                           <th>Tel-No</th>
@@ -284,9 +408,17 @@
                       </thead>
 
 
-                      <tbody>
-                       <?php echo $data_list; ?>
-                        
+                      <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
+                                <tr>   
+                                  <td><?php echo $row['company_name']; ?></td>
+                                  <td><?php echo $row['address']; ?></td>
+                                  <td><?php echo $row['email']; ?></td>
+                                  <td><?php echo $row['tell_no'];  ?></td>
+                                  <td><?php echo $row['s_room_price'];  ?></td>
+                                  <td><?php echo $row['d_room_price'];  ?></td>
+                                  <td><?php echo $row['web_site'];  ?></td>
+                                  <td><?php echo $row['distance'];  ?></td>
+                                </tr><?php } ?>
                       </tbody>
                     </table>
                   </div>
