@@ -15,6 +15,14 @@ if(isset($_POST['submit'])){
     
     header("location:msaintask.php");
 }
+if(isset($_POST['submit'])){
+    $task=$_POST['task'];
+    $member=$_POST['member'];
+    $addno="INSERT INTO notify (task, member,status) Values ('$task', '$member','1')";
+    $enter=mysqli_query($connection,$addno);
+    
+    header("location:msaintask.php");
+}
 // if(isset($_POST['done'])){
 //     if(!empty($_POST['bill'])){
 //         foreach($_POST['bill'] as $select){
