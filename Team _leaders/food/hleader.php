@@ -4,10 +4,6 @@
 <?php
 // Check connection
 $conn=mysqli_connect('localhost','root','','trial');
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
 
 $sql="SELECT * FROM trial";
 
@@ -220,23 +216,10 @@ mysqli_close($conn);
                   </ul>
                   <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-bell"></i>
+                    <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-green">6</span>
                   </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>Admin </span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                  </ul> 
+                 
                 </li>
               </ul>
             </nav>

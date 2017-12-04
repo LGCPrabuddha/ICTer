@@ -1,7 +1,11 @@
-<?php /*require_once('inc1/connection.php'); */?>
+<?php require_once('inc1/connection.php'); ?>
 <?php
-$connection = mysqli_connect('localhost','root','','trial');
 
+session_start();
+$myuser=$_SESSION['user_name'];
+  if (mysqli_connect_errno()){
+    die('Database connection failed' . mysqli_connect_error());
+  } 
   
     
 
@@ -12,6 +16,14 @@ if(isset($_POST['submit'])){
     $duration=$_POST['duration'];
     $inadd="INSERT INTO trial (task, user_name, comment, Duration) Values ('$task', '$user', '$coment','$duration'  )";
     $enter=mysqli_query($connection,$inadd);
+    
+    header("location:msaintask.php");
+}
+if(isset($_POST['submit'])){
+    $task=$_POST['task'];
+    $member=$_POST['member'];
+    $addno="INSERT INTO notify (task, member,status) Values ('$task', '$member','1')";
+    $enter=mysqli_query($connection,$addno);
     
     header("location:msaintask.php");
 }
@@ -277,21 +289,8 @@ tr:nth-child(even){background-color: #f2f2f2}
                   <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-bell"></i>
-                    <span class="badge bg-green">6</span>
+                    <span class='badge bg-red' id='lab' onclick='myFunction()'>          
                   </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
                   </ul> 
                 </li>
               </ul>
@@ -314,13 +313,13 @@ tr:nth-child(even){background-color: #f2f2f2}
 				<div class="insert-content">
 				<form method="POST" action="msaintask.php">
         <?php
-        $connection = mysqli_connect('localhost','root','','trial');
+        //$connection = mysqli_connect('localhost','root','','group');
         ?>
         Member <br>
         <select class="select-style" name="member" >
           <option>Select a member to assign a task</option>
         <?php
-        $userq="SELECT user_name FROM trial";
+        $userq="SELECT trial.user_name,login.user_name FROM trial,login";
         $answer=mysqli_query($connection,$userq);
         while($row2=mysqli_fetch_array($answer)){ ?>
           <option value=<?php echo '"'.$row2['user_name'].'"'; ?>><?php echo $row2['user_name']; ?></option>
