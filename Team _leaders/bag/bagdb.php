@@ -399,7 +399,7 @@ else if (isset($_POST['delete_button'])) {
                           <th>Company name</th>
                           <th>Email</th>
                           <th>Hot Line</th>
-                          <th>Unit Priice</th>
+                          <th>Unit Price</th>
                           <th>Description</th>
                         </tr>
                       </thead>

@@ -2,6 +2,11 @@
 <?php //require_once('inc1/connection.php'); ?>
 
 <?php
+//Create the Percentage
+  function percentage($a, $b){
+    return ($a/$b)*100;
+  }
+
 // Check connection
 $conn=mysqli_connect('localhost','root','','trial');
 if (mysqli_connect_errno())
@@ -18,16 +23,14 @@ if ($result=mysqli_query($conn,$sql))
   $sql2="SELECT * FROM trial WHERE bill='1'";
   if($query2=mysqli_query($conn,$sql2)){
     $result2=mysqli_num_rows($query2);
+     $percent=percentage($result2,$rowcount);
   }
-  //Create the Percentage
-  function percentage($a, $b){
-	  return ($a/$b)*100;
-  }
-  $percent=percentage($result2,$rowcount);
+  
+ 
   
   // Free result set
   mysqli_free_result($result);
-  mysqli_free_result($query2);
+  //mysqli_free_result($query2);
   }
 
 mysqli_close($conn);
@@ -77,13 +80,13 @@ mysqli_close($conn);
               </div>
               <div class="profile_info">
                 <span>Welcome</span>
-                <h2>Admin</h2> </div> </div> <!-- /menu profile quick info -->
+                <h2>Group Leader</h2> </div> </div> <!-- /menu profile quick info -->
             <br />
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
+                <h3>Leader_name</h3>
                 <ul class="nav side-menu">
                   <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -99,7 +102,7 @@ mysqli_close($conn);
                   <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
                     
                   </li>
-                  <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="bagdb.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
                    
                 </ul>
               </div>
@@ -139,7 +142,7 @@ mysqli_close($conn);
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Admin
+                    <img src="images/img.jpg" alt="">Group Leader
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -165,7 +168,7 @@ mysqli_close($conn);
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>Admin </span>
+                          <span>Group Leader </span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -177,7 +180,7 @@ mysqli_close($conn);
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>Admin </span>
+                          <span>Group Leader </span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -189,7 +192,7 @@ mysqli_close($conn);
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>Admin </span>
+                          <span>Group Leader </span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -201,7 +204,7 @@ mysqli_close($conn);
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>Admin </span>
+                          <span>Group Leader </span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -228,7 +231,7 @@ mysqli_close($conn);
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>Admin </span>
+                          <span>Group Leader </span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -260,8 +263,9 @@ mysqli_close($conn);
                    </div>
                   <h4> Sponsorship Handling Gorup</h4>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percent; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $percent; ?>%</div>
-                   </div>
+<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 45%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">45%</div>
+
+<!--<div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percent; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $percent; ?>%</div> -->                   </div>
                   <h4> Bag Quatation </h4>
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 45%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">45%</div>

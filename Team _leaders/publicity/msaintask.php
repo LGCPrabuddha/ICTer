@@ -1,6 +1,6 @@
 <?php /*require_once('inc1/connection.php'); */?>
 <?php
-$connection = mysqli_connect('localhost','root','','trial');
+$connection = mysqli_connect('localhost','root','','group');
 
   
     
@@ -9,7 +9,7 @@ if(isset($_POST['submit'])){
     $task=$_POST['task'];
     $coment=$_POST['comment'];
     $user=$_POST['member'];
-    $duration=$_POST['duration'];
+    $duration=$_POST['date'];
     $inadd="INSERT INTO trial (task, user_name, comment, Duration) Values ('$task', '$user', '$coment','$duration'  )";
     $enter=mysqli_query($connection,$inadd);
     
@@ -71,6 +71,9 @@ $result=mysqli_query($connection,"SELECT * FROM trial");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
 
 
     <style>
@@ -323,13 +326,13 @@ tr:nth-child(even){background-color: #f2f2f2}
 				<div class="insert-content">
 				<form method="POST" action="msaintask.php">
         <?php
-        $connection = mysqli_connect('localhost','root','','trial');
+        //$connection = mysqli_connect('localhost','root','','trial');
         ?>
         Member <br>
         <select class="select-style" name="member" >
           <option>Select a member to assign a task</option>
         <?php
-        $userq="SELECT user_name FROM trial";
+        $userq="SELECT user_name FROM login WHERE ugroup = 'publicity' AND profile_type= 'member' ;";
         $answer=mysqli_query($connection,$userq);
         while($row2=mysqli_fetch_array($answer)){ ?>
           <option value=<?php echo '"'.$row2['user_name'].'"'; ?>><?php echo $row2['user_name']; ?></option>
@@ -342,7 +345,13 @@ tr:nth-child(even){background-color: #f2f2f2}
         
 				Task<br><input type="text" name="task"><br>
                 Comment<br><input type="text" name="comment"><br>
-                Duration<br><input type="text" placeholder="Duration in days" name="duration">
+<!--                 Duration<br><input type="text" placeholder="Duration in days" name="duration"> <br>
+ -->                Assign date <br>
+                <label ><?php echo date("l jS F Y ")  ?></label><br>
+                Due Date<br><div class="form-group"> <!-- Date input -->
+        <!-- <label class="control-label" for="date">Date</label> -->
+        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+      </div><br>
                 <!-- <select>
                 <option selected>days</option>
                 <option>weeks</option>
@@ -363,7 +372,7 @@ tr:nth-child(even){background-color: #f2f2f2}
     <th>Member</th>
     <th>Task</th>
     <th>Comment</th>
-    <th>Duration</th>
+    <th>Due Date</th>
     <th>Status</th>
   </tr>
   <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
@@ -448,8 +457,21 @@ tr:nth-child(even){background-color: #f2f2f2}
     <script src="jquery-3.2.1.min.js"></script>
     <!-- Bootstrap -->
     <script src="bootstrap.min.js"></script>
-    <script></script>
-    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'mm/dd/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>    
 <!--	<script>
 	var table="#mytable";
 	$('#maxRows').on('change',function(){

@@ -1,6 +1,6 @@
 <?php /*require_once('inc1/connection.php'); */?>
 <?php
-$connection = mysqli_connect('localhost','root','','trial');
+$connection = mysqli_connect('localhost','root','','group');
 
   
     
@@ -71,6 +71,8 @@ $result=mysqli_query($connection,"SELECT * FROM trial");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
 
 
     <style>
@@ -323,14 +325,15 @@ tr:nth-child(even){background-color: #f2f2f2}
 				<div class="insert-content">
 				<form method="POST" action="msaintask.php">
         <?php
-        $connection = mysqli_connect('localhost','root','','trial');
+        //$connection = mysqli_connect('localhost','root','','group');
         ?>
         Member <br>
         <select class="select-style" name="member" >
           <option>Select a member to assign a task</option>
         <?php
-        $userq="SELECT user_name FROM trial";
+        $userq="SELECT user_name FROM login WHERE ugroup = 'bag' AND profile_type= 'member' ;";
         $answer=mysqli_query($connection,$userq);
+        //selection menu
         while($row2=mysqli_fetch_array($answer)){ ?>
           <option value=<?php echo '"'.$row2['user_name'].'"'; ?>><?php echo $row2['user_name']; ?></option>
           <?php  }   ?>
@@ -342,7 +345,13 @@ tr:nth-child(even){background-color: #f2f2f2}
         
 				Task<br><input type="text" name="task"><br>
                 Comment<br><input type="text" name="comment"><br>
-                Duration<br><input type="text" placeholder="Duration in days" name="duration">
+                Assign date <br>
+                <label ><?php echo date("l jS F Y ")  ?></label><br>
+                Due Date<br><div class="form-group"> <!-- Date input -->
+        <!-- <label class="control-label" for="date">Date</label> -->
+        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+      </div><br>
+
                 <!-- <select>
                 <option selected>days</option>
                 <option>weeks</option>
@@ -502,7 +511,21 @@ tr:nth-child(even){background-color: #f2f2f2}
     
         <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
+    <script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'mm/dd/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
     <!-- Get the input and print in the table -->
  <!--   <script>
     $(function(){

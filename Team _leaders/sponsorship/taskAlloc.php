@@ -138,8 +138,9 @@
 
                   <p>
                     <label for="" class="enter_d" style="margin-left: 60px;">Assign date</label>
-                    <input type="text" name="v3" value="<?php echo date("Y/m/d") ?>" style="width: 20%; margin-left: 20px; height: 30px; font-size: 18px;" <?php echo 'value="' .$v3. '"'; ?>>
-                  </p>
+                     <label for="" class="enter_d" style="margin-left: 60px;"><?php echo date("Y/m/d") ?></label>
+<!--                     <input type="text" name="v3" value="<?php echo date("Y/m/d") ?>" style="width: 20%; margin-left: 20px; height: 30px; font-size: 18px;" <?php echo 'value="' .$v3. '"'; ?>>
+ -->                  </p>
                   <p>
                     <label for="" class="enter_d" style="margin-left: 60px;">End date:</label>
                     <input type="date" name="v4" value="<?php echo date("Y/m/d") ?>" style="width: 20%; margin-left: 20px; height: 30px; font-size: 18px;" <?php echo 'value="' .$v4. '"'; ?>>
