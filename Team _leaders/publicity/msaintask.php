@@ -1,4 +1,4 @@
-<?php /*require_once('inc1/connection.php'); */?>
+<?php require_once('inc1/connection.php'); ?>
 <?php
 $connection = mysqli_connect('localhost','root','','trial');
 

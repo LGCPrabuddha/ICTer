@@ -1,4 +1,5 @@
 <?php require_once('basefile/header.php'); ?>
+<?php require_once('../../inc1/connection.php'); ?>
 
 <?php 
 
@@ -58,7 +59,13 @@
     $task_list1= $_POST['id'];
 
     $query = "UPDATE tfood SET done = 'Finish' ,situation = 'Finish' WHERE id = $task_list1 LIMIT 1";
+    $query3= "SELECT task FROM tfood WHERE id = $task_list1 LIMIT 1";
     $result = mysqli_query($connection,$query);
+    $result3= mysqli_query($connection,$query3);
+    $row3=mysqli_fetch_assoc($result3);
+    $mytask=$row3['task'];
+    echo "$mytask";
+
 
     if ($result) {
       // query successfull.... redireting to modify-admin page
@@ -68,6 +75,17 @@
       echo 'error';
     }
     // header("Refresh:0");
+  }
+
+  
+  if(isset($_POST['fsubmit'])){
+
+    $myuser=$_SESSION['user_name'];
+    $mygroup=$_SESSION['ugroup'];
+
+    $query1 = "INSERT INTO notifyleader(task, username, usergroup,status) VALUES ('$mytask','$myuser','$mygroup','1') LIMIT 1";
+    $enter=mysqli_query($connection,$query1);
+
   }
 
 ?>
@@ -107,9 +125,6 @@
                     <?php echo $task_list; ?>
 
 
-
-
-                    
 
                   </table>
                 </main>

@@ -58,6 +58,8 @@
           $_SESSION['email'] = $user['email'];
           $_SESSION['user_name'] = $user1['user_name'];
           $_SESSION['uindex'] = $user1['uindex'];
+          $_SESSION['ugroup'] = $user['ugroup'];
+
 
           if ($table == "admin") {
             header('Location: admin/index.php');

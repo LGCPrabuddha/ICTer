@@ -1,6 +1,6 @@
 <?php require_once('inc1/connection.php'); ?>
 <?php  
-  $con = mysqli_connect('localhost','root','','trial');
+  $connection = mysqli_connect('localhost','root','','group');
   session_start();
   $myuser=$_SESSION['user_name'];
   if (mysqli_connect_errno()){
@@ -173,8 +173,12 @@
                     <i class="fa fa-bell"></i>
                     <span class='badge bg-red' id='lab' onclick='myFunction()'>
                     <?php
-                        $que = "SELECT task FROM notify WHERE member='user1' AND status='1'";
-                        $result=mysqli_query($con,$que);
+                       $que1 = "SELECT mygroup FROM groupleaders WHERE leader='nimal'";
+                        $res1 = mysqli_query($connection,$que1);
+                        $row1 = mysqli_fetch_assoc($res1);
+                        $group1 = $row1['mygroup'];
+                        $que = "SELECT * FROM notifyleader WHERE usergroup='$group1' AND status='1'";
+                        $result=mysqli_query($connection,$que);
                         $count1 = mysqli_num_rows($result);
                         if($count1>0){
                           echo $count1."</span>";
@@ -194,10 +198,10 @@
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                       <?php
                         while($row=mysqli_fetch_assoc($result)){
-                          echo "<li><a href='javascript:;'>"."<b>Allocated new task for you</b><br>".$row['task']."</a></li>";
+                          echo "<li><a href='javascript:;'>"."<b>Allocated task finished by </b><br>".$row['username']." <b>Task is :</b>". $row['task']."</a></li>";
                         }
-                        $query2="UPDATE notify SET status='0' WHERE member='user1'";
-                        $result2=mysqli_query($con,$query2);
+                        $query2="UPDATE notifyleader SET status='0' WHERE usergroup='food'";
+                        $result2=mysqli_query($connection,$query2);
                       ?> 
                   </ul>
                 </li>
