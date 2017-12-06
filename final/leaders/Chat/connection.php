@@ -1,0 +1,11 @@
+<?php	
+	$host = 'localhost';
+	$user = 'root';
+	$pass = 'ring';
+	$db = 'groupchat';
+	
+	$link = mysqli_connect($host, $user, $pass, $db);
+	if (mysqli_connect_errno()){
+		die("Connection Error : ". mysqli_connect_error());
+	}		
+?>
