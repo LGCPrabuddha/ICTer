@@ -1,21 +1,19 @@
-<?php require_once('inc1/connection.php'); ?>
+<?php /*require_once('inc1/connection.php'); */?>
+<?php /*require_once('inc1/connection.php'); */?>
 <?php
+$connection = mysqli_connect('localhost','root','','group');
 
-// session_start();
-// $myuser=$_SESSION['user_name'];
-//   if (mysqli_connect_errno()){
-//     die('Database connection failed' . mysqli_connect_error());
-//   } 
   
     
 
 if(isset($_POST['submit'])){
     $task=$_POST['task'];
     $description=$_POST['comment'];
-    $mid=$_POST['member'];  
+    $mid=$_POST['member'];
     $due_date=$_POST['date'];
     //$status=$_POST['date'];
-    $inadd="INSERT INTO dbdfood (mid, task, description,status,due_date) VALUES ('$mid', '$task', '$description','Ongoing','$due_date')";
+    $inadd="INSERT INTO dbdfood (mid, task, description,status, due_date) Values 
+    ('$mid', '$task', '$description','Ongoing','$due_date')";
     $enter=mysqli_query($connection,$inadd);
     
     header("location:msaintask.php");

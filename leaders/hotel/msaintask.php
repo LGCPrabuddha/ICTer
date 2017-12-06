@@ -5,15 +5,18 @@ $connection = mysqli_connect('localhost','root','','group');
   
     
 
-// if(isset($_POST['submit'])){
-//     $task=$_POST['task'];
-//     $coment=$_POST['comment'];
-//     $user=$_POST['member'];
-//     $duration=$_POST['date'];
-//     $inadd="INSERT INTO trial (task, user_name, comment, Duration) Values ('$task', '$user', '$coment','$duration'  )";
-//     $enter=mysqli_query($connection,$inadd);
+if(isset($_POST['submit'])){
+    $task=$_POST['task'];
+    $description=$_POST['comment'];
+    $mid=$_POST['member'];
+    $due_date=$_POST['date'];
+    //$status=$_POST['date'];
+    $inadd="INSERT INTO dbdhotel (mid, task, description,status, due_date) Values 
+    ('$mid', '$task', '$description','Ongoing','$due_date')";
+    $enter=mysqli_query($connection,$inadd);
     
-//     header("location:msaintask.php");
+    header("location:msaintask.php");
+}
 // }
 // if(isset($_POST['submit'])){
 //     $task=$_POST['task'];
@@ -35,7 +38,7 @@ $connection = mysqli_connect('localhost','root','','group');
 //     }     
 //  }    
    
-$result=mysqli_query($connection,"SELECT * FROM trial");
+$result=mysqli_query($connection,"SELECT * FROM dbdhotel");
 
  ?>
 
@@ -330,10 +333,10 @@ tr:nth-child(even){background-color: #f2f2f2}
         <select class="select-style" name="member" >
           <option>Select a member to assign a task</option>
         <?php
-        $userq="SELECT user_name FROM login WHERE ugroup = 'hotel' AND profile_type= 'member' ;";
+        $userq="SELECT user_name,uindex FROM login WHERE ugroup = 'hotel' AND profile_type= 'member' ;";
         $answer=mysqli_query($connection,$userq);
         while($row2=mysqli_fetch_array($answer)){ ?>
-          <option value=<?php echo '"'.$row2['user_name'].'"'; ?>><?php echo $row2['user_name']; ?></option>
+          <option value=<?php echo '"'.$row2['uindex'].'"'; ?>><?php echo $row2['user_name']; ?></option>
           <?php  }   ?>
         </select>
          <br> <br>      
@@ -365,21 +368,21 @@ tr:nth-child(even){background-color: #f2f2f2}
 				<table>
   <tr>
     <!-- <th width="5%">Status</th> -->
-    <th>Member</th>
+    <th>Member ID</th>
     <th>Task</th>
     <th>Comment</th>
     <th>Due Date</th>
     <th>Status</th>
-  </tr>
+   </tr>
   <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
   <tr>
 <!--     <td width="5%"><input type="checkbox" name="bill[]" value=<?php// echo '"' . $row['task'] . '"'; if($row['bill'] == "1") {echo "checked='checked'"; } ?>></td>
  -->    
-<td><?php echo $row['user_name']; ?></td>
+<td><?php echo $row['mid']; ?></td>
  <td><?php echo $row['task']; ?></td>
-    <td><?php echo $row['comment']; ?></td>
-    <td><?php echo $row['Duration'];  ?></td>
-    <td><?php echo $row['Status'];  ?></td>
+    <td><?php echo $row['description']; ?></td>
+    <td><?php echo $row['due_date'];  ?></td>
+     <td><?php echo $row['status'];  ?></td>
   </tr><?php } ?>
  </tbody></form>
 </table>
