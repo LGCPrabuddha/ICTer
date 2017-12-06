@@ -2,7 +2,7 @@
 <?php 
 
 //to include the connection
-include_once('pathumConnection.php');
+include_once('inc1/connection.php');
 ?>
 
 
@@ -10,28 +10,28 @@ include_once('pathumConnection.php');
 
 // for insert query 
 
-if (isset($_POST['save_button'])) {
+// if (isset($_POST['save_button'])) {
 
-      //echo "Sav button if";
+//       //echo "Sav button if";
 
-        $hotel_name = $_POST['h_name'];
-        $hotel_address = $_POST['address'];
-        $hot_line = $_POST['h_line'];
-        $email = $_POST['email'];
-        $single_room_price = $_POST['srp'];
-        $double_room_price = $_POST['drp'];
-        $web = $_POST['web'];
-        $distance=$_POST['distance'];
+//         $hotel_name = $_POST['h_name'];
+//         $hotel_address = $_POST['address'];
+//         $hot_line = $_POST['h_line'];
+//         $email = $_POST['email'];
+//         $single_room_price = $_POST['srp'];
+//         $double_room_price = $_POST['drp'];
+//         $web = $_POST['web'];
+//         $distance=$_POST['distance'];
 
-        $query="INSERT INTO hoteldb(company_name,address,email,tell_no,s_room_price,d_room_price,web_site,distance) VALUES ('{$hotel_name}','{$hotel_address}','{$email}',{$hot_line},'{$single_room_price}','{$double_room_price}','{$web}','{$distance}')";
-        $result=mysqli_query($db_connection,$query);
+//         $query="INSERT INTO hoteldb(company_name,address,email,tell_no,s_room_price,d_room_price,web_site,distance) VALUES ('{$hotel_name}','{$hotel_address}','{$email}',{$hot_line},'{$single_room_price}','{$double_room_price}','{$web}','{$distance}')";
+//         $result=mysqli_query($db_connection,$query);
 
-        if ($result) {
-          //echo "Successfully saved your record";
-        }else{
-          echo "Database query failed";
-        }
-}
+//         if ($result) {
+//           //echo "Successfully saved your record";
+//         }else{
+//           echo "Database query failed";
+//         }
+// }
 
 
 //searching part
@@ -57,42 +57,42 @@ if (isset($_POST['save_button'])) {
 // }
 
 //for update query
-else if (isset($_POST['update_button'])) {
+// else if (isset($_POST['update_button'])) {
     
-  $hotel_name = $_POST['h_name'];
-        $hotel_address = $_POST['address'];
-        $hot_line = $_POST['h_line'];
-        $email = $_POST['email'];
-        $single_room_price = $_POST['srp'];
-        $double_room_price = $_POST['drp'];
-        $web = $_POST['web'];
-        $distance=$_POST['distance'];
+//   $hotel_name = $_POST['h_name'];
+//         $hotel_address = $_POST['address'];
+//         $hot_line = $_POST['h_line'];
+//         $email = $_POST['email'];
+//         $single_room_price = $_POST['srp'];
+//         $double_room_price = $_POST['drp'];
+//         $web = $_POST['web'];
+//         $distance=$_POST['distance'];
 
         
         
-        $query="UPDATE hoteldb SET company_name='{$hotel_name}',address='{$hotel_name}',email='{$email}',tell_no={$hot_line},s_room_price='{$single_room_price}',d_room_price='{$double_room_price}',web_site='{$web}',distance='{$distance}' WHERE company_name='{$hotel_name}'";
-        $result=mysqli_query($db_connection,$query);
+//         $query="UPDATE hoteldb SET company_name='{$hotel_name}',address='{$hotel_name}',email='{$email}',tell_no={$hot_line},s_room_price='{$single_room_price}',d_room_price='{$double_room_price}',web_site='{$web}',distance='{$distance}' WHERE company_name='{$hotel_name}'";
+//         $result=mysqli_query($db_connection,$query);
 
-        if ($result) {
-          //echo mysqli_affected_rows($db_connection)." record updated";
-        }else{
-          echo "Database query failed";
-        }
-}
+//         if ($result) {
+//           //echo mysqli_affected_rows($db_connection)." record updated";
+//         }else{
+//           echo "Database query failed";
+//         }
+// }
 //for delete query
-else if (isset($_POST['delete_button'])) {
+// else if (isset($_POST['delete_button'])) {
     
-  $hotel_name = $_POST['h_name'];
+//   $hotel_name = $_POST['h_name'];
         
-        $query="DELETE FROM hoteldb WHERE company_name = '{$hotel_name}' LIMIT 1";
-        $result=mysqli_query($db_connection,$query);
+//         $query="DELETE FROM hoteldb WHERE company_name = '{$hotel_name}' LIMIT 1";
+//         $result=mysqli_query($db_connection,$query);
 
-        if ($result) {
-          echo mysqli_affected_rows($db_connection)." record deleted";
-        }else{
-          echo "Database query failed";
-        }
-}
+//         if ($result) {
+//           echo mysqli_affected_rows($db_connection)." record deleted";
+//         }else{
+//           echo "Database query failed";
+//         }
+// }
 ?>
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -384,8 +384,8 @@ else if (isset($_POST['delete_button'])) {
 <hr> -->
 
 <?php
-        $userq="SELECT * FROM hoteldb";
-        $result=mysqli_query($db_connection,$userq);
+        $userq="SELECT * FROM dbhotel";
+        $result=mysqli_query($connection,$userq);
         //$row=mysqli_fetch_array($answer)
         ?>
 
@@ -397,27 +397,23 @@ else if (isset($_POST['delete_button'])) {
                           
                           
                           <th>Hotel name</th>
-                          <th>Address</th>
                           <th>Email</th>
-                          <th>Tel-No</th>
-                          <th>Single room price</th>
-                          <th>Double room price</th>
-                          <th>Website</th>
-                          <th>Distance</th>
+                          <th>Hot Line</th>
+                          <th>Room Type</th>
+                          <th>Room price</th>
+                          <th>Description</th>
                         </tr>
                       </thead>
 
 
                       <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
                                 <tr>   
-                                  <td><?php echo $row['company_name']; ?></td>
-                                  <td><?php echo $row['address']; ?></td>
+                                  <td><?php echo $row['hotel']; ?></td>
                                   <td><?php echo $row['email']; ?></td>
-                                  <td><?php echo $row['tell_no'];  ?></td>
-                                  <td><?php echo $row['s_room_price'];  ?></td>
-                                  <td><?php echo $row['d_room_price'];  ?></td>
-                                  <td><?php echo $row['web_site'];  ?></td>
-                                  <td><?php echo $row['distance'];  ?></td>
+                                  <td><?php echo $row['tele_no']; ?></td>
+                                  <td><?php echo $row['r_type'];  ?></td>
+                                  <td><?php echo $row['r_price'];  ?></td>
+                                  <td><?php echo $row['description'];  ?></td>
                                 </tr><?php } ?>
                       </tbody>
                     </table>

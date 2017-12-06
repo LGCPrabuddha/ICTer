@@ -2,7 +2,7 @@
 <?php 
 
 //to include the connection
-include_once('pathumConnection.php');
+include_once('inc1/connection.php');
 ?>
 
 
@@ -384,8 +384,8 @@ else if (isset($_POST['delete_button'])) {
 <hr>
  -->
 <?php
-        $userq="SELECT * FROM hoteldb";
-        $result=mysqli_query($db_connection,$userq);
+        $userq="SELECT * FROM dbkeynote";
+        $result=mysqli_query($connection,$userq);
         //$row=mysqli_fetch_array($answer)
         ?>
 
@@ -396,28 +396,30 @@ else if (isset($_POST['delete_button'])) {
                         <tr>
                           
                           
-                          <th>Hotel name</th>
-                          <th>Address</th>
+                          <th>Name</th>
                           <th>Email</th>
-                          <th>Tel-No</th>
-                          <th>Single room price</th>
-                          <th>Double room price</th>
-                          <th>Website</th>
-                          <th>Distance</th>
+                          <th>Country</th>
+                          <th>Room No</th>
+                          <th>Food Type</th>
+                          <th>is Confirmed</th>
+                          <th>Research Area</th>
+                          <th>Hotel</th>
+                          <th>Arriving Time</th>
                         </tr>
                       </thead>
 
 
                       <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
                                 <tr>   
-                                  <td><?php echo $row['company_name']; ?></td>
-                                  <td><?php echo $row['address']; ?></td>
+                                  <td><?php echo $row['name']; ?></td>
                                   <td><?php echo $row['email']; ?></td>
-                                  <td><?php echo $row['tell_no'];  ?></td>
-                                  <td><?php echo $row['s_room_price'];  ?></td>
-                                  <td><?php echo $row['d_room_price'];  ?></td>
-                                  <td><?php echo $row['web_site'];  ?></td>
-                                  <td><?php echo $row['distance'];  ?></td>
+                                  <td><?php echo $row['country']; ?></td>
+                                  <td><?php echo $row['room_no'];  ?></td>
+                                  <td><?php echo $row['food_type'];  ?></td>
+                                  <td><?php echo $row['is_confirmed'];  ?></td>
+                                  <td><?php echo $row['research_area'];  ?></td>
+                                  <td><?php echo $row['hotel'];  ?></td>
+                                  <td><?php echo $row['arriving_time'];  ?></td>
                                 </tr><?php } ?>
                       </tbody>
                     </table>
