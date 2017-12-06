@@ -1,4 +1,4 @@
-<?php /*require_once('inc1/connection.php'); */?>
+<?php require_once('inc1/connection.php'); ?>
 <?php
 $connection = mysqli_connect('localhost','root','','trial');
 
@@ -12,6 +12,15 @@ if(isset($_POST['submit'])){
     $duration=$_POST['duration'];
     $inadd="INSERT INTO trial (task, user_name, comment, Duration) Values ('$task', '$user', '$coment','$duration'  )";
     $enter=mysqli_query($connection,$inadd);
+    
+    header("location:msaintask.php");
+}
+
+if(isset($_POST['submit'])){
+    $task=$_POST['task'];
+    $member=$_POST['member'];
+    $addno="INSERT INTO notify (task, member,status) Values ('$task', '$member','1')";
+    $enter=mysqli_query($connection,$addno);
     
     header("location:msaintask.php");
 }

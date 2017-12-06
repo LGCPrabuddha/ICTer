@@ -2,7 +2,7 @@
 <?php 
 
 //to include the connection
-include_once('pathumConnection.php');
+include_once('inc1/connection.php');
 ?>
 
 

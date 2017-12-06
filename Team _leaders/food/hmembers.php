@@ -1,5 +1,12 @@
 <?php require_once('inc1/connection.php'); ?>
 <?php  
+  $connection = mysqli_connect('localhost','root','','group');
+  session_start();
+  $myuser=$_SESSION['user_name'];
+  if (mysqli_connect_errno()){
+    die('Database connection failed' . mysqli_connect_error());
+  } 
+
   $admin_list = '';
     $query = "SELECT * FROM gro_member WHERE m_group= 'Review' ORDER BY 'm_mail' ";
     $members = mysqli_query($connection,$query);
@@ -160,15 +167,43 @@
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-green">6</span>
                   </a>
-                  
-                  
+        
                   <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-bell"></i>
-                    <span class="badge bg-green">6</span>
+                    <span class='badge bg-red' id='lab' onclick='myFunction()'>
+                    <?php
+                       $que1 = "SELECT mygroup FROM groupleaders WHERE leader='nimal'";
+                        $res1 = mysqli_query($connection,$que1);
+                        $row1 = mysqli_fetch_assoc($res1);
+                        $group1 = $row1['mygroup'];
+                        $que = "SELECT * FROM notifyleader WHERE usergroup='$group1' AND status='1'";
+                        $result=mysqli_query($connection,$que);
+                        $count1 = mysqli_num_rows($result);
+                        if($count1>0){
+                          echo $count1."</span>";
+                        }
+                        ?>
+                        <script type="text/javascript">
+                        function myFunction(){
+                          var x = document.getElementById('lab');
+                          if (x.style.display === "none") {
+                                x.style.display = "block";
+                          } else {
+                                x.style.display = "none";
+                          }
+                        }
+                        </script>      
                   </a>
-                 
-
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                      <?php
+                        while($row=mysqli_fetch_assoc($result)){
+                          echo "<li><a href='javascript:;'>"."<b>Allocated task finished by </b><br>".$row['username']." <b>Task is :</b>". $row['task']."</a></li>";
+                        }
+                        $query2="UPDATE notifyleader SET status='0' WHERE usergroup='food'";
+                        $result2=mysqli_query($connection,$query2);
+                      ?> 
+                  </ul>
                 </li>
               </ul>
             </nav>
