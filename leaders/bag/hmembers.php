@@ -32,7 +32,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Hotel Members </title>
+    <title>Hotel Group Members </title>
     <!-- Our customize file -->
     <link href="css/CDetail.css" rel="stylesheet">
     <!-- Bootstrap -->
@@ -99,7 +99,7 @@
                   <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
                     
                   </li>
-                  <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="bagdb.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
                    
                 </ul>
               </div>
@@ -199,25 +199,32 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <h1>Hotel Group Members</h1>
+                    <?php $connection = mysqli_connect('localhost','root','','group');
+                    $result=mysqli_query($connection,"SELECT * FROM login WHERE ugroup = 'bag' AND profile_type= 'member' ");
+                    ?>
+                    <h1>Bag Group Members</h1>
                     <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
-                      <thead>
-                        <tr>
-                          
-                          <th>Name</th>
-                          <th>Tel-No</th>
-                          <th>Email</th>
-                          <th>Committee</th>
-                          
-                        </tr>
-                      </thead>
-
-
-                      <tbody>
-                      <?php echo $admin_list; ?>
-                      </tbody>
-
-                    </table>
+                                  <tr>
+                                    <!-- <th width="5%">Status</th> -->
+                                    <th>User Name</th>
+                                    <th>User Index</th>
+                                    <th>Email</th>
+                                    <th>Progress</th>
+                                    <!-- <th>Status</th>
+ -->                                  </tr>
+                                  <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
+                                  <tr>
+                                <!--     <td width="5%"><input type="checkbox" name="bill[]" value=<?php// echo '"' . $row['task'] . '"'; if($row['bill'] == "1") {echo "checked='checked'"; } ?>></td>
+                                 -->    
+                                <td><?php echo $row['user_name']; ?></td>
+                                 <td><?php echo $row['uindex']; ?></td>
+                                    <td><?php echo $row['email']; ?></td>
+                                    <!-- <td><?php //echo $row['Duration'];  ?></td>
+                                    <td><?php //echo $row['Status'];  ?></td> -->
+                                  </tr><?php } ?>
+                                 </tbody></form>
+                                </table>
+                      
                   </div>
                 </div>
               </div>

@@ -166,7 +166,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                   <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
                     
                   </li>
-                  <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="keynotedb.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
                    
                 </ul>
               </div>

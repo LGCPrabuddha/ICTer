@@ -165,7 +165,7 @@ else if (isset($_POST['delete_button'])) {
                   <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
                     
                   </li>
-                  <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="hoteldb.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
                    
                 </ul>
               </div>
@@ -337,7 +337,7 @@ else if (isset($_POST['delete_button'])) {
                   </div>
 
 
-    <div class="form-group">               
+    <!-- <div class="form-group">               
     <form class="form" role="form" method="post"  action="hoteldb.php">
       <div class="container">
                     <h2  align="center"><b>Accomodations for the ICTer Conference</b></h2>
@@ -381,7 +381,7 @@ else if (isset($_POST['delete_button'])) {
  </div>
  </div>
 </form>
-<hr>
+<hr> -->
 
 <?php
         $userq="SELECT * FROM hoteldb";

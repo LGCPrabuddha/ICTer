@@ -2,6 +2,11 @@
 <?php //require_once('inc1/connection.php'); ?>
 
 <?php
+
+//Create the Percentage
+  function percentage($a, $b){
+    return ($a/$b)*100;
+  }
 // Check connection
 $conn=mysqli_connect('localhost','root','','trial');
 if (mysqli_connect_errno())
@@ -18,16 +23,13 @@ if ($result=mysqli_query($conn,$sql))
   $sql2="SELECT * FROM trial WHERE bill='1'";
   if($query2=mysqli_query($conn,$sql2)){
     $result2=mysqli_num_rows($query2);
-  }
-  //Create the Percentage
-  function percentage($a, $b){
-	  return ($a/$b)*100;
-  }
-  $percent=percentage($result2,$rowcount);
+  
+  
+  $percent=percentage($result2,$rowcount);}
   
   // Free result set
   mysqli_free_result($result);
-  mysqli_free_result($query2);
+  //mysqli_free_result($query2);
   }
 
 mysqli_close($conn);
@@ -91,9 +93,9 @@ mysqli_close($conn);
                 <ul class="nav side-menu">
                   <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
+                      <!-- <li><a href="index.html">Dashboard</a></li>
                       <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
+                      <li><a href="index3.html">Dashboard3</a></li> -->
                     </ul>
                   </li>
                   
@@ -103,7 +105,7 @@ mysqli_close($conn);
                   <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
                     
                   </li>
-                  <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="sponsorshipdb.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
                    
                 </ul>
               </div>

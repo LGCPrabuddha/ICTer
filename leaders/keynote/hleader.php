@@ -22,12 +22,12 @@ if ($result=mysqli_query($conn,$sql))
   //Create the Percentage
   function percentage($a, $b){
 	  return ($a/$b)*100;
-  }
-  $percent=percentage($result2,$rowcount);
+  
+  $percent=percentage($result2,$rowcount);}
   
   // Free result set
   mysqli_free_result($result);
-  mysqli_free_result($query2);
+ // mysqli_free_result($query2);
   }
 
 mysqli_close($conn);
@@ -99,7 +99,7 @@ mysqli_close($conn);
                   <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
                     
                   </li>
-                  <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="keynotedb.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
                    
                 </ul>
               </div>

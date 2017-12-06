@@ -5,24 +5,24 @@ $connection = mysqli_connect('localhost','root','','group');
   
     
 
-if(isset($_POST['submit'])){
-    $task=$_POST['task'];
-    $coment=$_POST['comment'];
-    $user=$_POST['member'];
-    $duration=$_POST['date'];
-    $inadd="INSERT INTO trial (task, user_name, comment, Duration) Values ('$task', '$user', '$coment','$duration'  )";
-    $enter=mysqli_query($connection,$inadd);
+// if(isset($_POST['submit'])){
+//     $task=$_POST['task'];
+//     $coment=$_POST['comment'];
+//     $user=$_POST['member'];
+//     $duration=$_POST['date'];
+//     $inadd="INSERT INTO trial (task, user_name, comment, Duration) Values ('$task', '$user', '$coment','$duration'  )";
+//     $enter=mysqli_query($connection,$inadd);
     
-    header("location:msaintask.php");
-}
-if(isset($_POST['submit'])){
-    $task=$_POST['task'];
-    $member=$_POST['member'];
-    $addno="INSERT INTO notify (task, member,status) Values ('$task', '$member','1')";
-    $enter=mysqli_query($connection,$addno);
+//     header("location:msaintask.php");
+// }
+// if(isset($_POST['submit'])){
+//     $task=$_POST['task'];
+//     $member=$_POST['member'];
+//     $addno="INSERT INTO notify (task, member,status) Values ('$task', '$member','1')";
+//     $enter=mysqli_query($connection,$addno);
     
-    header("location:msaintask.php");
-}
+//     header("location:msaintask.php");
+// }
 // if(isset($_POST['done'])){
 //     if(!empty($_POST['bill'])){
 //         foreach($_POST['bill'] as $select){
@@ -48,7 +48,7 @@ $result=mysqli_query($connection,"SELECT * FROM trial");
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
-    <title>User Interface </title>
+    <title>Task Allocation </title>
     <!-- Our customize file -->
     <link href="css/CDetail.css" rel="stylesheet">
     <!-- Bootstrap -->
@@ -165,7 +165,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                   <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
                     
                   </li>
-                  <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="hoteldb.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
                    
                 </ul>
               </div>
