@@ -1,29 +1,29 @@
 <?php require_once('inc1/connection.php'); ?>
 <?php  
-  $con = mysqli_connect('localhost','root','','trial');
-  session_start();
-  $myuser=$_SESSION['user_name'];
-  if (mysqli_connect_errno()){
-    die('Database connection failed' . mysqli_connect_error());
-  } 
+  // $con = mysqli_connect('localhost','root','','trial');
+  // session_start();
+  // $myuser=$_SESSION['user_name'];
+  // if (mysqli_connect_errno()){
+  //   die('Database connection failed' . mysqli_connect_error());
+  // } 
 
-  $admin_list = '';
-    $query = "SELECT * FROM gro_member WHERE m_group= 'Review' ORDER BY 'm_mail' ";
-    $members = mysqli_query($connection,$query);
+  // $admin_list = '';
+  //   $query = "SELECT * FROM gro_member WHERE m_group= 'Review' ORDER BY 'm_mail' ";
+  //   $members = mysqli_query($connection,$query);
 
-    $query1 = "SELECT * FROM (user,gro_member) WHERE gro_member.m_group= 'Review' AND user.email = gro_member.m_mail ORDER BY 'm_mail' ";
-    $members1 = mysqli_query($connection,$query1);
+  //   $query1 = "SELECT * FROM (user,gro_member) WHERE gro_member.m_group= 'Review' AND user.email = gro_member.m_mail ORDER BY 'm_mail' ";
+  //   $members1 = mysqli_query($connection,$query1);
 
-    if ($members1) {
-      while ($member1 = mysqli_fetch_assoc($members1)) {
-        $admin_list .= "<tr style=\"font-size: 15px; color:#4d4d4d;\">";
-        $admin_list .= "<td><label for=\"example\" class=\"option-input radio\">{$member1['user_name']}</label></td>";
-        $admin_list .= "<td><label for=\"example\" class=\"option-input radio\">{$member1['tele_no']}</label></td>";
-        $admin_list .= "<td><label for=\"example\" class=\"option-input radio\">{$member1['email']}</label></td>";
-      }
-    }else{
-      echo "Database query failed";
-    }
+  //   if ($members1) {
+  //     while ($member1 = mysqli_fetch_assoc($members1)) {
+  //       $admin_list .= "<tr style=\"font-size: 15px; color:#4d4d4d;\">";
+  //       $admin_list .= "<td><label for=\"example\" class=\"option-input radio\">{$member1['user_name']}</label></td>";
+  //       $admin_list .= "<td><label for=\"example\" class=\"option-input radio\">{$member1['tele_no']}</label></td>";
+  //       $admin_list .= "<td><label for=\"example\" class=\"option-input radio\">{$member1['email']}</label></td>";
+  //     }
+  //   }else{
+  //     echo "Database query failed";
+  //   }
     /*if ($members) {
       while ($member = mysqli_fetch_assoc($members)) {
         $admin_list .= "<tr style=\"font-size: 15px; color:#4d4d4d;\">";
@@ -173,12 +173,12 @@
                     <i class="fa fa-bell"></i>
                     <span class='badge bg-red' id='lab' onclick='myFunction()'>
                     <?php
-                        $que = "SELECT task FROM notify WHERE member='$myuser' AND status='1'";
-                        $result=mysqli_query($con,$que);
-                        $count1 = mysqli_num_rows($result);
-                        if($count1>0){
-                          echo $count1."</span>";
-                        }
+                        // $que = "SELECT task FROM notify WHERE member='$myuser' AND status='1'";
+                        // $result=mysqli_query($con,$que);
+                        // $count1 = mysqli_num_rows($result);
+                        // if($count1>0){
+                        //   echo $count1."</span>";
+                        // }
                         ?>
                         <script type="text/javascript">
                         function myFunction(){
