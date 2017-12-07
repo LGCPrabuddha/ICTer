@@ -60,9 +60,6 @@ if ($result=mysqli_query($connection,$sql))
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
 
-
-<!-- Our customize file -->
-  <!--   <link href="main.css" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -71,7 +68,7 @@ if ($result=mysqli_query($connection,$sql))
     <link href="Team_leaders/vendors/nprogress/nprogress.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="custom.min.css" rel="stylesheet"> -->
+    <link href="custom.min.css" rel="stylesheet"> 
 
 
     <style>
@@ -141,7 +138,7 @@ if ($result=mysqli_query($connection,$sql))
                     
                   </li>
 
-                  <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="committee_details.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
 
                 </li>
                   <li><a href="assigntask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>

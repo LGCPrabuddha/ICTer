@@ -93,7 +93,7 @@ verify_query($result_set);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title> | ICTer | </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -119,7 +119,7 @@ verify_query($result_set);
              <form action="main_login.php" method="post">
 
               <fieldset>
-              <h1>Login Form</h1>
+              <h1>Login</h1>
               <div>
 
                 <?php
@@ -139,7 +139,7 @@ if (isset($errors) && !empty($errors)){
                 <input type="password" name="password" class="form-control" placeholder="Password" required="" />
               </div>
                <div class="box-footer">
-                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" name="submit" class="btn btn-primary">Login</button>
               </div>
 
               <div class="clearfix"></div>
