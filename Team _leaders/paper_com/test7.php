@@ -1,43 +1,19 @@
 <?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
 <?php require_once('inc1/functions.php'); ?>
+
 <?php
-//checking that user logged into the system
-// if (!isset($_SESSION['user_id'])){
-//    header('Location: index.php');
-//  }
-//
-$errors = array();
-
-$pid='';
-$comment='';
-$acceptance= '';
-
-
-
-if (isset($_POST['submit'])){ //added by me
-
-    $pid= $_POST['pid'];
-    $comment= $_POST['comment'];
-    $acceptance= $_POST['acceptance'];
-    $id=$_SESSION['user_id'];
-   
-   
-    $query="INSERT INTO reviewer_assign VALUES('$pid','$id','$comment','$acceptance')";
-    $test = mysqli_query($connection,$query);
-    if ($test) {
-        # code...
-        echo "ok";
-    }
-    header('Location:test3.php');
-}
+  $code = $_GET['code'];
+  
 ?>
+
+
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>test3</title>
+<title>test7</title>
 <!-- Our customize file -->
 <link href="css/CDetail.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -82,7 +58,7 @@ if (isset($_POST['submit'])){ //added by me
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2><?php echo $_SESSION['name']; ?></h2>
+                        <h2>John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -94,15 +70,18 @@ if (isset($_POST['submit'])){ //added by me
                     <div class="menu_section">
                         <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a href="test3.php"><i class="fa fa-home"></i> Home <span class="fa fa-circle"></span></a>
+                            <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
 
                             </li>
 
-                            <li><a href="test9.php"><i class="fa fa-edit"></i> Reviewed Papers <span class="fa fa-circle
-                            "></span></a>
+                            <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
 
                             </li>
-                            
+                            <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
+
+                            </li>
+                            <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+
                         </ul>
                     </div>
 
@@ -141,7 +120,7 @@ if (isset($_POST['submit'])){ //added by me
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt=""><?php echo $_SESSION['name']; ?>
+                                <img src="images/img.jpg" alt="">John Doe
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -153,7 +132,7 @@ if (isset($_POST['submit'])){ //added by me
                                     </a>
                                 </li>
                                 <li><a href="javascript:">Help</a></li>
-                                <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                <li><a href="index.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                             </ul>
                         </li>
 
@@ -246,67 +225,102 @@ if (isset($_POST['submit'])){ //added by me
         </div>
 
         <div class="right_col" role="main">
+
+          <h2><font size="6">Paper Details</font></h2>
             
-
             <body>
-              
-              <form action="test3.php" method="post">
+ 
 
+<div class="">
+            
+  <?php
+
+                    $query1="SELECT * FROM paper_detail where pid='$code'";
+                    $result=mysqli_query($connection,$query1);
+                    while($row=mysqli_fetch_array($result)){
+                        $pid = $row['pid'];
+                        $abstract = $row['abstract'];
+                        $keyword = $row['keyword'];
+                       
+                    }
+
+                    ?>
+
+
+            <form >
+              <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Paper ID</label>
-                  <input type="text" class="form-control" name="pid" id="pid" placeholder="Enter Paper ID">
+                  <input type="text" class="form-control" name="pid" id="pid" <?php echo 'value="'.$code.'"';    ?> disabled="">
                 </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Abstract</label>
+                 <textarea class="form-control" rows="10" name="abstract" id="abstract" value="hjhfvhjv" disabled=""><?php echo "$abstract"; ?></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Keyword</label>
+                 <textarea class="form-control" rows="5" name="keyword" id="keyword" <?php echo 'value="'.$keyword.'"';    ?> disabled=""><?php echo "$keyword"; ?></textarea>
+                </div>
+               
+              </div>
+                           
+            </form>
 
 
-             <div class="">
-            <div class="box-header">
-              <h3 >Comments for the paper
-                
-              </h3>
-              <!-- tools box -->
-             <!--  <div class="pull-right box-tools">
-                <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                  <i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
-                        title="Remove">
-                  <i class="fa fa-times"></i></button>
-              </div> -->
-              <!-- /. tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body pad">
+
+
+
+          </div>
+<h1>  Reviewer List</h1>
+
+
+<div class="">
             
-                <textarea name="comment" class="textarea" placeholder="Place some text here"
-                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-              
-            </div>
+  <?php
+
+                    $query1="SELECT * FROM reviewer_assign where pid='$code'";
+                    $result=mysqli_query($connection,$query1);
+                    while($row=mysqli_fetch_array($result)){
+                        $rid = $row['rid'];
+                        $comment = $row['comment'];
+                        $acceptance = $row['acceptance'];
+                       
+                    
+
+                    ?>
+                    <h3>Reviewer</h3>
+
+            <form >
+              <div class="box-body">
+                
+                <div class="form-group">
+                 <a href='viewPaper.php?code=$rid'> <label for="exampleInputEmail1"><?php echo "$rid"; ?></label></a>
+                 
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Comment</label>
+                 <textarea class="form-control" rows="10" name="comment" id="abstract" value="hjhfvhjv" disabled=""><?php echo "$comment"; ?></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Acceptance</label>
+                  <input type="text" class="form-control" name="acceptance" id="pid" <?php echo 'value="'.$acceptance.'"';    ?> disabled="">
+                </div>
+               <div class="form-group">
+                <input type="" name="" hidden="">
+               </div>
+              </div>
+                           
+            </form>
+
+<?php } ?>
+
+
+
           </div>
 
 
-           <div class="form-group">
-                  <label>Acceptance for the paper</label>
-                  <select name="acceptance" class="form-control">
 
-                    <option value="Strongly Accepatance">Strongly Accepatance</option>
-                    <option value="Accepatance With Few Modifications">Accepatance With Few Modifications</option>
-                    <option value="Weakly Rejected">Weakly Rejected</option>
-                    <option value="Strongly Rejected">Strongly Rejected</option>
-                    
-                  </select>
-                </div>
-
-
-                <div class="box-footer">
-                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-              </div>
-
-          </form>
-
-            </body>
-
-
-
+            
         </div>
 
 

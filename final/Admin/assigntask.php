@@ -38,17 +38,28 @@ if(isset($_POST['done'])){
 
 
     <title>User Interface </title>
-    <!-- Our customize file -->
-    <link href="CDetail.css" rel="stylesheet">
-    <!-- Bootstrap -->
-    <link href="bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
+    
 
+    <link href="css/CDetail.css" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- bootstrap-wysiwyg -->
+<link href="../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+<!-- Switchery -->
+<link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+<!-- starrr -->
+<link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="custom.min.css" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
 
 
 
@@ -84,8 +95,8 @@ if(isset($_POST['done'])){
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-
+                  <li><a href="progress.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    
                   </li>
 
                   <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>

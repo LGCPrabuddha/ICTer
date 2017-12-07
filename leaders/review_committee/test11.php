@@ -1,43 +1,13 @@
 <?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
 <?php require_once('inc1/functions.php'); ?>
-<?php
-//checking that user logged into the system
-// if (!isset($_SESSION['user_id'])){
-//    header('Location: index.php');
-//  }
-//
-$errors = array();
 
-$pid='';
-$comment='';
-$acceptance= '';
-
-
-
-if (isset($_POST['submit'])){ //added by me
-
-    $pid= $_POST['pid'];
-    $comment= $_POST['comment'];
-    $acceptance= $_POST['acceptance'];
-    $id=$_SESSION['user_id'];
-   
-   
-    $query="INSERT INTO reviewer_assign VALUES('$pid','$id','$comment','$acceptance')";
-    $test = mysqli_query($connection,$query);
-    if ($test) {
-        # code...
-        echo "ok";
-    }
-    header('Location:test3.php');
-}
-?>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>test3</title>
+<title>test11</title>
 <!-- Our customize file -->
 <link href="css/CDetail.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -82,7 +52,7 @@ if (isset($_POST['submit'])){ //added by me
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2><?php echo $_SESSION['name']; ?></h2>
+                        <h2>John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -94,39 +64,25 @@ if (isset($_POST['submit'])){ //added by me
                     <div class="menu_section">
                         <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a href="test3.php"><i class="fa fa-home"></i> Home <span class="fa fa-circle"></span></a>
+                            <li><a href="test1.php"><i class="fa fa-home"></i> Paper Details <span class="fa fa-circle"></span></a>
 
                             </li>
 
-                            <li><a href="test9.php"><i class="fa fa-edit"></i> Reviewed Papers <span class="fa fa-circle
-                            "></span></a>
+                            <li><a href="test2.php"><i class="fa fa-edit"></i> Reviewer Details <span class="fa fa-circle"></span></a>
 
                             </li>
-                            
+                            <li><a href="test5.php"><i class="fa fa-desktop"></i> Reviewed Papers <span class="fa fa-circle"></span></a>
+
+                            </li>
+                            <li><a href="test11.php"><i class="fa fa-table"></i> Final Review<span class="fa fa-circle"></span></a></li>
+
                         </ul>
                     </div>
 
 
 
                 </div>
-                <!-- /sidebar menu -->
-
-                <!-- /menu footer buttons -->
-                <!-- <div class="sidebar-footer hidden-small">
-                  <a data-toggle="tooltip" data-placement="top" title="Settings">
-                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                  </a>
-                  <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                    <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                  </a>
-                  <a data-toggle="tooltip" data-placement="top" title="Lock">
-                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                  </a>
-                  <a data-toggle="tooltip" data-placement="top" title="Logout">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                  </a>
-                </div> -->
-                <!-- /menu footer buttons -->
+                
             </div>
         </div>
 
@@ -141,7 +97,7 @@ if (isset($_POST['submit'])){ //added by me
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt=""><?php echo $_SESSION['name']; ?>
+                                <img src="images/img.jpg" alt="">John Doe
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -153,7 +109,7 @@ if (isset($_POST['submit'])){ //added by me
                                     </a>
                                 </li>
                                 <li><a href="javascript:">Help</a></li>
-                                <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                <li><a href="index.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                             </ul>
                         </li>
 
@@ -246,67 +202,121 @@ if (isset($_POST['submit'])){ //added by me
         </div>
 
         <div class="right_col" role="main">
-            
+            <!-- <div class="">
+                 <div class="row top_tiles">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                     <div class="x_panel">
+                       <div class="x_title">
+                         <h2></small></h2>
+                         <ul class="nav navbar-right panel_toolbox">
+                           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                           </li>
+                           <li class="dropdown">
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                             <ul class="dropdown-menu" role="menu">
+                               <li><a href="#">Settings 1</a>
+                               </li>
+                               <li><a href="#">Settings 2</a>
+                               </li>
+                             </ul>
+                           </li>
+                           <li><a class="close-link"><i class="fa fa-close"></i></a>
+                           </li>
+                         </ul>
+                         <div class="clearfix"></div>
+                       </div>
+                       <div class="x_content">
+                         <button type="button" class="btn btn-round btn-primary">Add</button><button type="button" class="btn btn-round btn-danger">Delete</button>
+                         <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+                           <thead>
+                             <tr>
+
+                               <th >H-Id</th>
+                               <th>Company name</th>
+                               <th>Address</th>
+                               <th>Email</th>
+                               <th>Tel-No</th>
+                               <th>Single room price</th>
+                               <th>Double room price</th>
+                               <th>Website</th>
+                               <th>Distance</th>
+                             </tr>
+                           </thead>
+
+
+                           <tbody>
+
+
+                           </tbody>
+                         </table>
+                       </div>
+                       <div>
+                          <a href="hotelm.php" class="btn btn-info btn-lg">
+                            <span class="glyphicon glyphicon-arrow-left"></span> Back
+                           </a>
+                       </div>
+                     </div>
+                   </div>
+
+         </div> -->
 
             <body>
-              
-              <form action="test3.php" method="post">
-
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Paper ID</label>
-                  <input type="text" class="form-control" name="pid" id="pid" placeholder="Enter Paper ID">
-                </div>
 
 
-             <div class="">
+
+
+          <div class="row">
+        <div class="col-xs-12">
+          <div class="">
             <div class="box-header">
-              <h3 >Comments for the paper
-                
-              </h3>
-              <!-- tools box -->
-             <!--  <div class="pull-right box-tools">
-                <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                  <i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
-                        title="Remove">
-                  <i class="fa fa-times"></i></button>
-              </div> -->
-              <!-- /. tools -->
+              <h3 class="box-title">Reviewed Papers</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body pad">
-            
-                <textarea name="comment" class="textarea" placeholder="Place some text here"
-                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-              
+            <div class="box-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Paper ID</th>
+                  
+                  
+                </tr>
+                </thead>
+                <tbody>
+
+                  <?php
+
+                    $query1="SELECT pid FROM paper_detail";
+                    $result=mysqli_query($connection,$query1);
+                    while($row=mysqli_fetch_assoc($result)){
+                        $id = $row['pid'];
+                        $query3="SELECT * from reviewer_assign where pid='$id'";
+                        $result3 = mysqli_query($connection, $query3);
+                        $count=mysqli_num_rows($result3);
+
+                       
+    
+
+    if($count>=3){
+      echo "<tr><td><a href='test6.php?code=$id'>".$row['pid']."</a></td></tr>";
+    }
+  
+}
+
+                    ?>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Paper ID</th>
+                 
+                </tr>
+                </tfoot>
+              </table>
             </div>
+            <!-- /.box-body -->
           </div>
 
-
-           <div class="form-group">
-                  <label>Acceptance for the paper</label>
-                  <select name="acceptance" class="form-control">
-
-                    <option value="Strongly Accepatance">Strongly Accepatance</option>
-                    <option value="Accepatance With Few Modifications">Accepatance With Few Modifications</option>
-                    <option value="Weakly Rejected">Weakly Rejected</option>
-                    <option value="Strongly Rejected">Strongly Rejected</option>
-                    
-                  </select>
-                </div>
-
-
-                <div class="box-footer">
-                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-              </div>
-
-          </form>
-
-            </body>
-
-
-
+           
         </div>
 
 
