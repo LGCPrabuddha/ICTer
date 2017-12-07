@@ -1,6 +1,8 @@
 <?php session_start(); ?>
 <?php //require_once('inc1/connection.php'); ?>
 
+
+
 <?php
 // //Create the Percentage
 //   function percentage($a, $b){
@@ -287,7 +289,8 @@ $hotel=progress('dbdhotel');
             <div class="process">
               <div class="process" id="process-heading">
                 <h3>Progess of Each Committee</h3>
-              </div>    
+              </div> 
+              <!-- rishoban i need to add a table and additional two progress bars but page height is fixed -->   
               
               <div class="process" id="process-body">
                 <h4>Publicity Committee</h4>
@@ -318,11 +321,42 @@ $hotel=progress('dbdhotel');
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$hotel"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$hotel"; ?>%</div>
                    </div>
+                   <h4> Group Tasks</h4>
+                   <div class="x_content">
+                   
+                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+                      <thead>
+                        <tr>
+                          
+                          
+                          <th>Task</th>
+                          <th>Status</th>
+                          <th>Due Date </th>
+                        </tr>
+                      </thead>
 
 
+                      <tbody>
+
+                        <?php
+                        include('inc1/connection.php');
+                        $userq="SELECT * FROM adm_task WHERE Team = 'Bag Quatation'";
+                        $result=mysqli_query($connection,$userq);
+                         while($row=mysqli_fetch_array($result)){ ?>
+                                <tr>   
+                                  <td><?php echo $row['Task']; ?></td>
+                                  <td><?php echo $row['Status']; ?></td>
+                                  <td><?php echo $row['Duration']; ?></td>
+                                </tr><?php } ?>
+                      </tbody>
+                    </table>
+                  </div> 
               </div>
             </div>
           </div>
+
+
+
             <div class="right-main">
               <div class="text-cal">
                         <div class="daterangepicker picker_3 xdisplay single opensright show-calendar pull-right">
@@ -511,6 +545,13 @@ $hotel=progress('dbdhotel');
         </div>    
           
 
+          <?php
+        // $userq="SELECT * FROM adm_task where team = Bag Quatation";
+        // $result=mysqli_query($connection,$userq);
+        //$row=mysqli_fetch_array($answer)
+        ?>
+
+                  
     
     <!-- jQuery -->
     <script src="jquery-3.2.1.min.js"></script>

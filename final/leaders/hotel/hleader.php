@@ -323,6 +323,36 @@ $hotel=progress('dbdhotel');
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$hotel"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$hotel"; ?>%</div>
                    </div>
+                   <h4>Group Tasks</h4>
+                   <div class="x_content">
+                   
+                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+                      <thead>
+                        <tr>
+                          
+                          
+                          <th>Task</th>
+                          <th>Status</th>
+                          <th>Due Date </th>
+                        </tr>
+                      </thead>
+
+
+                      <tbody>
+
+                        <?php
+                        include('inc1/connection.php');
+                        $userq="SELECT * FROM adm_task WHERE Team = 'Hotel Quataion'";
+                        $result=mysqli_query($connection,$userq);
+                         while($row=mysqli_fetch_array($result)){ ?>
+                                <tr>   
+                                  <td><?php echo $row['Task']; ?></td>
+                                  <td><?php echo $row['Status']; ?></td>
+                                  <td><?php echo $row['Duration']; ?></td>
+                                </tr><?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
 
               </div>
             </div>
@@ -547,85 +577,7 @@ $hotel=progress('dbdhotel');
     <script src="../build/js/custom.min.js"></script>
 
     <!-- Datatables -->
-    <script>
-      $(document).ready(function() {
-        var handleDataTableButtons = function() {
-          if ($("#datatable-buttons").length) {
-            $("#datatable-buttons").DataTable({
-              dom: "Bfrtip",
-              buttons: [
-                {
-                  extend: "copy",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "csv",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "excel",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "pdfHtml5",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "print",
-                  className: "btn-sm"
-                },
-              ],
-              responsive: true
-            });
-          }
-        };
-
-        TableManageButtons = function() {
-          "use strict";
-          return {
-            init: function() {
-              handleDataTableButtons();
-            }
-          };
-        }();
-
-        $('#datatable').dataTable();
-
-        $('#datatable-keytable').DataTable({
-          keys: true
-        });
-
-        $('#datatable-responsive').DataTable();
-
-        $('#datatable-scroller').DataTable({
-          ajax: "js/datatables/json/scroller-demo.json",
-          deferRender: true,
-          scrollY: 380,
-          scrollCollapse: true,
-          scroller: true
-        });
-
-        $('#datatable-fixed-header').DataTable({
-          fixedHeader: true
-        });
-
-        var $datatable = $('#datatable-checkbox');
-
-        $datatable.dataTable({
-          'order': [[ 1, 'asc' ]],
-          'columnDefs': [
-            { orderable: false, targets: [0] }
-          ]
-        });
-        $datatable.on('draw.dt', function() {
-          $('input').iCheck({
-            checkboxClass: 'icheckbox_flat-green'
-          });
-        });
-
-        TableManageButtons.init();
-      });
-    </script>
+    
 	
     
   </body>

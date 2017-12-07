@@ -321,6 +321,36 @@ $hotel=progress('dbdhotel');
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$hotel"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$hotel"; ?>%</div>
                    </div>
+                   <h4> Group Tasks</h4>
+                   <div class="x_content">
+                   
+                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+                      <thead>
+                        <tr>
+                          
+                          
+                          <th>Task</th>
+                          <th>Status</th>
+                          <th>Due Date </th>
+                        </tr>
+                      </thead>
+
+
+                      <tbody>
+
+                        <?php
+                        include('inc1/connection.php');
+                        $userq="SELECT * FROM adm_task WHERE Team = 'Sponsorship Handling'";
+                        $result=mysqli_query($connection,$userq);
+                         while($row=mysqli_fetch_array($result)){ ?>
+                                <tr>   
+                                  <td><?php echo $row['Task']; ?></td>
+                                  <td><?php echo $row['Status']; ?></td>
+                                  <td><?php echo $row['Duration']; ?></td>
+                                </tr><?php } ?>
+                      </tbody>
+                    </table>
+                  </div> 
 
               </div>
             </div>
