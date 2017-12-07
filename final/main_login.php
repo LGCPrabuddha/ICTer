@@ -24,7 +24,7 @@ if(empty($errors)){
     $hashed_password = sha1($password);
 
 //prepare database query
-$query="SELECT * FROM reviewer_detail
+$query="SELECT * FROM main_login
 WHERE email='{$email}'
 AND password= '{$hashed_password}'";
 
@@ -46,9 +46,11 @@ verify_query($result_set);
 
     verify_query($result_set);
       //die("database connection failed");
+    if($user['position']=="Leader"){
     
     //redirect users.php 
-    header('location:test3.php');
+    header('location:leaders/food/hleader.php');
+  }
   }else{
     //username password invalid
     $errors[]='invalid username / password';
@@ -99,7 +101,7 @@ verify_query($result_set);
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-             <form action="test4.php" method="post">
+             <form action="main_login.php" method="post">
 
               <fieldset>
               <h1>Login Form</h1>

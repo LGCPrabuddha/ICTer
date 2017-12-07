@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
-<?php require_once('inc1/functions.php'); ?>
+
 <?php
 //checking that user logged into the system
 // if (!isset($_SESSION['user_id'])){
@@ -9,29 +9,36 @@
 //
 $errors = array();
 
+$id='';
 $fname='';
 $lname='';
 $tel= '';
 $email="";
 $password="";
+$position="";
+$team="";
 
 
 if (isset($_POST['submit'])){ //added by me
 
+
+    $id= $_POST['id'];
     $fname= $_POST['fname'];
     $lname= $_POST['lname'];
     $tel= $_POST['tel'];
     $email=$_POST['email'];
     $password=$_POST['password'];
+    $position=$_POST['position'];
+    $team=$_POST['team'];
     $hashed_password = sha1($password);
 
-    $query="INSERT INTO main_login VALUES($fname,'$lname','$tel','$email','$hashed_password')";
+    $query="INSERT INTO main_login VALUES('$id','$fname','$lname','$email','$hashed_password','$tel','$position','$team')";
     $test = mysqli_query($connection,$query);
     if ($test) {
         # code...
         echo "ok";
     }
-    header('Location:test2.php');
+    header('Location:assign_new_user.php');
 }
 ?>
 
@@ -39,7 +46,7 @@ if (isset($_POST['submit'])){ //added by me
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>test2</title>
+<title>Assign Members</title>
 <!-- Our customize file -->
 <link href="css/CDetail.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -261,8 +268,14 @@ if (isset($_POST['submit'])){ //added by me
             </div> -->
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="test2.php" method="post">
+            <form action="assign_new_user.php" method="post">
               <div class="box-body">
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Member ID</label>
+                  <input type="text" class="form-control" name="id"  placeholder="Member ID">
+                </div>
+
                 <div class="form-group">
                   <label for="exampleInputEmail1">First Name</label>
                   <input type="text" class="form-control" name="fname"  placeholder="First Name">
@@ -277,7 +290,7 @@ if (isset($_POST['submit'])){ //added by me
                   <label for="exampleInputEmail1">Tel</label>
                   <input type="text" class="form-control" name="tel"  placeholder="Tel">
                 </div>
-                
+
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email</label>
                   <input type="text" class="form-control" name="email"  placeholder="Email">
@@ -315,7 +328,7 @@ if (isset($_POST['submit'])){ //added by me
                 
                 
                   </label>
-                </div> -->
+                </div> 
               </div>
               <!-- /.box-body -->
 
@@ -326,54 +339,10 @@ if (isset($_POST['submit'])){ //added by me
           </div>
 
 
-          <div class="row">
-        <div class="col-xs-12">
-          <div class="">
-            <div class="box-header">
-              <h3 class="box-title">Hover Data Table</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                  <th>Reviewer ID</th>
-                  <th>Name</th>
-                  
-                </tr>
-                </thead>
-                <tbody>
-                
+          
+        </body>
+      </div>
 
-
- <?php
-
-                    $query1="SELECT * FROM reviewer_detail";
-                    $result=mysqli_query($connection,$query1);
-                    while($row=mysqli_fetch_array($result)){
-                        $code = $row['rid'];
-                        echo "<tr><td><a href='test8.php?code=$code'>".$row['rid']."</a></td><td>".$row['name']."</td></tr>";
-
-                    }
-
-                    ?>
-
-
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th>Reviewer ID</th>
-                  <th>Name</th>
-                  
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-
-           
-        </div>
 
 
         <!-- jQuery -->
