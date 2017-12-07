@@ -320,7 +320,7 @@ if (isset($_POST['submit'])){ //added by me
 
                     <option value="Food">Food Committee</option>
                     <option value="Review">Review Committee </option>
-                    <option value="Weakly Rejected">Weakly Rejected</option>
+                    
                     <option value="Hotel">Hotel Committee</option>
                     
                   </select>

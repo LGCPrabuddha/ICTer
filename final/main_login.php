@@ -37,7 +37,7 @@ verify_query($result_set);
     //valid user found
     $user= mysqli_fetch_assoc($result_set);
     //var_dump($user);
-    $_SESSION['user_id']= $user['rid'];
+    $_SESSION['user_id']= $user['id'];
     $_SESSION['name']= $user['name'];
 
    
@@ -46,10 +46,25 @@ verify_query($result_set);
 
     verify_query($result_set);
       //die("database connection failed");
+
+    if($user['position']=="Admin"){
+    
+    //redirect users.php 
+    header('location:Admin/progress.php');
+  }
     if($user['position']=="Leader"){
+      if($user['team']=="Food"){
     
     //redirect users.php 
     header('location:leaders/food/hleader.php');
+    }
+
+   
+      if($user['team']=="Review"){
+    
+    //redirect users.php 
+    header('location:review committee/test1.php');
+    }
   }
   }else{
     //username password invalid
