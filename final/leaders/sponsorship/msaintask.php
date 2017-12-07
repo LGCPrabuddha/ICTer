@@ -349,7 +349,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                 <label ><?php echo date("l jS F Y ")  ?></label><br>
                 Due Date<br><div class="form-group"> <!-- Date input -->
         <!-- <label class="control-label" for="date">Date</label> -->
-        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+        <input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD" type="text"/>
       </div><br>
                 <br>
                 <input type="submit" name="submit" class="btn btn-default submit" value="submit"><!-- <input type="submit" name="done" value="done"> -->
@@ -458,7 +458,7 @@ tr:nth-child(even){background-color: #f2f2f2}
       var date_input=$('input[name="date"]'); //our date input has the name "date"
       var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
       var options={
-        format: 'mm/dd/yyyy',
+        format: 'yyyy/mm/dd',
         container: container,
         todayHighlight: true,
         autoclose: true,

@@ -2,38 +2,72 @@
 <?php require_once('inc1/connection.php'); ?>
 
 <?php
-// Check connection
-// $conn=mysqli_connect('localhost','root','','group');
-// 
+// // Check connection
+// // $conn=mysqli_connect('localhost','root','','group');
+// // 
 
-if (!isset($_SESSION['user_id'])){
-    header('Location: index.php');
-  }
+// if (!isset($_SESSION['user_id'])){
+//     header('Location: index.php');
+//   }
 
-$sql="SELECT * FROM trial";
+// $sql="SELECT * FROM trial";
 
-if ($result=mysqli_query($connection,$sql))
-  {
-  // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result);
-  $sql2="SELECT * FROM trial WHERE status='1'";
-  if($query2=mysqli_query($connection,$sql2)){
-    $result2=mysqli_num_rows($query2);
-  }
-  //Create the Percentage
-  function percentage($a, $b){
-	  return ($a/$b)*100;
-  }
-  $percent=percentage($result2,$rowcount);
+// if ($result=mysqli_query($connection,$sql))
+//   {
+//   // Return the number of rows in result set
+//   $rowcount=mysqli_num_rows($result);
+//   $sql2="SELECT * FROM trial WHERE status='1'";
+//   if($query2=mysqli_query($connection,$sql2)){
+//     $result2=mysqli_num_rows($query2);
+//   }
+//   //Create the Percentage
+//   function percentage($a, $b){
+// 	  return ($a/$b)*100;
+//   }
+//   $percent=percentage($result2,$rowcount);
   
-  // Free result set
-  mysqli_free_result($result);
-  mysqli_free_result($query2);
-  }
+//   // Free result set
+//   mysqli_free_result($result);
+//   mysqli_free_result($query2);
+//   }
 
-mysqli_close($connection);
+// mysqli_close($connection);
 
 ?>
+<?php
+//for percentage counting
+
+//$conn=mysqli_connect('localhost','root','','group');
+
+ function progress($group_table){
+  // echo "in function";
+  $conn=mysqli_connect('localhost','root','','group');
+
+  // Return the number of rows in result set
+  $sql="SELECT * FROM $group_table ";
+  $result=mysqli_query($conn,$sql);
+  $all_tasks=mysqli_num_rows($result);
+
+  // Return the number of completed tasks in result set
+  $sql2="SELECT * FROM $group_table WHERE NOT status='Ongoing' ";
+  $query2=mysqli_query($conn,$sql2);
+  $completed_tasks=mysqli_num_rows($query2);
+
+$final=$completed_tasks*100/$all_tasks;
+
+  return floor($final);
+} 
+$food=progress('dbdfood');
+$publicity=progress('dbdpublicity');
+$sponsorshsip=progress('dbdsponsorship');
+$bag=progress('dbdbag');
+/////$paper=progress('dbdpaper');************ Udara and rishobn
+$keynote=progress('dbdkeynote');
+$hotel=progress('dbdhotel');
+
+//mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -78,7 +112,7 @@ mysqli_close($connection);
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2><?php echo $_SESSION['first_name']; ?></h2>
+                <h2><?//php echo $_SESSION['first_name']; ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -261,21 +295,21 @@ mysqli_close($connection);
               </div>    
               
               <div class="process" id="process-body">
-                <h4><a href="Publicity.html"> Publicity Committee</a></h4>
-                <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="pro">25%</div>
+               <h4>Publicity Committee</h4>
+                 <div class="progress">
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$publicity"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="pro"><?php echo "$publicity"; ?>%</div>
                    </div>
                   <h4> Sponsorship Handling Gorup</h4>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percent; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $percent; ?>%</div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$sponsorshsip"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$sponsorshsip"; ?>%</div>
                    </div>
                   <h4> Bag Quatation </h4>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 45%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">45%</div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$bag"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$bag"; ?>%</div>
                    </div>
                   <h4> Food Allocation</h4>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 55%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">55%</div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$food"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$food"; ?>%</div>
                    </div>
                   <h4> Paper Handling Gorup</h4>
                 <div class="progress">
@@ -283,11 +317,11 @@ mysqli_close($connection);
                    </div>
                   <h4>Keynote Group</h4>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$keynote"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$keynote"; ?>%</div>
                    </div>
                   <h4> Hotel Quatation Group</h4>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$hotel"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$hotel"; ?>%</div>
                    </div>
 
               </div>
