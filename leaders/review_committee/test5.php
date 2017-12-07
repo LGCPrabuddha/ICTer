@@ -1,42 +1,13 @@
 <?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
 <?php require_once('inc1/functions.php'); ?>
-<?php
-//checking that user logged into the system
-// if (!isset($_SESSION['user_id'])){
-//    header('Location: index.php');
-//  }
-//
-$errors = array();
 
-$pid='';
-$abstract='';
-$keyword= '';
-// $institute= '';
-
-
-if (isset($_POST['submit'])){ //added by me
-
-    $pid= $_POST['pid'];
-    $abstract= $_POST['abstract'];
-    $keyword= $_POST['keyword'];
-    // $institute= $_POST['institute'];
-   
-    $query="INSERT INTO paper_detail VALUES($pid,'$abstract','$keyword')";
-    $test = mysqli_query($connection,$query);
-    if ($test) {
-        # code...
-        echo "ok";
-    }
-    header('Location:paper_detail.php');
-}
-?>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Paper Details</title>
+<title>test5</title>
 <!-- Our customize file -->
 <link href="css/CDetail.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -93,17 +64,17 @@ if (isset($_POST['submit'])){ //added by me
                     <div class="menu_section">
                         <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                            <li><a href="test1.php"><i class="fa fa-home"></i> Paper Details <span class="fa fa-circle"></span></a>
 
                             </li>
 
-                            <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
+                            <li><a href="test2.php"><i class="fa fa-edit"></i> Reviewer Details <span class="fa fa-circle"></span></a>
 
                             </li>
-                            <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
+                            <li><a href="test5.php"><i class="fa fa-desktop"></i> Reviewed Papers <span class="fa fa-circle"></span></a>
 
                             </li>
-                            <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                            <li><a href="test6.php"><i class="fa fa-table"></i> Final Review<span class="fa fa-circle"></span></a></li>
 
                         </ul>
                     </div>
@@ -307,93 +278,55 @@ if (isset($_POST['submit'])){ //added by me
          </div> -->
 
             <body>
-            <form action="paper_detail.php" method="post">
-                <div class="container">
-                    <h2><b>Research Papers submitted for the ICTer Conference</b></h2>
-
-                    <p>Insert the paper details below</p>
-
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Paper id</th>
-                                <th>Content</th>
-                                <th>Author</th>
-                                <th>Institute</th>
-                               
-
-
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-
-
-                                <td><div class="form-group">
-
-                                        <!-- <input type="text" name="pid" class="form-control" id="pid" placeholder="Enter Paper id"> -->
-
-                                        <textarea class="form-control" rows="5" name="pid" id="pid" placeholder="Enter Abstract"></textarea>
-                                    </div></td>
-
-
-
-                                <td><div class="form-group">
-
-                                        <input type="text" name="abstract" class="form-control" id="content" placeholder="Enter Content">
-                                    </div></td>
-                                <td><div class="form-group">
-
-                                        <input type="text" name="keyword" class="form-control" id="author" placeholder="Enter Author">
-                                    </div></td>
-                                <td><div class="form-group">
-
-                                        <input type="text" name="institute" class="form-control" id="institute" placeholder="Enter Institute">
-                                    </div></td>
-                               
-
-                                
-                            </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
 
 
 
 
+          <div class="row">
+        <div class="col-xs-12">
+          <div class="">
+            <div class="box-header">
+              <h3 class="box-title">Reviewed Papers</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Paper ID</th>
+                  <th>Reviewer ID</th>
+                  <th>Accepatance</th>
+                  
+                </tr>
+                </thead>
+                <tbody>
 
+               <?php
 
-                    <div class="col-md-12">
-                        <button type="submit" name="submit" class="pull-left" value="submit">Save</button> </div>
-                </div>
-            </form>
-            </body>
-            
-        <div class="col-xs-12 table-responsive">
-          <table class="table table-striped">
-                    <thead>
-                     <tr><td>Paper</td><td>Content</td><td>Author</td><td>Institute</td><tr>
-                   </thead>
-                    <tbody>
-                    <?php
-
-                    $query1="SELECT * FROM paper_detail";
+                    $query1="SELECT * FROM reviewer_assign";
                     $result=mysqli_query($connection,$query1);
                     while($row=mysqli_fetch_array($result)){
                         $code = $row['pid'];
-                        echo "<tr><td><a href='paper_edit.php?code=$code'>".$row['pid']."</a></td><td><a href=\"Review_list.php\">".$row['content']."</a></td><td>".$row['author']."</td><td>".$row['institute']."</td></tr>";
+                        echo "<tr><td><a href='test6.php?code=$code'>".$row['pid']."</a></td><td>".$row['rid']."</td><td>".$row['acceptance']."</td></tr>";
 
                     }
 
                     ?>
-                    </tbody>
-                </table>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Paper ID</th>
+                  <th>Reviewer ID</th>
+                  <th>Accepatance</th>
+                </tr>
+                </tfoot>
+              </table>
             </div>
+            <!-- /.box-body -->
+          </div>
 
-
+           
         </div>
 
 

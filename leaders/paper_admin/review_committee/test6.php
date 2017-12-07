@@ -1,42 +1,19 @@
 <?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
 <?php require_once('inc1/functions.php'); ?>
+
 <?php
-//checking that user logged into the system
-// if (!isset($_SESSION['user_id'])){
-//    header('Location: index.php');
-//  }
-//
-$errors = array();
-
-$pid='';
-$abstract='';
-$keyword= '';
-// $institute= '';
-
-
-if (isset($_POST['submit'])){ //added by me
-
-    $pid= $_POST['pid'];
-    $abstract= $_POST['abstract'];
-    $keyword= $_POST['keyword'];
-    // $institute= $_POST['institute'];
-   
-    $query="INSERT INTO paper_detail VALUES($pid,'$abstract','$keyword')";
-    $test = mysqli_query($connection,$query);
-    if ($test) {
-        # code...
-        echo "ok";
-    }
-    header('Location:paper_detail.php');
-}
+  $code = $_GET['code'];
+  
 ?>
+
+
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Paper Details</title>
+<title>test6</title>
 <!-- Our customize file -->
 <link href="css/CDetail.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -93,17 +70,17 @@ if (isset($_POST['submit'])){ //added by me
                     <div class="menu_section">
                         <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                            <li><a href="test1.php"><i class="fa fa-home"></i> Paper Details <span class="fa fa-circle"></span></a>
 
                             </li>
 
-                            <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
+                            <li><a href="test2.php"><i class="fa fa-edit"></i> Reviewer Details <span class="fa fa-circle"></span></a>
 
                             </li>
-                            <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
+                            <li><a href="test5.php"><i class="fa fa-desktop"></i> Reviewed Papers <span class="fa fa-circle"></span></a>
 
                             </li>
-                            <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                            <li><a href="test6.php"><i class="fa fa-table"></i> Final Review<span class="fa fa-circle"></span></a></li>
 
                         </ul>
                     </div>
@@ -248,152 +225,105 @@ if (isset($_POST['submit'])){ //added by me
         </div>
 
         <div class="right_col" role="main">
-            <!-- <div class="">
-                 <div class="row top_tiles">
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                     <div class="x_panel">
-                       <div class="x_title">
-                         <h2></small></h2>
-                         <ul class="nav navbar-right panel_toolbox">
-                           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                           </li>
-                           <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                             <ul class="dropdown-menu" role="menu">
-                               <li><a href="#">Settings 1</a>
-                               </li>
-                               <li><a href="#">Settings 2</a>
-                               </li>
-                             </ul>
-                           </li>
-                           <li><a class="close-link"><i class="fa fa-close"></i></a>
-                           </li>
-                         </ul>
-                         <div class="clearfix"></div>
-                       </div>
-                       <div class="x_content">
-                         <button type="button" class="btn btn-round btn-primary">Add</button><button type="button" class="btn btn-round btn-danger">Delete</button>
-                         <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
-                           <thead>
-                             <tr>
 
-                               <th >H-Id</th>
-                               <th>Company name</th>
-                               <th>Address</th>
-                               <th>Email</th>
-                               <th>Tel-No</th>
-                               <th>Single room price</th>
-                               <th>Double room price</th>
-                               <th>Website</th>
-                               <th>Distance</th>
-                             </tr>
-                           </thead>
-
-
-                           <tbody>
-
-
-                           </tbody>
-                         </table>
-                       </div>
-                       <div>
-                          <a href="hotelm.php" class="btn btn-info btn-lg">
-                            <span class="glyphicon glyphicon-arrow-left"></span> Back
-                           </a>
-                       </div>
-                     </div>
-                   </div>
-
-         </div> -->
-
-            <body>
-            <form action="paper_detail.php" method="post">
-                <div class="container">
-                    <h2><b>Research Papers submitted for the ICTer Conference</b></h2>
-
-                    <p>Insert the paper details below</p>
-
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Paper id</th>
-                                <th>Content</th>
-                                <th>Author</th>
-                                <th>Institute</th>
-                               
-
-
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-
-
-                                <td><div class="form-group">
-
-                                        <!-- <input type="text" name="pid" class="form-control" id="pid" placeholder="Enter Paper id"> -->
-
-                                        <textarea class="form-control" rows="5" name="pid" id="pid" placeholder="Enter Abstract"></textarea>
-                                    </div></td>
-
-
-
-                                <td><div class="form-group">
-
-                                        <input type="text" name="abstract" class="form-control" id="content" placeholder="Enter Content">
-                                    </div></td>
-                                <td><div class="form-group">
-
-                                        <input type="text" name="keyword" class="form-control" id="author" placeholder="Enter Author">
-                                    </div></td>
-                                <td><div class="form-group">
-
-                                        <input type="text" name="institute" class="form-control" id="institute" placeholder="Enter Institute">
-                                    </div></td>
-                               
-
-                                
-                            </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
-
-
-
-
-
-
-                    <div class="col-md-12">
-                        <button type="submit" name="submit" class="pull-left" value="submit">Save</button> </div>
-                </div>
-            </form>
-            </body>
+          <h2><font size="6">Paper Details</font></h2>
             
-        <div class="col-xs-12 table-responsive">
-          <table class="table table-striped">
-                    <thead>
-                     <tr><td>Paper</td><td>Content</td><td>Author</td><td>Institute</td><tr>
-                   </thead>
-                    <tbody>
-                    <?php
+            <body>
+ 
 
-                    $query1="SELECT * FROM paper_detail";
+<div class="">
+            
+  <?php
+
+                    $query1="SELECT * FROM paper_detail where pid='$code'";
                     $result=mysqli_query($connection,$query1);
                     while($row=mysqli_fetch_array($result)){
-                        $code = $row['pid'];
-                        echo "<tr><td><a href='paper_edit.php?code=$code'>".$row['pid']."</a></td><td><a href=\"Review_list.php\">".$row['content']."</a></td><td>".$row['author']."</td><td>".$row['institute']."</td></tr>";
-
+                        $pid = $row['pid'];
+                        $abstract = $row['abstract'];
+                        $keyword = $row['keyword'];
+                       
                     }
 
                     ?>
-                    </tbody>
-                </table>
-            </div>
 
 
+            <form >
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Paper ID</label>
+                  <input type="text" class="form-control" name="pid" id="pid" <?php echo 'value="'.$code.'"';    ?> disabled="">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Abstract</label>
+                 <textarea class="form-control" rows="10" name="abstract" id="abstract" value="hjhfvhjv" disabled=""><?php echo "$abstract"; ?></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Keyword</label>
+                 <textarea class="form-control" rows="5" name="keyword" id="keyword" <?php echo 'value="'.$keyword.'"';    ?> disabled=""><?php echo "$keyword"; ?></textarea>
+                </div>
+               
+              </div>
+                           
+            </form>
+
+
+
+
+
+          </div>
+<h1>  Reviewer List</h1>
+
+
+<div class="">
+            
+  <?php
+
+                    $query1="SELECT * FROM reviewer_assign where pid='$code'";
+                    $result=mysqli_query($connection,$query1);
+                    while($row=mysqli_fetch_array($result)){
+                        $rid = $row['rid'];
+                        $comment = $row['comment'];
+                        $acceptance = $row['acceptance'];
+                       
+                    
+
+                    ?>
+                    <h3>Reviewer</h3>
+
+            <form >
+              <div class="box-body">
+                
+                <div class="form-group">
+                 <a href='viewPaper.php?code=$rid'> <label for="exampleInputEmail1"><?php echo "$rid"; ?></label></a>
+                 
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Comment</label>
+                 <textarea class="form-control" rows="10" name="comment" id="abstract" value="hjhfvhjv" disabled=""><?php echo "$comment"; ?></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Acceptance</label>
+                  <input type="text" class="form-control" name="acceptance" id="pid" <?php echo 'value="'.$acceptance.'"';    ?> disabled="">
+                </div>
+               <div class="form-group">
+                <input type="" name="" hidden="">
+               </div>
+              </div>
+                           
+            </form>
+
+<?php } ?>
+
+
+
+          </div>
+
+
+          <h4  align="center"><font size="6" color="red">Final Decision For The Paper</font></h4>
+          <button type="button" class="btn btn-primary btn-lg btn-block">Accepted</button>
+  <button type="button" class="btn btn-default btn-lg btn-block">Rejected</button>
+
+            
         </div>
 
 

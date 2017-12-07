@@ -10,25 +10,26 @@
 $errors = array();
 
 $pid='';
-$abstract='';
-$keyword= '';
-// $institute= '';
+$comment='';
+$acceptance= '';
+
 
 
 if (isset($_POST['submit'])){ //added by me
 
     $pid= $_POST['pid'];
-    $abstract= $_POST['abstract'];
-    $keyword= $_POST['keyword'];
-    // $institute= $_POST['institute'];
+    $comment= $_POST['comment'];
+    $acceptance= $_POST['acceptance'];
+    $id=$_SESSION['user_id'];
    
-    $query="INSERT INTO paper_detail VALUES($pid,'$abstract','$keyword')";
+   
+    $query="INSERT INTO reviewer_assign VALUES('$pid','$id','$comment','$acceptance')";
     $test = mysqli_query($connection,$query);
     if ($test) {
         # code...
         echo "ok";
     }
-    header('Location:paper_detail.php');
+    header('Location:test3.php');
 }
 ?>
 
@@ -36,7 +37,7 @@ if (isset($_POST['submit'])){ //added by me
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Paper Details</title>
+<title>test3</title>
 <!-- Our customize file -->
 <link href="css/CDetail.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -248,150 +249,65 @@ if (isset($_POST['submit'])){ //added by me
         </div>
 
         <div class="right_col" role="main">
-            <!-- <div class="">
-                 <div class="row top_tiles">
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                     <div class="x_panel">
-                       <div class="x_title">
-                         <h2></small></h2>
-                         <ul class="nav navbar-right panel_toolbox">
-                           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                           </li>
-                           <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                             <ul class="dropdown-menu" role="menu">
-                               <li><a href="#">Settings 1</a>
-                               </li>
-                               <li><a href="#">Settings 2</a>
-                               </li>
-                             </ul>
-                           </li>
-                           <li><a class="close-link"><i class="fa fa-close"></i></a>
-                           </li>
-                         </ul>
-                         <div class="clearfix"></div>
-                       </div>
-                       <div class="x_content">
-                         <button type="button" class="btn btn-round btn-primary">Add</button><button type="button" class="btn btn-round btn-danger">Delete</button>
-                         <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
-                           <thead>
-                             <tr>
-
-                               <th >H-Id</th>
-                               <th>Company name</th>
-                               <th>Address</th>
-                               <th>Email</th>
-                               <th>Tel-No</th>
-                               <th>Single room price</th>
-                               <th>Double room price</th>
-                               <th>Website</th>
-                               <th>Distance</th>
-                             </tr>
-                           </thead>
-
-
-                           <tbody>
-
-
-                           </tbody>
-                         </table>
-                       </div>
-                       <div>
-                          <a href="hotelm.php" class="btn btn-info btn-lg">
-                            <span class="glyphicon glyphicon-arrow-left"></span> Back
-                           </a>
-                       </div>
-                     </div>
-                   </div>
-
-         </div> -->
+            
 
             <body>
-            <form action="paper_detail.php" method="post">
-                <div class="container">
-                    <h2><b>Research Papers submitted for the ICTer Conference</b></h2>
+              
+              <form action="test3.php" method="post">
 
-                    <p>Insert the paper details below</p>
-
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Paper id</th>
-                                <th>Content</th>
-                                <th>Author</th>
-                                <th>Institute</th>
-                               
-
-
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-
-
-                                <td><div class="form-group">
-
-                                        <!-- <input type="text" name="pid" class="form-control" id="pid" placeholder="Enter Paper id"> -->
-
-                                        <textarea class="form-control" rows="5" name="pid" id="pid" placeholder="Enter Abstract"></textarea>
-                                    </div></td>
-
-
-
-                                <td><div class="form-group">
-
-                                        <input type="text" name="abstract" class="form-control" id="content" placeholder="Enter Content">
-                                    </div></td>
-                                <td><div class="form-group">
-
-                                        <input type="text" name="keyword" class="form-control" id="author" placeholder="Enter Author">
-                                    </div></td>
-                                <td><div class="form-group">
-
-                                        <input type="text" name="institute" class="form-control" id="institute" placeholder="Enter Institute">
-                                    </div></td>
-                               
-
-                                
-                            </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
-
-
-
-
-
-
-                    <div class="col-md-12">
-                        <button type="submit" name="submit" class="pull-left" value="submit">Save</button> </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Paper ID</label>
+                  <input type="text" class="form-control" name="pid" id="pid" placeholder="Enter Paper ID">
                 </div>
-            </form>
-            </body>
-            
-        <div class="col-xs-12 table-responsive">
-          <table class="table table-striped">
-                    <thead>
-                     <tr><td>Paper</td><td>Content</td><td>Author</td><td>Institute</td><tr>
-                   </thead>
-                    <tbody>
-                    <?php
 
-                    $query1="SELECT * FROM paper_detail";
-                    $result=mysqli_query($connection,$query1);
-                    while($row=mysqli_fetch_array($result)){
-                        $code = $row['pid'];
-                        echo "<tr><td><a href='paper_edit.php?code=$code'>".$row['pid']."</a></td><td><a href=\"Review_list.php\">".$row['content']."</a></td><td>".$row['author']."</td><td>".$row['institute']."</td></tr>";
 
-                    }
-
-                    ?>
-                    </tbody>
-                </table>
+             <div class="">
+            <div class="box-header">
+              <h3 >Comments for the paper
+                
+              </h3>
+              <!-- tools box -->
+             <!--  <div class="pull-right box-tools">
+                <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
+                        title="Collapse">
+                  <i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
+                        title="Remove">
+                  <i class="fa fa-times"></i></button>
+              </div> -->
+              <!-- /. tools -->
             </div>
+            <!-- /.box-header -->
+            <div class="box-body pad">
+            
+                <textarea name="comment" class="textarea" placeholder="Place some text here"
+                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+              
+            </div>
+          </div>
+
+
+           <div class="form-group">
+                  <label>Acceptance for the paper</label>
+                  <select name="acceptance" class="form-control">
+
+                    <option value="Strongly Accepatance">Strongly Accepatance</option>
+                    <option value="Accepatance With Few Modifications">Accepatance With Few Modifications</option>
+                    <option value="Weakly Rejected">Weakly Rejected</option>
+                    <option value="Strongly Rejected">Strongly Rejected</option>
+                    
+                  </select>
+                </div>
+
+
+                <div class="box-footer">
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+              </div>
+
+          </form>
+
+            </body>
+
 
 
         </div>
