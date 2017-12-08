@@ -1,4 +1,4 @@
-
+<?php session_start(); ?>
 <?php
 require_once('connection.php');
 
@@ -15,6 +15,20 @@ if(isset($_POST['submit'])){
 
     header("location:assigntask.php");
 }
+
+
+//Dilmini's Code
+if(isset($_POST['submit'])){
+    $task=$_POST['task'];
+    $duration=$_POST['duration'];
+    foreach($_POST['team'] as $selected){
+      $inadd="INSERT INTO notifyadmin (task, group_name, duration, status) Values ('$task', '$selected','$duration','1')";
+      $enter=mysqli_query($connection,$inadd);
+    }
+
+}
+
+
 if(isset($_POST['done'])){
     if(!empty($_POST['bill'])){
         foreach($_POST['bill'] as $select){
@@ -83,7 +97,7 @@ if(isset($_POST['done'])){
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2><?php echo $_SESSION['name']; ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -146,7 +160,7 @@ if(isset($_POST['done'])){
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt=""><?php echo $_SESSION['name']; ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">

@@ -38,7 +38,9 @@ verify_query($result_set);
     $user= mysqli_fetch_assoc($result_set);
     //var_dump($user);
     $_SESSION['user_id']= $user['id'];
-    $_SESSION['name']= $user['name'];
+    $_SESSION['name']= $user['fname'];
+    $_SESSION['committee']= $user['team'];
+
 
    
 

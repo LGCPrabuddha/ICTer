@@ -1,8 +1,8 @@
 <?php require_once('inc1/connection.php'); ?>
 <?php  
   // $con = mysqli_connect('localhost','root','','trial');
-  // session_start();
-  // $myuser=$_SESSION['user_name'];
+ session_start();
+ $myuser=$_SESSION['user_name'];
   // if (mysqli_connect_errno()){
   //   die('Database connection failed' . mysqli_connect_error());
   // } 
@@ -168,17 +168,28 @@
                     <span class="badge bg-green">6</span>
                   </a>
         
-                  <li role="presentation" class="dropdown">
+                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-bell"></i>
                     <span class='badge bg-red' id='lab' onclick='myFunction()'>
                     <?php
-                        // $que = "SELECT task FROM notify WHERE member='$myuser' AND status='1'";
-                        // $result=mysqli_query($con,$que);
-                        // $count1 = mysqli_num_rows($result);
-                        // if($count1>0){
-                        //   echo $count1."</span>";
-                        // }
+                        $que1 = "SELECT mygroup FROM groupleaders WHERE leader='$myuser'";
+                        $res1 = mysqli_query($connection,$que1);
+                        $row1 = mysqli_fetch_assoc($res1);
+                        $group1 = $row1['mygroup'];
+                        $que = "SELECT * FROM notifyleader WHERE usergroup='$group1' AND status='1'";
+                        $result1=mysqli_query($connection,$que);
+                        $count1 = mysqli_num_rows($result1);
+
+                        $que2 = "SELECT * FROM notifyadmin WHERE group_name='food' AND status='1'";
+                        $result2=mysqli_query($connection,$que2);
+                        $count2=mysqli_num_rows($result2);
+
+                        $count = $count1+$count2;
+
+                        if($count2>0){
+                          echo $count2."</span>";
+                        }
                         ?>
                         <script type="text/javascript">
                         function myFunction(){
@@ -193,11 +204,14 @@
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                       <?php
-                        while($row=mysqli_fetch_assoc($result)){
-                          echo "<li><a href='javascript:;'>"."<b>Allocated new task for you</b><br>".$row['task']."</a></li>";
+                        while($row1=mysqli_fetch_assoc($result1)){
+                          echo "<li><a href='javascript:;'>"."<b>Allocated task finished by </b><br>".$row1['username']." <b>Task is :</b>". $row1['task']."</a></li>";
                         }
-                        $query2="UPDATE notify SET status='0' WHERE member='$myuser'";
-                        $result2=mysqli_query($con,$query2);
+                        while($row2=mysqli_fetch_assoc($result2)){
+                          echo "<li><a href='javascript:;'>"."<b>Allocate task </b><br>".$row2['task']." <b>Task is :</b>". $row2['duration']."</a></li>";
+                        }
+                        $query2="UPDATE notifyleader SET status='0' WHERE usergroup='$group1'";
+                        $result2=mysqli_query($connection,$query2);
                       ?> 
                   </ul>
                 </li>
