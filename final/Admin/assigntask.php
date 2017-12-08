@@ -38,17 +38,28 @@ if(isset($_POST['done'])){
 
 
     <title>User Interface </title>
-    <!-- Our customize file -->
-    <link href="CDetail.css" rel="stylesheet">
-    <!-- Bootstrap -->
-    <link href="bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
+    
 
+    <link href="css/CDetail.css" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- bootstrap-wysiwyg -->
+<link href="../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+<!-- Switchery -->
+<link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+<!-- starrr -->
+<link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="custom.min.css" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
 
 
 
@@ -83,12 +94,12 @@ if(isset($_POST['done'])){
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>General</h3>
-                <ul class="nav side-menu">
-                  <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-
+               <ul class="nav side-menu">
+                  <li><a href="progress.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    
                   </li>
 
-                  <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="committee_details.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
 
                 </li>
                   <li><a href="assigntask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
@@ -274,11 +285,7 @@ if(isset($_POST['done'])){
                 <input type="submit" name="submit" value="Submit" class="btn btn-primary">
 
 <br><br>
-	<!--	<div class="task-content">
-			<div class="task-head">
-			<h2><b>Details of Tasks</b></h2><hr>
-			</div>
-			<div class="task-body">-->
+
 				<table class="table">
           <thead class="thead-light">
   <tr>
@@ -321,110 +328,10 @@ if(isset($_POST['done'])){
     <!-- Bootstrap -->
     <script src="bootstrap.min.js"></script>
 
-<!--	<script>
-	var table="#mytable";
-	$('#maxRows').on('change',function(){
-		$('.pagination').html('');
-		var trnum=0;
-		var maxRows=parseint($(this).val());
-		var totalRows=$(table+' Tbody tr ').length;
-		$(table+'tr:gt(0)').each(function(){
-			trnum++;
-			if(trnum > maxRows){
-				$(this).hide();
-			}
-			if(trnum <= maxRows){
-				$(this).show();
-			}
-		})
-		if(totalRows > maxRows){
-			var pagenum=Math.ceil(totalRows/maxRows);
-			for(var i=1;i<=pagenum;){
-				$('.pagination').append('<li dat-page="'+i+'">\<span>'+ i++ +'</span class="sr-only">(current)</span></span>\</li>').show();
-
-			}
-		}
-		$('.pagination li:first-child').addClass('active');
-		$('.pagination li').on('click',function(){
-			var pagenum=$(this).attr('dat-page');
-			var trIndex = 0;
-			$('.pagination').removeClass('active');
-			$(this).addClass('active');
-			$(table+'tr:gt(0)').each(function(){
-				trIndex++;
-				if(trIndex > (maxRows+pageNum) || trIndex <= ((maxRows+pageNum)-maxRows)){
-					$(this).hide();
-				}else{
-					$(this).show();
-				}
-			})
-		})
-	})
-	$(function(){
-		$('table tr:eq(0)').prepend('<th>10</th>');
-		var id=0;
-		$('table tr:gt(0)').each(function(){
-			id++;
-			$(this).prepand('<td>'+id+'</td>');
-		})
-	})
-	</script>-->
-
 
         <!-- Custom Theme Scripts -->
     <script src="custom.min.js"></script>
 
-    <!-- Get the input and print in the table -->
- <!--   <script>
-    $(function(){
-       $("#usr").keypress(function(event){
-         if(event.which==13){
-           $("#addinto").click();
-           event.preventDefault();
-         }
-       })
-       $("#addinto").click(function(){
-         var task=$("#usr").val();
-         $("#content").html(task);
-
-         $("#usr").val("");
-       })
-    })
-    </script> -->
-<!--<script>
-$(document).ready(function(){
-    $("#usr").keypress(function(event){
-        if(event.which==13){
-
-        }
-    })
-
-    function applyRemoveEvent(){
-    $('#addinto').on('click',function() {
-        alert("aa");
-      $(this).closest( 'tr').remove();
-
-    });
-};
-$('#addinto').on('click', function() {
-    $('#btn').trigger('click');
-            var info=$("#usr").val();
-            $.ajax({
-                method:"POST",
-                url:"task.php",
-                data:{task:info},
-                success:function(status){
-                    $("thead").append("<tr> <td>"+status+"</td><td><label><input type='radio' class='option-input radio' name="+status+" id='t1'/></label></td><td><input type='radio' class='option-input radio' name="+status+"checked='checked'/></td><td></td></tr>");
-                    $(this).closest('tr').remove();
-                    //$(".intention").html(status);
-                    $("#usr").val('');
-                }
-            })
-
-            event.preventDefault();
-});
-
-})
-</script>-->
+    
   </body>
 </html>

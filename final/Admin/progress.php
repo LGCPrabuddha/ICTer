@@ -3,7 +3,7 @@
 
 <?php
 // Check connection
-require_once('con.php');
+require_once('connection.php');
 
 $sql="SELECT * FROM adm_task";
 
@@ -38,8 +38,28 @@ if ($result=mysqli_query($connection,$sql))
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Home Page </title>
-    <!-- Our customize file -->
-    <link href="main.css" rel="stylesheet">
+   
+  <link href="css/CDetail.css" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- bootstrap-wysiwyg -->
+<link href="../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+<!-- Switchery -->
+<link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+<!-- starrr -->
+<link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
+
     <!-- Bootstrap -->
     <link href="bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -48,7 +68,9 @@ if ($result=mysqli_query($connection,$sql))
     <link href="Team_leaders/vendors/nprogress/nprogress.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="custom.min.css" rel="stylesheet">
+    <link href="custom.min.css" rel="stylesheet"> 
+
+
     <style>
     .container{
       border-style: 1px solid;
@@ -112,18 +134,14 @@ if ($result=mysqli_query($connection,$sql))
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
+                  <li><a href="progress.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    
                   </li>
 
-                  <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="committee_details.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
 
                 </li>
-                  <li><a href="msaintask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="assigntask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
 
                   </li>
                   <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>

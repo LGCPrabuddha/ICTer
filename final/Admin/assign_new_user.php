@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
-<?php require_once('inc1/functions.php'); ?>
+
 <?php
 //checking that user logged into the system
 // if (!isset($_SESSION['user_id'])){
@@ -9,27 +9,36 @@
 //
 $errors = array();
 
-$pid='';
-$comment='';
-$acceptance= '';
-
+$id='';
+$fname='';
+$lname='';
+$tel= '';
+$email="";
+$password="";
+$position="";
+$team="";
 
 
 if (isset($_POST['submit'])){ //added by me
 
-    $pid= $_POST['pid'];
-    $comment= $_POST['comment'];
-    $acceptance= $_POST['acceptance'];
-    $id=$_SESSION['user_id'];
-   
-   
-    $query="INSERT INTO reviewer_assign VALUES('$pid','$id','$comment','$acceptance')";
+
+    $id= $_POST['id'];
+    $fname= $_POST['fname'];
+    $lname= $_POST['lname'];
+    $tel= $_POST['tel'];
+    $email=$_POST['email'];
+    $password=$_POST['password'];
+    $position=$_POST['position'];
+    $team=$_POST['team'];
+    $hashed_password = sha1($password);
+
+    $query="INSERT INTO main_login VALUES('$id','$fname','$lname','$email','$hashed_password','$tel','$position','$team')";
     $test = mysqli_query($connection,$query);
     if ($test) {
         # code...
         echo "ok";
     }
-    header('Location:test3.php');
+    header('Location:assign_new_user.php');
 }
 ?>
 
@@ -37,7 +46,7 @@ if (isset($_POST['submit'])){ //added by me
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>test3</title>
+<title>Assign Members</title>
 <!-- Our customize file -->
 <link href="css/CDetail.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -82,7 +91,7 @@ if (isset($_POST['submit'])){ //added by me
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2><?php echo $_SESSION['name']; ?></h2>
+                        <h2>John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -94,15 +103,17 @@ if (isset($_POST['submit'])){ //added by me
                     <div class="menu_section">
                         <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a href="test3.php"><i class="fa fa-home"></i> Home <span class="fa fa-circle"></span></a>
+                            <li><a href="test1.php"><i class="fa fa-home"></i> Paper Details <span class="fa fa-circle"></span></a>
 
                             </li>
 
-                            <li><a href="test9.php"><i class="fa fa-edit"></i> Reviewed Papers <span class="fa fa-circle
-                            "></span></a>
+                            <li><a href="test2.php"><i class="fa fa-edit"></i> Reviewer Details <span class="fa fa-circle"></span></a>
 
                             </li>
-                            
+                            <li><a href="test5.php"><i class="fa fa-desktop"></i> Reviewed Papers <span class="fa fa-circle"></span></a>
+
+                            </li>
+                             <li><a href="test11.php"><i class="fa fa-table"></i> Final Review<span class="fa fa-circle"></span></a></li>
                         </ul>
                     </div>
 
@@ -141,7 +152,7 @@ if (isset($_POST['submit'])){ //added by me
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt=""><?php echo $_SESSION['name']; ?>
+                                <img src="images/img.jpg" alt="">John Doe
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -153,7 +164,7 @@ if (isset($_POST['submit'])){ //added by me
                                     </a>
                                 </li>
                                 <li><a href="javascript:">Help</a></li>
-                                <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                <li><a href="index.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                             </ul>
                         </li>
 
@@ -246,68 +257,92 @@ if (isset($_POST['submit'])){ //added by me
         </div>
 
         <div class="right_col" role="main">
-            
+           
 
             <body>
-              
-              <form action="test3.php" method="post">
+
+
+<div class="">
+            <!-- <div class="box-header with-border">
+              <h3 class="box-title">Quick Example</h3>
+            </div> -->
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form action="assign_new_user.php" method="post">
+              <div class="box-body">
 
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Paper ID</label>
-                  <input type="text" class="form-control" name="pid" id="pid" placeholder="Enter Paper ID">
+                  <label for="exampleInputEmail1">Member ID</label>
+                  <input type="text" class="form-control" name="id"  placeholder="Member ID">
                 </div>
 
+                <div class="form-group">
+                  <label for="exampleInputEmail1">First Name</label>
+                  <input type="text" class="form-control" name="fname"  placeholder="First Name">
+                </div>
 
-             <div class="">
-            <div class="box-header">
-              <h3 >Comments for the paper
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Last Name</label>
+                  <input type="text" class="form-control" name="lname"  placeholder="Last Name">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Tel</label>
+                  <input type="text" class="form-control" name="tel"  placeholder="Tel">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email</label>
+                  <input type="text" class="form-control" name="email"  placeholder="Email">
+                </div>
+
                 
-              </h3>
-              <!-- tools box -->
-             <!--  <div class="pull-right box-tools">
-                <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                  <i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
-                        title="Remove">
-                  <i class="fa fa-times"></i></button>
-              </div> -->
-              <!-- /. tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body pad">
-            
-                <textarea name="comment" class="textarea" placeholder="Place some text here"
-                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-              
-            </div>
-          </div>
 
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Password</label>
+                  <input type="text" class="form-control" name="password" placeholder="Password">
+                </div>
 
-           <div class="form-group">
-                  <label>Acceptance for the paper</label>
-                  <select name="acceptance" class="form-control">
+                <div class="form-group">
+                  <label>Position</label>
+                  <select name="position" class="form-control">
 
-                    <option value="Strongly Accepatance">Strongly Accepatance</option>
-                    <option value="Accepatance With Few Modifications">Accepatance With Few Modifications</option>
-                    <option value="Weakly Rejected">Weakly Rejected</option>
-                    <option value="Strongly Rejected">Strongly Rejected</option>
+                    <option value="Leader">Leader</option>
+                    <option value="Member">Member</option>
+                    
                     
                   </select>
                 </div>
 
+                <div class="form-group">
+                  <label>Committee</label>
+                  <select name="team" class="form-control">
 
-                <div class="box-footer">
+                    <option value="Food">Food Committee</option>
+                    <option value="Review">Review Committee </option>
+                    
+                    <option value="Hotel">Hotel Committee</option>
+                    
+                  </select>
+                </div>
+                
+                
+                  </label>
+                </div> 
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
               </div>
-
-          </form>
-
-            </body>
+            </form>
+          </div>
 
 
+          
+        </body>
+      </div>
 
-        </div>
 
 
         <!-- jQuery -->
