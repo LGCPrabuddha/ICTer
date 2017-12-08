@@ -144,7 +144,8 @@ if ($result=mysqli_query($connection,$sql))
                   <li><a href="assigntask.php"><i class="fa fa-desktop"></i> Assigning Task <span class="fa fa-chevron-down"></span></a>
 
                   </li>
-                  <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
+                  <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a></li>
+                   <li><a href="../forum/trick.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a></li>
 
                 </ul>
               </div>

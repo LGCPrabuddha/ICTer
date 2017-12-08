@@ -132,7 +132,9 @@ $hotel=progress('dbdhotel');
                     
                   </li>
                   <li><a href="fooddb.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
-                   
+                   </li>
+                   <li><a href="../../forum/trick.php"><i class="fa fa-table"></i>Chat<span class="fa fa-chevron-down"></span></a>
+                   </li>
                 </ul>
               </div>
               
