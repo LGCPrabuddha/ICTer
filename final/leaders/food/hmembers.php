@@ -2,7 +2,7 @@
 <?php  
   // $con = mysqli_connect('localhost','root','','trial');
  session_start();
- $myuser=$_SESSION['user_name'];
+$myuser=$_SESSION['user_name'];
   // if (mysqli_connect_errno()){
   //   die('Database connection failed' . mysqli_connect_error());
   // } 
@@ -244,11 +244,8 @@
                     <div class="clearfix"></div>
                   </div>
                    <div class="x_content">
-                    <?php $connection = mysqli_connect('localhost','root','','group');
-                    $result=mysqli_query($connection,"SELECT * FROM main_login WHERE team = 'food' AND position= 'Member' ");
-                    //$result=mysqli_query($connection,"SELECT * FROM tfood WHERE team = 'food' AND position= 'Member' ");
-
-                    ?>
+                    <?php  $query1="SELECT * FROM main_login WHERE team = 'Food' AND position= 'Member'";
+                     $result=mysqli_query($connection,$query1);?>
                     <h1>Food Group Members</h1>
                     <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
                                   <tr>
@@ -260,16 +257,25 @@
                                     <th>Progress</th>
                                     
                                  </tr>
-                                  <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
+                                  <tbody><?php while($row=mysqli_fetch_assoc($result)){
+                                    $id = $row['id'];
+                                    $query3="SELECT * from tfood where uindex={$id}";
+                                    $result3 = mysqli_query($connection, $query3);
+                                    $all_tsk=mysqli_num_rows($result3);
+
+                                      $query4="SELECT * from tfood where uindex={$id} AND situation='Finish'";
+                                      $result4 = mysqli_query($connection, $query4);
+                                      $fnsh_tsk=mysqli_num_rows($result4);
+
+                                      $percent = $fnsh_tsk * 100 / $all_tsk;?> 
                                   <tr>
-                                <!--     <td width="5%"><input type="checkbox" name="bill[]" value=<?php// echo '"' . $row['task'] . '"'; if($row['bill'] == "1") {echo "checked='checked'"; } ?>></td>
-                                 -->    
+                                 
                                 <td><?php echo $row['fname']; ?></td>
                                 <td><?php echo $row['lname']; ?></td>
                                  <td><?php echo $row['id']; ?></td>
-                                    <td><?php echo $row['email']; ?></td>
+                                 <td><?php echo $row['email']; ?></td>
                                     <!-- <td><?php //echo $row['Duration'];  ?></td>-->
-                                    <td><?php echo(rand(0,100));  ?>%</td> 
+                                    <td><?php echo $percent;  ?>%</td> 
                                   </tr><?php } ?>
                                  </tbody></form>
                                 </table>
