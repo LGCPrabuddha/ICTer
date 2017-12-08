@@ -47,7 +47,7 @@
   $all_tasks=mysqli_num_rows($result);
 
   // Return the number of completed tasks in result set
-  $sql2="SELECT * FROM $group_table WHERE NOT status='Ongoing' ";
+  $sql2="SELECT * FROM $group_table WHERE NOT situation='Ongoing' ";
   $query2=mysqli_query($conn,$sql2);
   $completed_tasks=mysqli_num_rows($query2);
 
@@ -55,13 +55,13 @@ $final=$completed_tasks*100/$all_tasks;
 
   return floor($final);
 } 
-$food=progress('dbdfood');
-$publicity=progress('dbdpublicity');
-$sponsorshsip=progress('dbdsponsorship');
-$bag=progress('dbdbag');
+$food=progress('tfood');
+$publicity=progress('tpublicity');
+$sponsorshsip=progress('tsponsorship');
+$bag=progress('tbag');
 /////$paper=progress('dbdpaper');************ Udara and rishobn
-$keynote=progress('dbdkeynote');
-$hotel=progress('dbdhotel');
+//$keynote=progress('tkeynote');
+$hotel=progress('thotel');
 
 //mysqli_close($conn);
 ?>

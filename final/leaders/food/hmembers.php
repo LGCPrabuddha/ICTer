@@ -245,27 +245,31 @@
                   </div>
                    <div class="x_content">
                     <?php $connection = mysqli_connect('localhost','root','','group');
-                    $result=mysqli_query($connection,"SELECT * FROM login WHERE ugroup = 'food' AND profile_type= 'member' ");
+                    $result=mysqli_query($connection,"SELECT * FROM main_login WHERE team = 'food' AND position= 'Member' ");
+                    //$result=mysqli_query($connection,"SELECT * FROM tfood WHERE team = 'food' AND position= 'Member' ");
+
                     ?>
                     <h1>Food Group Members</h1>
                     <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
                                   <tr>
                                     <!-- <th width="5%">Status</th> -->
-                                    <th>User Name</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
                                     <th>User Index</th>
                                     <th>Email</th>
                                     <th>Progress</th>
-                                    <!-- <th>Status</th>
- -->                                  </tr>
+                                    
+                                 </tr>
                                   <tbody><?php while($row=mysqli_fetch_array($result)){ ?>
                                   <tr>
                                 <!--     <td width="5%"><input type="checkbox" name="bill[]" value=<?php// echo '"' . $row['task'] . '"'; if($row['bill'] == "1") {echo "checked='checked'"; } ?>></td>
                                  -->    
-                                <td><?php echo $row['user_name']; ?></td>
-                                 <td><?php echo $row['uindex']; ?></td>
+                                <td><?php echo $row['fname']; ?></td>
+                                <td><?php echo $row['lname']; ?></td>
+                                 <td><?php echo $row['id']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
                                     <!-- <td><?php //echo $row['Duration'];  ?></td>-->
-                                    <td><?php echo $row['profile_type'];  ?></td> 
+                                    <td><?php echo(rand(0,100));  ?>%</td> 
                                   </tr><?php } ?>
                                  </tbody></form>
                                 </table>
