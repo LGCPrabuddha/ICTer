@@ -1,44 +1,92 @@
-<?php /*require_once('inc1/connection.php'); */?>
-<?php /*require_once('inc1/connection.php'); */?>
+<?php require_once('inc1/connection.php'); ?>
 <?php
-$connection = mysqli_connect('localhost','root','','group');
 
-  
-    
 
-if(isset($_POST['submit'])){
-    $task=$_POST['task'];
-    $description=$_POST['comment'];
-    $mid=$_POST['member'];
-    $due_date=$_POST['date'];
-    //$status=$_POST['date'];
-    $inadd="INSERT INTO dbdfood (mid, task, description,status, due_date) Values 
-    ('$mid', '$task', '$description','Ongoing','$due_date')";
-    $enter=mysqli_query($connection,$inadd);
+
+
+
+  $v1 = '';
+  $v2 = '';
+  $v3 = '';
+  $v4 = '';
+  $v5 = '';
+  $v6 = '';
+  $rowcount = '';
+  $st = '';
+  $as = '';
+  //$xs = SELECT CURDATE();
+
+
+
+
+  if (isset($_POST['submit'])) {
+      // checking required fields
+
+
+
+    $sql="SELECT * FROM tfood";
+    $result1 = mysqli_query($connection,$sql);
+    $rowcount=mysqli_num_rows($result1);
+    $st = $rowcount +1;
+    $as = "<input type=\"hidden\" name=\"id\" value = " .$st.">" ;
+
+    //$te = $rowcount +1 ;
+   // $V0 = session variable $_POST['']
+    $v1 = $_POST['task'];
+    $v2 = $_POST['comment'];
+    $v3 = date("Y/m/j");
+    $v4 = $_POST['date'];
+    $v5 =  $_POST['member'];
     
-    header("location:msaintask.php");
-}
-// if(isset($_POST['submit'])){
-//     $task=$_POST['task'];
-//     $member=$_POST['member'];
-//     $addno="INSERT INTO notify (task, member,status) Values ('$task', '$member','1')";
-//     $enter=mysqli_query($connection,$addno);
-    
-//     header("location:msaintask.php");
-// }
-// if(isset($_POST['done'])){
-//     if(!empty($_POST['bill'])){
-//         foreach($_POST['bill'] as $select){
-//             $sql3 = "UPDATE trial SET bill = '1' WHERE task = '$select'";
-//             $enter3=mysqli_query($connection,$sql3);
-            
-//         }
-//     }else{
-//         echo "plz enter the task";
-//     }     
-//  }    
-   
-$result=mysqli_query($connection, " SELECT * FROM dbdfood ");
+    $v6 = "<form method=\"POST\" action=\"myTask.php\">".$as." <button type=\"submit\" name=\"fsubmit\" class=\"btn btn-success submit\" style=\"margin-top: 5px; font-size: 10px;\">Complet</button></form>";
+
+
+
+
+      /*$query1 = "SELECT COUNT(id) FROM thotel";
+      $result1 = mysqli_query($connection,$query1);*/
+
+      /*$result=mysql_query("SELECT count(*) as total from thotel");
+      $data=mysql_fetch_assoc($result);
+      echo $data['total'];
+*/
+      /*$rowcount = '';
+      $sql="SELECT * FROM thotel";
+      $result1 = mysqli_query($connection,$sql);
+      $rowcount=mysqli_num_rows($result1)
+      ++$rowcount;*/
+
+      // no errors found... adding new record
+      //$v1 = mysqli_real_escape_string($connection,$_POST['v1']);
+     // $v2 = mysqli_real_escape_string($connection,$_POST['v2']);
+     // $v3 = mysqli_real_escape_string($connection,$_POST['v3']);
+      //$v4 = mysqli_real_escape_string($connection,$_POST['v4']);
+     // $v5 = mysqli_real_escape_string($connection,$_POST['v5']);
+      //$v6 = mysqli_real_escape_string($connection,$_POST['v6']);
+
+
+
+      $query = "INSERT INTO tfood (";
+      $query .= "task,comment, assdate, enddate, uindex, done, situation, is_deleted";
+      $query .= ") VALUES (";
+      $query .= "'{$v1}','{$v2}','{$v3}', '{$v4}', '{$v5}', '{$v6}', 'Ongoing', 0";
+      $query .= ")";
+
+
+
+      $result = mysqli_query($connection,$query);
+
+      if ($result) {
+        // query successfull.... redireting to modify-admin page
+        header('Location:msaintask.php');
+
+      }else{
+        echo "error";
+      }
+
+
+  }
+$result=mysqli_query($connection, " SELECT * FROM tfood ");
 
  ?>
 
@@ -321,10 +369,10 @@ tr:nth-child(even){background-color: #f2f2f2}
         <select class="select-style" name="member" >
           <option>Select a member to assign a task</option>
         <?php
-        $userq="SELECT user_name,uindex FROM login WHERE ugroup = 'food' AND profile_type= 'member' ;";
+        $userq="SELECT fname,lname,id FROM main_login WHERE team = 'food' AND position= 'Member' ;";
         $answer=mysqli_query($connection,$userq);
         while($row2=mysqli_fetch_array($answer)){ ?>
-          <option value=<?php echo '"'.$row2['uindex'].'"'; ?>><?php echo $row2['user_name']; ?></option>
+          <option value=<?php echo '"'.$row2['id'].'"'; ?>><?php echo $row2['fname']." ".$row2['lname']; ?></option>
           <?php  }   ?>
         </select>
          <br> <br>      
@@ -367,11 +415,11 @@ tr:nth-child(even){background-color: #f2f2f2}
   <tr>
 <!--     <td width="5%"><input type="checkbox" name="bill[]" value=<?php// echo '"' . $row['task'] . '"'; if($row['bill'] == "1") {echo "checked='checked'"; } ?>></td>
  -->    
-<td><?php echo $row['mid']; ?></td>
+<td><?php echo $row['uindex']; ?></td>
  <td><?php echo $row['task']; ?></td>
-    <td><?php echo $row['description']; ?></td>
-    <td><?php echo $row['due_date'];  ?></td>
-     <td><?php echo $row['status'];  ?></td>
+    <td><?php echo $row['comment']; ?></td>
+    <td><?php echo $row['enddate'];  ?></td>
+     <td><?php echo $row['situation'];  ?></td>
   </tr><?php } ?>
  </tbody></form>
 </table>

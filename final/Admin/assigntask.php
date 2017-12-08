@@ -38,7 +38,11 @@ if(isset($_POST['done'])){
 
 
     <title>User Interface </title>
-    
+    <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
 
     <link href="css/CDetail.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -61,6 +65,7 @@ if(isset($_POST['done'])){
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
 
   </head>
@@ -279,8 +284,10 @@ if(isset($_POST['done'])){
                 <option value="Commity7">Hotel Quataion</option>
               </select></div>
               <div class="form-group col-md-4">
-                Duration<br><input type="date" name="duration" class="form-control" placeholder="Enter Task">
-
+Due Date<br><div class="form-group"> <!-- Date input -->
+        <!-- <label class="control-label" for="date">Date</label> -->
+        <input class="form-control" id="date" name="duration" placeholder="YYYY/MM/DD" type="text"/>
+      </div><br>
               </div></div>
                 <input type="submit" name="submit" value="Submit" class="btn btn-primary">
 
@@ -316,7 +323,21 @@ if(isset($_POST['done'])){
                   </div>
                 </div>
               </div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
+    <script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'yyyy/mm/dd',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
 
 
 
