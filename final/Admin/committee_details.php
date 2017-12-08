@@ -1,8 +1,48 @@
-
+<?php session_start(); ?>
 <?php 
 
 //to include the connection
 include_once('inc1/connection.php');
+?>
+<?php
+//checking that user logged into the system
+// if (!isset($_SESSION['user_id'])){
+//    header('Location: index.php');
+//  }
+//
+$errors = array();
+
+$id='';
+$fname='';
+$lname='';
+$tel= '';
+$email="";
+$password="";
+$position="";
+$team="";
+
+
+if (isset($_POST['submit'])){ //added by me
+
+
+    $id= $_POST['id'];
+    $fname= $_POST['fname'];
+    $lname= $_POST['lname'];
+    $tel= $_POST['tel'];
+    $email=$_POST['email'];
+    $password=$_POST['password'];
+    $position=$_POST['position'];
+    $team=$_POST['team'];
+    $hashed_password = sha1($password);
+
+    $query="INSERT INTO main_login VALUES('$id','$fname','$lname','$email','$hashed_password','$tel','$position','$team')";
+    $test = mysqli_query($connection,$query);
+    if ($test) {
+        # code...
+        echo "ok";
+    }
+    header('Location:committee_details.php');
+}
 ?>
 
 
@@ -56,7 +96,7 @@ include_once('inc1/connection.php');
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>Admin</h2>
+                <h2><?php echo $_SESSION['name']; ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -102,7 +142,7 @@ include_once('inc1/connection.php');
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt=""><?php echo $_SESSION['name']; ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -232,7 +272,78 @@ include_once('inc1/connection.php');
                     </ul>
                     <div class="clearfix"></div>
                   </div>
+<div>
+  
+ <form action="committee_details.php" method="post">
+              <div class="box-body">
 
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Member ID</label>
+                  <input type="text" class="form-control" name="id"  placeholder="Member ID">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">First Name</label>
+                  <input type="text" class="form-control" name="fname"  placeholder="First Name">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Last Name</label>
+                  <input type="text" class="form-control" name="lname"  placeholder="Last Name">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Tel</label>
+                  <input type="text" class="form-control" name="tel"  placeholder="Tel">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email</label>
+                  <input type="text" class="form-control" name="email"  placeholder="Email">
+                </div>
+
+                
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Password</label>
+                  <input type="text" class="form-control" name="password" placeholder="Password">
+                </div>
+
+                <div class="form-group">
+                  <label>Position</label>
+                  <select name="position" class="form-control">
+
+                    <option value="Leader">Leader</option>
+                    <option value="Member">Member</option>
+                    
+                    
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Committee</label>
+                  <select name="team" class="form-control">
+
+                    <option value="Food">Food Committee</option>
+                    <option value="Review">Review Committee </option>
+                    
+                    <option value="Hotel">Hotel Committee</option>
+                    
+                  </select>
+                </div>
+                
+                
+                  </label>
+                </div> 
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+
+</div>
 
 
 <?php

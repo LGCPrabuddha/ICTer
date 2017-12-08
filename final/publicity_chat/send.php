@@ -14,7 +14,7 @@ if(isset($_POST['send'])){
 	$my_user=$_SESSION['user_name'];
     $date_now=create_date();
     $time_now=create_time();
-	$qua="SELECT commity FROM namelist WHERE name='$my_user'";
+	$qua="SELECT commity FROM chat WHERE name='$my_user'";
     $search=mysqli_query($connection,$qua);
     while ($mal=mysqli_fetch_array($search)) {
         $comm=$mal['commity'];
