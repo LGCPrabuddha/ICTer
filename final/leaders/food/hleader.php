@@ -1,37 +1,24 @@
 <?php session_start(); ?>
-<?php //require_once('inc1/connection.php'); ?>
+<?php require_once('inc1/connection.php'); ?>
 
 <?php
-// //Create the Percentage
-//   function percentage($a, $b){
-//     return ($a/$b)*100;
-//   }
-// // Check connection
-// $conn=mysqli_connect('localhost','root','','trial');
+                            //submit button for tasks of a group
+                           if(isset($_POST['done'])){
+                                if(!empty($_POST['bill'])){
+                                          foreach($_POST['bill'] as $select){
+                                          $sql3 = "UPDATE adm_task SET Status = 1 WHERE Task = '$select' AND Team = 'Food Allocation' ";
+                                          $enter3=mysqli_query($connection,$sql3);
+                                   }
+                                  // header('Location : hleader.php');
+                                }
 
-// $sql="SELECT * FROM trial";
+                                else{
+                                  echo "plz enter the task";
+                                  }
+                                }
+                                //new one
+                                ?>
 
-// if ($result=mysqli_query($conn,$sql))
-//   {
-//   // Return the number of rows in result set
-//   $rowcount=mysqli_num_rows($result);
-//   $sql2="SELECT * FROM trial WHERE bill='1'";
-//   if($query2=mysqli_query($conn,$sql2)){
-//     $result2=mysqli_num_rows($query2);
-  
-  
-//   $percent=percentage($result2,$rowcount);
-//   }
-//   // Free result set
-//   mysqli_free_result($result);
-//   //  mysqli_free_result($query2);
-//   }
-
-// mysqli_close($conn);
-
-// $percent=40;
-
-?>
 <?php
 //for percentage counting
 
@@ -302,11 +289,13 @@ $hotel=progress('thotel');
                   <h4> Hotel Quatation Group</h4>
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$hotel"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$hotel"; ?>%</div>
-                   </div>
+                   </div> 
                    <h4> Group Tasks</h4>
                    <div class="x_content">
-                   
-                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+
+                    <form method="post" action="hleader.php"> 
+
+                      <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
                       <thead>
                         <tr>
                           
@@ -314,6 +303,7 @@ $hotel=progress('thotel');
                           <th>Task</th>
                           <th>Status</th>
                           <th>Due Date </th>
+                          <th>Action</th>
                         </tr>
                       </thead>
 
@@ -324,14 +314,33 @@ $hotel=progress('thotel');
                         include('inc1/connection.php');
                         $userq="SELECT * FROM adm_task WHERE Team = 'Food Allocation'";
                         $result=mysqli_query($connection,$userq);
-                         while($row=mysqli_fetch_array($result)){ ?>
+                         while($row=mysqli_fetch_array($result)){
+                              $task=$row['Task'];
+                              $duration=$row['Duration'];
+
+                          ?>
+                          
+
                                 <tr>   
                                   <td><?php echo $row['Task']; ?></td>
-                                  <td><?php echo $row['Status']; ?></td>
+                                  <td><?php if ($row['Status']==1) {
+                                    echo "Finish";
+                                  }
+                                  else{
+                                    echo "Ongoing";
+                                  } ?></td>
                                   <td><?php echo $row['Duration']; ?></td>
-                                </tr><?php } ?>
+                                  <td width="5%">
+                                    <input type="checkbox" name="bill[]" value=<?php echo '"' . $row['Task'] . '"'; if($row['Status'] == 1) {echo "checked='checked'"; } ?>>
+                                  </td>
+                                </tr>
+                         <?php } ?>
                       </tbody>
                     </table>
+                   <center><input type="submit" name="done" value="done" class="btn btn-default"></center> 
+                  </form>
+                   
+                   
                   </div> 
 
               </div>
