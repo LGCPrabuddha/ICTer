@@ -6,6 +6,41 @@
   $code = $_GET['code'];
   
 ?>
+<?php
+
+
+$pid='';
+
+
+if (isset($_POST['accept'])){ 
+
+$pid= $_POST['pid'];
+   
+    $query="INSERT INTO final_review VALUES('$pid','accept')";
+    $test = mysqli_query($connection,$query);
+    if ($test) {
+        # code...
+        echo "ok";
+    }
+    header('Location:test11.php');
+}
+
+
+if (isset($_POST['reject'])){ 
+   
+   $pid= $_POST['pid'];
+   
+    $query="INSERT INTO final_review VALUES('$pid','reject')";
+    $test = mysqli_query($connection,$query);
+    if ($test) {
+        # code...
+        echo "ok";
+    }
+    header('Location:test11.php');
+}
+
+
+?>
 
 
 
@@ -318,10 +353,14 @@
           </div>
 
 
-          <h4  align="center"><font size="6" color="red">Final Decision For The Paper</font></h4>
-          <button type="button" class="btn btn-primary btn-lg btn-block">Accepted</button>
-  <button type="button" class="btn btn-default btn-lg btn-block">Rejected</button>
+          <form action="test6.php" method="post">
 
+
+        <input type="text" class="form-control" name="pid" value="<?php echo $code; ?>"  hidden="">
+          <h4  align="center"><font size="6" color="red">Final Decision For The Paper</font></h4>
+          <input type="submit" name="accept" class="btn btn-primary btn-lg btn-block" value="Accepted">
+  <input type="submit" name="reject" class="btn btn-default btn-lg btn-block" value="Rejected">
+            </form>
             
         </div>
 

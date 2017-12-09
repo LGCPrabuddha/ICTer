@@ -37,6 +37,24 @@ if (isset($_POST['submit'])){ //added by me
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>test1</title>
+
+
+
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- JQVMap -->
+<link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
+
+
+
 <!-- Our customize file -->
 <link href="css/CDetail.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -247,65 +265,55 @@ if (isset($_POST['submit'])){ //added by me
         </div>
 
         <div class="right_col" role="main">
-            <!-- <div class="">
-                 <div class="row top_tiles">
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                     <div class="x_panel">
-                       <div class="x_title">
-                         <h2></small></h2>
-                         <ul class="nav navbar-right panel_toolbox">
-                           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                           </li>
-                           <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                             <ul class="dropdown-menu" role="menu">
-                               <li><a href="#">Settings 1</a>
-                               </li>
-                               <li><a href="#">Settings 2</a>
-                               </li>
-                             </ul>
-                           </li>
-                           <li><a class="close-link"><i class="fa fa-close"></i></a>
-                           </li>
-                         </ul>
-                         <div class="clearfix"></div>
-                       </div>
-                       <div class="x_content">
-                         <button type="button" class="btn btn-round btn-primary">Add</button><button type="button" class="btn btn-round btn-danger">Delete</button>
-                         <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
-                           <thead>
-                             <tr>
+           
 
-                               <th >H-Id</th>
-                               <th>Company name</th>
-                               <th>Address</th>
-                               <th>Email</th>
-                               <th>Tel-No</th>
-                               <th>Single room price</th>
-                               <th>Double room price</th>
-                               <th>Website</th>
-                               <th>Distance</th>
-                             </tr>
-                           </thead>
-
-
-                           <tbody>
-
-
-                           </tbody>
-                         </table>
-                       </div>
-                       <div>
-                          <a href="hotelm.php" class="btn btn-info btn-lg">
-                            <span class="glyphicon glyphicon-arrow-left"></span> Back
-                           </a>
-                       </div>
-                     </div>
-                   </div>
-
-         </div> -->
 
             <body>
+
+              <?php 
+
+                        $query11="SELECT * from paper_detail";
+                        $result11 = mysqli_query($connection, $query11);
+                        $count11=mysqli_num_rows($result11);
+
+                        $query22="SELECT * from final_review";
+                        $result22 = mysqli_query($connection, $query22);
+                        $count22=mysqli_num_rows($result22);
+
+                        $query33="SELECT * from final_review where decision='accept'";
+                        $result33 = mysqli_query($connection, $query33);
+                        $count33=mysqli_num_rows($result33);
+
+                        $final= ($count22/$count11*100);
+                        $accpt= ($count33/$count22*100);
+                        $accpt2= ($count33/$count11*100);
+
+
+
+              ?>
+
+              <div class="row">
+      <div class="col-xs-4">
+        
+        <span class="chart" data-percent="<?php echo $final ?>">
+                        <span class="percent"></span>
+        </span>
+        <label>Reviewed Papers</label>
+      </div>
+      <div class="col-xs-4">
+        <span class="chart" data-percent="<?php echo $accpt ?>">
+                        <span class="percent"></span>
+        </span>
+        <label>Accepted Papers from the Reviewed papers</label>
+      </div>
+      <div class="col-xs-4">
+        <span class="chart" data-percent="<?php echo $accpt2 ?>">
+                        <span class="percent"></span>
+        </span>
+<label>Accepted Papers from recieved papers</label>
+      </div>
+      <div class="clearfix"></div>
+    </div>
 
 
 <div class="">
@@ -349,82 +357,7 @@ if (isset($_POST['submit'])){ //added by me
           </div>
 
 
-            <!-- <form action="paper_detail.php" method="post">
-                <div class="container">
-                    <h2><b>Research Papers submitted for the ICTer Conference</b></h2>
-                    <p>Insert the paper details below</p>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Paper id</th>
-                                <th>Content</th>
-                                <th>Author</th>
-                                <th>Institute</th>
-                               
-
-
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-
-
-                                <td><div class="form-group">
-
-                                        <input type="text" name="pid" class="form-control" id="pid" placeholder="Enter Paper id">
-                                    </div></td>
-                                <td><div class="form-group">
-
-                                        <input type="text" name="content" class="form-control" id="content" placeholder="Enter Content">
-                                    </div></td>
-                                <td><div class="form-group">
-
-                                        <input type="text" name="author" class="form-control" id="author" placeholder="Enter Author">
-                                    </div></td>
-                                <td><div class="form-group">
-
-                                        <input type="text" name="institute" class="form-control" id="institute" placeholder="Enter Institute">
-                                    </div></td>
-                               
-
-                                
-                            </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
-
-
-
-
-
-
-                    <div class="col-md-12">
-                        <button type="submit" name="submit" class="pull-left" value="submit">Save</button> </div>
-                </div>
-            </form>
-            </body>
-            <div class="container">
-                <table class="table">
-                    <thead>
-                     <tr><td>Paper</td><td>Content</td><td>Author</td><td>Institute</td><tr>
-                   </thead>
-                    <tbody>
-                    <?php
-
-                    $query1="SELECT * FROM paper_detail";
-                    $result=mysqli_query($connection,$query1);
-                    while($row=mysqli_fetch_array($result)){
-                      
-                        echo "<tr><td><a href='paper_edit.php?code=$code'>".$row['pid']."</a></td><td><a href=\"Review_list.php\">".$row['content']."</a></td><td>".$row['author']."</td><td>".$row['institute']."</td></tr>";
-
-                    }
-
-                    ?>
-                    </tbody>
-                </table>
-            </div> -->
+          
         </div>
 
 
@@ -457,6 +390,29 @@ if (isset($_POST['submit'])){ //added by me
 
         <!-- Custom Theme Scripts -->
         <script src="../build/js/custom.min.js"></script>
+
+
+
+        <script src="vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="../vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="../vendors/nprogress/nprogress.js"></script>
+<!-- jQuery Sparklines -->
+<script src="../vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- JQVMap -->
+<script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
+<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script src="../vendors/jqvmap/dist/maps/jquery.vmap.usa.js"></script>
+<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+<!-- easy-pie-chart -->
+<script src="../vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="..//build/js/custom.min.js"></script>
+
 
         <!-- Datatables -->
         <script>
@@ -563,7 +519,44 @@ if (isset($_POST['submit'])){ //added by me
 
                 TableManageButtons.init();
             });
+
+
         </script>
         <!-- /Datatables -->
+
+<script>
+  
+
+
+
+            <!-- easy-pie-chart -->
+
+  $(document).ready(function() {
+    $('.chart').easyPieChart({
+      easing: 'easeOutElastic',
+      delay: 3000,
+      barColor: '#26B99A',
+      trackColor: '#fff',
+      scaleColor: false,
+      lineWidth: 20,
+      trackWidth: 16,
+      lineCap: 'butt',
+      onStep: function(from, to, percent) {
+        $(this.el).find('.percent').text(Math.round(percent));
+      }
+    });
+    var chart = window.chart = $('.chart').data('easyPieChart');
+    $('.js_update').on('click', function() {
+      chart.update(Math.random() * 200 - 100);
+    });
+
+    //hover and retain popover when on popover content
+
+
+  });
+</script>
+
+
+
 </body>
 </html>
