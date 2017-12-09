@@ -46,9 +46,9 @@ $food=progress('tfood');
 $publicity=progress('tpublicity');
 $sponsorshsip=progress('tsponsorship');
 $bag=progress('tbag');
-/////$paper=progress('dbdpaper');************ Udara and rishobn
 //$keynote=progress('tkeynote');
 $hotel=progress('thotel');
+$overall=floor(($food+$publicity+$sponsorshsip+$bag+$hotel)/6);
 
 //mysqli_close($conn);
 ?>
@@ -258,38 +258,38 @@ $hotel=progress('thotel');
           <div class="left-main">
             <div class="process">
               <div class="process" id="process-heading">
-                <h3>Progess of Each Committee</h3>
+                <h3>Progess of Process</h3>
               </div>    
               
               <div class="process" id="process-body">
-                <h4>Publicity Committee</h4>
+                <h4>Event Progress</h4>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$publicity"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="pro"><?php echo "$publicity"; ?>%</div>
-                   </div>
-                  <h4> Sponsorship Handling Gorup</h4>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$overall"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$overall"; ?>%</div>
+                   </div> 
+                  <!-- <h4> Sponsorship Handling Gorup</h4>
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$sponsorshsip"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$sponsorshsip"; ?>%</div>
-                   </div>
-                  <h4> Bag Quatation </h4>
+                   </div> -->
+                  <!-- <h4> Bag Quatation </h4>
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$bag"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$bag"; ?>%</div>
-                   </div>
-                  <h4> Food Allocation</h4>
+                   </div> -->
+                  <h4> Refreshment Arranging Process</h4>
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$food"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$food"; ?>%</div>
                    </div>
-                  <h4> Paper Handling Gorup</h4>
+                  <!-- <h4> Paper Handling Gorup</h4>
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 65%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">65%</div>
-                   </div>
-                  <h4>Keynote Group</h4>
+                   </div> -->
+                 <!--  <h4>Keynote Group</h4>
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$keynote"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$keynote"; ?>%</div>
-                   </div>
-                  <h4> Hotel Quatation Group</h4>
+                   </div> -->
+                  <!-- <h4> Hotel Quatation Group</h4>
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo "$hotel"; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo "$hotel"; ?>%</div>
-                   </div> 
+                   </div> --> 
                    <h4> Group Tasks</h4>
                    <div class="x_content">
 
