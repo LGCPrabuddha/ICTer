@@ -37,6 +37,9 @@ if (isset($_POST['submit'])){ //added by me
 
     $query="INSERT INTO main_login VALUES('$id','$fname','$lname','$email','$hashed_password','$tel','$position','$team')";
     $test = mysqli_query($connection,$query);
+
+    $query1="INSERT INTO chat VALUES('$id','$fname','$team','1')";
+    $test1 = mysqli_query($connection,$query1);
     if ($test) {
         # code...
         echo "ok";
@@ -279,42 +282,42 @@ if (isset($_POST['submit'])){ //added by me
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Member ID</label>
-                  <input type="text" class="form-control" name="id"  placeholder="Member ID">
+                  <input type="text" class="form-control" name="id"  placeholder="Member ID" required>
                 </div>
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">First Name</label>
-                  <input type="text" class="form-control" name="fname"  placeholder="First Name">
+                  <input type="text" class="form-control" name="fname"  placeholder="First Name" required>
                 </div>
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Last Name</label>
-                  <input type="text" class="form-control" name="lname"  placeholder="Last Name">
+                  <input type="text" class="form-control" name="lname"  placeholder="Last Name" required>
                 </div>
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Tel</label>
-                  <input type="text" class="form-control" name="tel"  placeholder="Tel">
+                  <input type="text" class="form-control" name="tel"  placeholder="Tel" required>
                 </div>
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email</label>
-                  <input type="text" class="form-control" name="email"  placeholder="Email">
+                  <input type="text" class="form-control" name="email"  placeholder="Email" required>
                 </div>
 
                 
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Password</label>
-                  <input type="text" class="form-control" name="password" placeholder="Password">
+                  <input type="text" class="form-control" name="password" placeholder="Password" required>
                 </div>
 
                 <div class="form-group">
                   <label>Position</label>
                   <select name="position" class="form-control">
 
-                    <option value="Leader">Leader</option>
-                    <option value="Member">Member</option>
+                    <option value="leader">Leader</option>
+                    <option value="member">Member</option>
                     
                     
                   </select>
@@ -324,10 +327,10 @@ if (isset($_POST['submit'])){ //added by me
                   <label>Committee</label>
                   <select name="team" class="form-control">
 
-                    <option value="Food">Food Committee</option>
-                    <option value="Review">Review Committee </option>
+                    <option value="food">Food Committee</option>
+                    <option value="review">Review Committee </option>
                     
-                    <option value="Hotel">Hotel Committee</option>
+                    <option value="hotel">Hotel Committee</option>
                     
                   </select>
                 </div>

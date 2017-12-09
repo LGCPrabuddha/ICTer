@@ -49,20 +49,20 @@ verify_query($result_set);
     verify_query($result_set);
       //die("database connection failed");
 
-    if($user['position']=="Admin"){
+    if($user['position']=="admin"){
     
     //redirect users.php 
     header('location:Admin/progress.php');
   }
-    if($user['position']=="Leader"){
-      if($user['team']=="Food"){
+    if($user['position']=="leader"){
+      if($user['team']=="food"){
     
     //redirect users.php 
     header('location:leaders/food/hleader.php');
     }
 
    
-      if($user['team']=="Review"){
+      if($user['team']=="review"){
     
     //redirect users.php 
     header('location:review committee/test1.php');
