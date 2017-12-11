@@ -11,13 +11,17 @@ if ($result=mysqli_query($connection,$sql))
   {
   // Return the number of rows in result set
   $rowcount=mysqli_num_rows($result);
-  $sql2="SELECT * FROM adm_task WHERE Status='1'";
+  $sql2="SELECT * FROM adm_task WHERE Status='0'";
   if($query2=mysqli_query($connection,$sql2)){
     $result2=mysqli_num_rows($query2);
   }
   //Create the Percentage
   function percentage($a, $b){
+    if($b == 0){
+      return 0;
+    }else{
 	  return ($a/$b)*100;
+  }
   }
   $percent=percentage($result2,$rowcount);
 
@@ -39,7 +43,7 @@ if ($result=mysqli_query($connection,$sql))
 
     <title>Home Page </title>
    
-  <link href="css/CDetail.css" rel="stylesheet">
+  <link href="css/Cdetail.css" rel="stylesheet">
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome -->
@@ -294,7 +298,7 @@ if ($result=mysqli_query($connection,$sql))
               <div class="process" id="process-heading">
                 <h3>Progess of Each Committee</h3>
               </div>
-
+              
               <div class="process" id="process-body">
                 <h4><a href="Publicity.html"> Publicity Committee</a></h4>
                 <div class="progress">
@@ -309,8 +313,19 @@ if ($result=mysqli_query($connection,$sql))
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 45%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">45%</div>
                    </div>
                   <h4> Food Allocation</h4>
+                  <?php
+                  $food_num="SELECT * FROM adm_task WHERE Team='food'";
+                  $result2=mysqli_query($connection,$food_num);
+                  $food_num=mysqli_num_rows($result2);
+                  $food_num2="SELECT * FROM adm_task WHERE Team='food' AND Status='1'";
+                  $result3=mysqli_query($connection,$food_num2);
+                  $food_com=mysqli_num_rows($result3);
+
+                  $food=percentage($food_com, $food_num);
+
+                  ?>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 55%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">55%</div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $food; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $food; ?>%</div>
                    </div>
                   <h4> Paper Handling Gorup</h4>
                 <div class="progress">
@@ -321,8 +336,20 @@ if ($result=mysqli_query($connection,$sql))
                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                    </div>
                   <h4> Hotel Quatation Group</h4>
+
+                  <?php
+                  $hotel_num="SELECT * FROM adm_task WHERE Team='hotel'";
+                  $result3=mysqli_query($connection,$hotel_num);
+                  $hotel_num=mysqli_num_rows($result3);
+                  $hotel_num2="SELECT * FROM adm_task WHERE Team='hotel' AND Status='1'";
+                  $result4=mysqli_query($connection,$hotel_num2);
+                  $hotel_com=mysqli_num_rows($result4);
+
+                  $hotel=percentage($hotel_com, $hotel_num);
+
+                  ?>
                 <div class="progress">
-                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                   <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $hotel; ?>%; height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo $hotel; ?>%</div>
                    </div>
 
               </div>
@@ -335,10 +362,17 @@ if ($result=mysqli_query($connection,$sql))
                 </div>
                 <div class="due_body">
                 <?php
+                date_default_timezone_set('Asia/Colombo');
+                function create_date(){
+                    return date('Y-m-d');
+                }
+                $current_date=create_date();
                   $send="SELECT Task,Status,Team,Duration FROM adm_task WHERE Status='0' ORDER BY Duration ASC";
                   $resul92=mysqli_query($connection,$send);
                   while($rew=mysqli_fetch_assoc($resul92)){
+                    if($current_date < $rew['Duration']){
                     echo "<div class='mew'><h4>".$rew['Task']."</h4><h4>Team: ".$rew['Team']."</h4><h4>".$rew['Duration']."</h4></div>";
+                  }
                   }
                  ?>
                </div>

@@ -7,7 +7,7 @@ if(isset($_POST['submit'])){
 
     $duration=$_POST['duration'];
     foreach($_POST['team'] as $selected){
-      $inadd="INSERT INTO adm_task (Task, Status, Team, Duration) Values ('$task', '0', '$selected','$duration')";
+      $inadd="INSERT INTO adm_task (Task, Status, Team, Duration) Values ('$task', 0, '$selected','$duration')";
       $enter=mysqli_query($connection,$inadd);
     }
 
@@ -18,28 +18,19 @@ if(isset($_POST['submit'])){
 
 
 //Dilmini's Code
+
 if(isset($_POST['submit'])){
     $task=$_POST['task'];
     $duration=$_POST['duration'];
     foreach($_POST['team'] as $selected){
-      $inadd="INSERT INTO notifyadmin (task, group_name, duration, status) Values ('$task', '$selected','$duration','1')";
+      $inadd="INSERT INTO notifyadmin (task, group_name, duration, status_1,status_2) Values ('$task', '$selected','$duration','1','1')";
       $enter=mysqli_query($connection,$inadd);
     }
 
 }
 
 
-if(isset($_POST['done'])){
-    if(!empty($_POST['bill'])){
-        foreach($_POST['bill'] as $select){
-            $sql3 = "UPDATE adm_task SET status = '1' WHERE Task = '$select'";
-            $enter3=mysqli_query($connection,$sql3);
 
-        }
-    }else{
-        echo "plz enter the task";
-    }
- }
 
 
 
@@ -52,10 +43,7 @@ if(isset($_POST['done'])){
 
 
     <title>User Interface </title>
-    <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    
 
 
     <link href="css/CDetail.css" rel="stylesheet">
@@ -79,9 +67,18 @@ if(isset($_POST['done'])){
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    
 
+ <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 
+  <script>
+    $( function() {
+    $( "#datepicker" ).datepicker({dateFormat:"yy-mm-dd"});
+  } );
+  </script> 
   </head>
 
   <body class="nav-md">
@@ -283,26 +280,26 @@ if(isset($_POST['done'])){
           <div class="form-row">
 
             <div class="form-group col-md-4">
-			Task<br><input type="text" name="task" class="form-control" id="exampleInputEmail1" placeholder="Enter Task"></div>
-                <div class="form-group col-md-4">
-                Team<br>
+      Task<br><input type="text" name="task" class="form-control mb-2 mr-sm-2 mb-sm-0" id="task" placeholder="Enter Task"></div>
 
-                <select name="team[]" class="form-control"> // Initializing Name With An Array
-                  <option type="hidden" value="default" selected>Choose the Team</option>
-                <option value="Commity1">Bag Quatation</option>
-                <option value="Commity2">Sponsorship Handling</option>
-                <option value="Commity3">Publicity Handling</option>
-                <option value="Commity4">Food Allocation</option>
-                <option value="Commity5">Paper Handling</option>
-                <option value="Commity6">Key Note</option>
-                <option value="Commity7">Hotel Quataion</option>
-              </select></div>
               <div class="form-group col-md-4">
-Due Date<br><div class="form-group"> <!-- Date input -->
-        <!-- <label class="control-label" for="date">Date</label> -->
-        <input class="form-control" id="date" name="duration" placeholder="YYYY/MM/DD" type="text"/>
-      </div><br>
-              </div></div>
+                Duration<br><input type="text" id="datepicker" class="form-control mb-2 mr-sm-2 mb-sm-0" name="duration">
+                <!--<input class="form-control" id="datepicker" name="duration" type="text"/>-->
+              </div>
+              <div class="form-group col-md-4">
+              <label for="inputState">Team</label>
+
+              <select name="team[]" class="form-control" id="inputState">
+
+              <option value="bag">Bag Quatation</option>
+              <option value="sponsorshipHandling">Sponsorship Handling</option>
+              <option value="publicityHandling">Publicity Handling</option>
+              <option value="food">Food Allocation</option>
+              <option value="paperHandling">Paper Handling</option>
+              <option value="keyNote">Key Note</option>
+              <option value="hotel">Hotel Quataion</option>
+            </select></div>
+            </div>
                 <input type="submit" name="submit" value="Submit" class="btn btn-primary">
 
 <br><br>
@@ -317,14 +314,14 @@ Due Date<br><div class="form-group"> <!-- Date input -->
   </tr></thead>
   <tbody><?php $result="SELECT * FROM adm_task"; $main=mysqli_query($connection,$result); while($row=mysqli_fetch_array($main)){ ?>
   <tr>
-    <td width="5%"><input type="checkbox" name="bill[]" value=<?php echo '"' . $row['Task'] . '"'; if($row['Status'] == "1") {echo "checked='checked'"; } ?>></td>
+    <td><?php if($row['Status'] == "1") {echo "Finished"; }else{ echo "Ongoing"; } ?></td>
     <td><?php echo $row['Task']; ?></td>
     <td><?php echo $row['Team']; ?></td>
     <td><?php echo $row['Duration'];  ?></td>
   </tr><?php } ?>
  </tbody></form>
 </table>
-<input type="submit" name="done" value="done" class="btn btn-primary">
+
 </div>
 				</div>
 
@@ -337,21 +334,6 @@ Due Date<br><div class="form-group"> <!-- Date input -->
                   </div>
                 </div>
               </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-
-    <script>
-    $(document).ready(function(){
-      var date_input=$('input[name="date"]'); //our date input has the name "date"
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'yyyy/mm/dd',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
-    })
-</script>
 
 
 
@@ -359,7 +341,7 @@ Due Date<br><div class="form-group"> <!-- Date input -->
 
 
    <!-- jQuery -->
-    <script src="jquery-3.2.1.min.js"></script>
+    
     <!-- Bootstrap -->
     <script src="bootstrap.min.js"></script>
 

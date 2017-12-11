@@ -1,7 +1,9 @@
 <?php session_start(); ?>
 <?php require_once('inc1/connection.php'); ?>
 <?php require_once('inc1/functions.php'); ?>
+
 <?php
+$myuser=$_SESSION['name'];
 //checking that user logged into the system
 // if (!isset($_SESSION['user_id'])){
 //    header('Location: index.php');
@@ -220,26 +222,59 @@ if (isset($_POST['submit'])){ //added by me
                                     </div>
                                 </li>
                             </ul>
-                        <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-                                <span class="badge bg-green">6</span>
-                            </a>
-                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                <li>
-                                    <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        
+
+                            <li role="presentation" class="dropdown">       
+                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-bell"></i>
+                    <span class='badge bg-red' id='lab' onclick='myFunction()'>
+                    <?php
+                        
+                        $que = "SELECT * FROM notifyreviewer WHERE reviewer='$myuser' AND team='review' AND status='1'";
+                        $result1=mysqli_query($connection,$que);
+                        $count1 = mysqli_num_rows($result1);
+
+
+                        
+                        if($count1>0){
+                          echo $count1."</span>";
+                        }
+                        ?>
+                        <script type="text/javascript">
+                        function myFunction(){
+                          var x = document.getElementById('lab');
+                          if (x.style.display === "none") {
+                                x.style.display = "block";
+                          } else {
+                                x.style.display = "none";
+                          }
+                        }
+                        </script>      
+                  </a>
+                  <style type="text/css">
+                  .main{
+                    border: 2px solid black;
+                    border-radius: 10px;
+                    padding: 1%;
+                    margin: 1%;
+                    height: auto;
+                    display: block;
+                  }
+                  </style>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                      <?php
+                        while($row1=mysqli_fetch_assoc($result1)){
+                          echo "<li><div class=main><a href='javascript:;'>"."<b>".$row1['head']."</b>"."<br>".$row1['message']."</a></div></li>";
+                          //echo "<li><a href='javascript:;'>"."<b>Allocate task </b><br>".$row1['head']." <b>Task is :</b>". $row1['message']."</a></li>";
+                        }
+                        
+                        $query2="UPDATE notifyreviewer SET status='0' WHERE reviewer='$myuser'";
+                        $result2=mysqli_query($connection,$query2);
+                      ?> 
+                  </ul>
+                </li>
+
+
                     </ul>
                 </nav>
             </div>

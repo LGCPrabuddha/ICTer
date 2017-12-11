@@ -75,6 +75,9 @@
 
                             </li>
                              <li><a href="test11.php"><i class="fa fa-table"></i> Final Review<span class="fa fa-circle"></span></a></li>
+                             
+                             <li><a href="notification.php"><i class="fa fa-table"></i> Notification<span class="fa fa-circle"></span></a>
+                             </li>
                         </ul>
                     </div>
 

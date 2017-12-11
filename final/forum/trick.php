@@ -158,7 +158,7 @@ $commity=$_SESSION['committee'];
                   <li><a href="hotelm.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
                   <li><a><i class="fa fa-cloud"></i> Forum<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="trick.php">Chat</a></li>
+                      <li><a href="trick.php" id="notify">Chat</a></li>
                       <li><a href="query.php">Query</a></li>
                     </ul>
                 </ul>
@@ -201,9 +201,10 @@ $commity=$_SESSION['committee'];
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o" id='badge'></i>
-                    <span class='badge bg-green' id='lapp'></span>
+                    
                   </a>
-
+                  <ul class="dropdown-menu list-unstyled msg_list" id="chain" >
+                  </ul>
       <!-- lllll -->
 
                   <li role="presentation" class="dropdown">
@@ -279,20 +280,24 @@ $commity=$_SESSION['committee'];
 
 <script>
 $(document).ready(function(){
-  $.ajax({
-    url:"notify.php",
-    success:function(data){
-      $('#lapp').text(data);
-    }
-  });
+  $("#chain").load("notify.php");
 
-  $('#badge').click(function(){
-    $( "#del" ).remove();
-    $.post( "change.php", { notified: "Done" })
-
+  
+  $("#notify").click(function(){
+    $.post("change.php", { notified: "Done"})
   });
 });
 
 </script>
+<script>
+  $(document).ready(function(e){
+    $.ajaxSetup({cache:false});
+    setInterval(function(){
+      $.getJSON("count.php", function(json){
+        $("#badge").html("<span class='badge bg-green' id='lapp'>"+ json + "</span>");
+      });
+    }, 1000);
+});
+  </script>
   </body>
 </html>

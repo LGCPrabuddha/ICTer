@@ -67,14 +67,26 @@
 
 
       $query = "INSERT INTO tfood (";
-      $query .= "task,comment, assdate, enddate, uindex, done, situation, is_deleted";
+      $query .= "task, assdate, enddate, uindex, done, situation, is_deleted";
       $query .= ") VALUES (";
-      $query .= "'{$v1}','{$v2}','{$v3}', '{$v4}', '{$v5}', '{$v6}', 'Ongoing', 0";
+      $query .= "'{$v1}','{$v3}', '{$v4}', '{$v5}', '{$v6}', 'Ongoing', 0";
       $query .= ")";
 
 
 
       $result = mysqli_query($connection,$query);
+
+      $task=$_POST['task'];
+     $member_id=$_POST['member'];
+     
+     $que="SELECT * FROM main_login WHERE id='$member_id'";
+     $res=mysqli_query($connection,$que);
+     $row=mysqli_fetch_assoc($res);
+     $membername=$row['fname'];
+     $groupname=$row['team'];
+     $duration=$_POST['date'];
+     $addno="INSERT INTO notify (task, member_id,member_name,group_name,duration,status_1,status_2) VALUES ('$task', '$member_id','$membername','$groupname','$duration','1','1')";
+     $enter=mysqli_query($connection,$addno);
 
       if ($result) {
         // query successfull.... redireting to modify-admin page
@@ -86,6 +98,23 @@
 
 
   }
+
+// if(isset($_POST['submit'])){
+//      $task=$_POST['task'];
+//      $member_id=$_POST['member'];
+     
+//      $que="SELECT * FROM main_login WHERE id='$member_id'";
+//      $res=mysqli_query($connection,$que);
+//      $row=mysqli_fetch_assoc($res);
+//      $membername=$row['fname'];
+//      $groupname=$row['team'];
+//      $duration=$_POST['date'];
+//      $addno="INSERT INTO notify (task, member_id,member_name,group_name,duration,status_1,status_2) VALUES ('$task', '$member_id','$membername','$groupname','$duration','1','1')";
+//      $enter=mysqli_query($connection,$addno);
+    
+//  }
+
+
 $result=mysqli_query($connection, " SELECT * FROM tfood ");
 
  ?>
@@ -208,7 +237,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    
+                   
                   </li>
                   
                   <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
@@ -218,7 +247,9 @@ tr:nth-child(even){background-color: #f2f2f2}
                     
                   </li>
                   <li><a href="fooddb.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
-                   
+                   </li>
+                   <li><a href="forum/trick.php"><i class="fa fa-table"></i>Chat<span class="fa fa-chevron-down"></span></a>
+                   </li>
                 </ul>
               </div>
               
@@ -336,13 +367,100 @@ tr:nth-child(even){background-color: #f2f2f2}
                       </div>
                     </li>
                   </ul>
+                
                   <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-bell"></i>
-                    <span class='badge bg-red' id='lab' onclick='myFunction()'>          
+                    <span class='badge bg-red' id='lab' onclick='myFunction()'>
+                    <?php
+                       /* $que1 = "SELECT team FROM main_login WHERE fname='$myuser' AND position='Leader'";
+                        $res1 = mysqli_query($connection,$que1);
+                        $row1 = mysqli_fetch_assoc($res1);
+                        $group1 = $row1['team'];*/
+                        $que = "SELECT * FROM notifyleader WHERE usergroup='food' AND status='1'";
+                        $result1=mysqli_query($connection,$que);
+                        $count1 = mysqli_num_rows($result1);
+
+                        $que2 = "SELECT * FROM notifyadmin WHERE group_name='food' AND status_1='1'";
+                        $result2=mysqli_query($connection,$que2);
+                        $count2=mysqli_num_rows($result2);
+
+                        $que3 = "SELECT * FROM notifyadmin WHERE group_name='food' AND status_2='1'";
+                        $result3=mysqli_query($connection,$que3);
+
+                        $arr=array();
+                        while($fet2=mysqli_fetch_assoc($result3)){
+
+                          $dur=$fet2['duration'];
+                          $date1=date_create("$dur");
+                          $tod=date('Y-m-d');
+                          $date2=date_create("$tod");
+                          $diff=date_diff($date2,$date1);
+                          $difference=$diff->days;
+
+                          if($difference>0 && $difference<2){
+                            
+                            array_push($arr, $fet2['task']);
+
+                          }
+                          
+                        }
+                        $cou1=count($arr);
+                        $i=0;
+
+                        $count = $cou1+$count2+$count1;
+
+                        if($count>0){
+                          echo $count."</span>";
+                        }
+                        ?>
+                        <script type="text/javascript">
+                        function myFunction(){
+                          var x = document.getElementById('lab');
+                          if (x.style.display === "none") {
+                                x.style.display = "block";
+                          } else {
+                                x.style.display = "none";
+                          }
+                        }
+                        </script>      
                   </a>
-                  </ul> 
+                  <style type="text/css">
+                  .main{
+                    border: 2px solid black;
+                    border-radius: 10px;
+                    padding: 1%;
+                    margin: 1%;
+                    height: auto;
+                    display: block;
+                  }
+                  </style>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                      <?php
+                        while($row1=mysqli_fetch_assoc($result1)){
+                          echo "<li><div class='main'><a href='javascript:;'>"."<b>Allocated task finished by </b><br>".$row1['username']." <b>Task is :</b>". $row1['task']."</a></div></li>";
+                        }
+                        while($row2=mysqli_fetch_assoc($result2)){
+                          echo "<li><div class='main'><a href='javascript:;'>"."<b>Allocate new task : </b><br>"." <b>Task is : </b>". $row2['task']."</a></div></li>";
+                        }
+                        while ($i<$cou1) {
+                          echo "<li><div class='main'><a href='javascript:;'>"."<b>Your group has a task to complete before tomorrow : </b><br>"." <b>Task is : </b>". $arr[$i]."</a></div></li>";
+                          $i++;
+                        }
+                        $query3="UPDATE notifyleader SET status='0' WHERE usergroup='food'";
+                        $query4="UPDATE notifyadmin SET status_1='0' WHERE group_name='food'";
+                        $query5="UPDATE notifyadmin SET status_2='0' WHERE group_name='food'";
+                      
+                        $result3=mysqli_query($connection,$query3);
+                        $result4=mysqli_query($connection,$query4);
+                        $result4=mysqli_query($connection,$query5);
+                        
+                      ?>
+
+                  </ul>
                 </li>
+
+                
               </ul>
             </nav>
           </div>
@@ -407,7 +525,7 @@ tr:nth-child(even){background-color: #f2f2f2}
     <!-- <th width="5%">Status</th> -->
     <th>Member ID</th>
     <th>Task</th>
-    <th>Comment</th>
+    <!-- <th>Comment</th> -->
     <th>Due Date</th>
     <th>Status</th>
    </tr>
@@ -417,7 +535,7 @@ tr:nth-child(even){background-color: #f2f2f2}
  -->    
 <td><?php echo $row['uindex']; ?></td>
  <td><?php echo $row['task']; ?></td>
-    <td><?php echo $row['comment']; ?></td>
+    <!-- <td><?php echo $row['comment']; ?></td> -->
     <td><?php echo $row['enddate'];  ?></td>
      <td><?php echo $row['situation'];  ?></td>
   </tr><?php } ?>

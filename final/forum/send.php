@@ -22,6 +22,8 @@ if(isset($_POST['send'])){
     if(!mysqli_query($connection,$send_data)){
     	die("Failed to send data to database".mysqli_error($connection));
     }
+    $notify="UPDATE chat SET c_notify='1' WHERE team='$comm' AND name != '$my_user'";
+    $update=mysqli_query($connection, $notify);
 
 }
 header("location:trick.php");

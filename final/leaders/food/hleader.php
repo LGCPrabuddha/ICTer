@@ -6,7 +6,7 @@
                            if(isset($_POST['done'])){
                                 if(!empty($_POST['bill'])){
                                           foreach($_POST['bill'] as $select){
-                                          $sql3 = "UPDATE adm_task SET Status = 1 WHERE Task = '$select' AND Team = 'Food Allocation' ";
+                                          $sql3 = "UPDATE adm_task SET Status = 1 WHERE Task = '$select' AND Team = 'food' ";
                                           $enter3=mysqli_query($connection,$sql3);
                                    }
                                   // header('Location : hleader.php');
@@ -34,7 +34,7 @@
   $all_tasks=mysqli_num_rows($result);
 
   // Return the number of completed tasks in result set
-  $sql2="SELECT * FROM $group_table WHERE NOT situation='Ongoing' ";
+  $sql2="SELECT * FROM $group_table WHERE situation='Finish' ";
   $query2=mysqli_query($conn,$sql2);
   $completed_tasks=mysqli_num_rows($query2);
 
@@ -48,8 +48,20 @@ $sponsorshsip=progress('tsponsorship');
 $bag=progress('tbag');
 //$keynote=progress('tkeynote');
 $hotel=progress('thotel');
-$overall=floor(($food+$publicity+$sponsorshsip+$bag+$hotel)/6);
+//$overall=progress('adm_task');
 
+  $conn=mysqli_connect('localhost','root','','group');
+
+
+$qry="SELECT * FROM adm_task";
+  $rslt=mysqli_query($conn,$qry);
+  $all_tasks=mysqli_num_rows($rslt);
+
+$qry2="SELECT * FROM adm_task WHERE Status=1 ";
+  $rslt2=mysqli_query($conn,$qry2);
+  $completed_tasks=mysqli_num_rows($rslt2);
+  $final=$completed_tasks*100/$all_tasks;
+  $overall=floor($final);
 //mysqli_close($conn);
 ?>
 <!DOCTYPE html>
@@ -105,11 +117,7 @@ $overall=floor(($food+$publicity+$sponsorshsip+$bag+$hotel)/6);
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
+                   
                   </li>
                   
                   <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
@@ -239,12 +247,96 @@ $overall=floor(($food+$publicity+$sponsorshsip+$bag+$hotel)/6);
                       </div>
                     </li>
                   </ul>
-                  <li role="presentation" class="dropdown">
+                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
+                    <i class="fa fa-bell"></i>
+                    <span class='badge bg-red' id='lab' onclick='myFunction()'>
+                    <?php
+                       /* $que1 = "SELECT team FROM main_login WHERE fname='$myuser' AND position='Leader'";
+                        $res1 = mysqli_query($connection,$que1);
+                        $row1 = mysqli_fetch_assoc($res1);
+                        $group1 = $row1['team'];*/
+                        $que = "SELECT * FROM notifyleader WHERE usergroup='food' AND status='1'";
+                        $result1=mysqli_query($connection,$que);
+                        $count1 = mysqli_num_rows($result1);
+
+                        $que2 = "SELECT * FROM notifyadmin WHERE group_name='food' AND status_1='1'";
+                        $result2=mysqli_query($connection,$que2);
+                        $count2=mysqli_num_rows($result2);
+
+                        $que3="SELECT * FROM notifyadmin WHERE group_name='food' AND status_2='1'";
+                        $result3=mysqli_query($connection,$que3);
+
+                        $arr=array();
+                        while($fet2=mysqli_fetch_assoc($result3)){
+
+                          $dur=$fet2['duration'];
+                          $date1=date_create("$dur");
+                          $tod=date('Y-m-d');
+                          $date2=date_create("$tod");
+                          $diff=date_diff($date2,$date1);
+                          $difference=$diff->days;
+
+                          if($difference>0 && $difference<2){
+                            
+                            array_push($arr, $fet2['task']);
+
+                          }
+                          
+                        }
+                        $cou1=count($arr);
+                        $i=0;
+
+                        $count = $cou1+$count2+$count1;
+
+                        if($count>0){
+                          echo $count."</span>";
+                        }
+                        ?>
+                        <script type="text/javascript">
+                        function myFunction(){
+                          var x = document.getElementById('lab');
+                          if (x.style.display === "none") {
+                                x.style.display = "block";
+                          } else {
+                                x.style.display = "none";
+                          }
+                        }
+                        </script>      
                   </a>
-                 
+                  <style type="text/css">
+                  .main{
+                    border: 2px solid black;
+                    border-radius: 10px;
+                    padding: 1%;
+                    margin: 1%;
+                    height: auto;
+                    display: block;
+                  }
+                  </style>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                      <?php
+                        while($row1=mysqli_fetch_assoc($result1)){
+                          echo "<li><div class='main'><a href='javascript:;'>"."<b>Allocated task finished by </b><br>".$row1['username']." <b>Task is :</b>". $row1['task']."</a></div></li>";
+                        }
+                        while($row2=mysqli_fetch_assoc($result2)){
+                          echo "<li><div class='main'><a href='javascript:;'>"."<b>Allocate new task : </b><br>"." <b>Task is : </b>". $row2['task']."</a></div></li>";
+                        }
+                        while ($i<$cou1) {
+                          echo "<li><div class='main'><a href='javascript:;'>"."<b>Your group has a task to complete before tomorrow : </b><br>"." <b>Task is : </b>". $arr[$i]."</a></div></li>";
+                          $i++;
+                        }
+                        $query3="UPDATE notifyleader SET status='0' WHERE usergroup='food'";
+                        $query4="UPDATE notifyadmin SET status_1='0' WHERE group_name='food'";
+                        $query5="UPDATE notifyadmin SET status_2='0' WHERE group_name='food'";
+                      
+                        $result3=mysqli_query($connection,$query3);
+                        $result4=mysqli_query($connection,$query4);
+                        $result5=mysqli_query($connection,$query5);
+                        
+                      ?>
+
+                  </ul>
                 </li>
               </ul>
             </nav>
@@ -312,7 +404,7 @@ $overall=floor(($food+$publicity+$sponsorshsip+$bag+$hotel)/6);
 
                         <?php
                         include('inc1/connection.php');
-                        $userq="SELECT * FROM adm_task WHERE Team = 'Food Allocation'";
+                        $userq="SELECT * FROM adm_task WHERE Team = 'food'";
                         $result=mysqli_query($connection,$userq);
                          while($row=mysqli_fetch_array($result)){
                               $task=$row['Task'];

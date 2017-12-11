@@ -2,7 +2,7 @@
 <?php  
   // $con = mysqli_connect('localhost','root','','trial');
  session_start();
-$myuser=$_SESSION['user_name'];
+
   // if (mysqli_connect_errno()){
   //   die('Database connection failed' . mysqli_connect_error());
   // } 
@@ -95,9 +95,9 @@ $myuser=$_SESSION['user_name'];
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>General</h3>
-                <ul class="nav side-menu">
+               <ul class="nav side-menu">
                   <li><a href="hleader.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    
+                   
                   </li>
                   
                   <li><a href="hmembers.php"><i class="fa fa-edit"></i> Committee Details <span class="fa fa-chevron-down"></span></a>
@@ -107,7 +107,9 @@ $myuser=$_SESSION['user_name'];
                     
                   </li>
                   <li><a href="fooddb.php"><i class="fa fa-table"></i> Committee Database<span class="fa fa-chevron-down"></span></a>
-                   
+                   </li>
+                   <li><a href="forum/trick.php"><i class="fa fa-table"></i>Chat<span class="fa fa-chevron-down"></span></a>
+                   </li>
                 </ul>
               </div>
               
@@ -173,22 +175,45 @@ $myuser=$_SESSION['user_name'];
                     <i class="fa fa-bell"></i>
                     <span class='badge bg-red' id='lab' onclick='myFunction()'>
                     <?php
-                        $que1 = "SELECT mygroup FROM groupleaders WHERE leader='$myuser'";
+                       /* $que1 = "SELECT team FROM main_login WHERE fname='$myuser' AND position='Leader'";
                         $res1 = mysqli_query($connection,$que1);
                         $row1 = mysqli_fetch_assoc($res1);
-                        $group1 = $row1['mygroup'];
-                        $que = "SELECT * FROM notifyleader WHERE usergroup='$group1' AND status='1'";
+                        $group1 = $row1['team'];*/
+                        $que = "SELECT * FROM notifyleader WHERE usergroup='food' AND status='1'";
                         $result1=mysqli_query($connection,$que);
                         $count1 = mysqli_num_rows($result1);
 
-                        $que2 = "SELECT * FROM notifyadmin WHERE group_name='food' AND status='1'";
+                        $que2 = "SELECT * FROM notifyadmin WHERE group_name='food' AND status_1='1'";
                         $result2=mysqli_query($connection,$que2);
                         $count2=mysqli_num_rows($result2);
 
-                        $count = $count1+$count2;
+                        $que3="SELECT * FROM notifyadmin WHERE group_name='food' AND status_2='1'";
+                        $result3=mysqli_query($connection,$que3);
 
-                        if($count2>0){
-                          echo $count2."</span>";
+                        $arr=array();
+                        while($fet2=mysqli_fetch_assoc($result3)){
+
+                          $dur=$fet2['duration'];
+                          $date1=date_create("$dur");
+                          $tod=date('Y-m-d');
+                          $date2=date_create("$tod");
+                          $diff=date_diff($date2,$date1);
+                          $difference=$diff->days;
+
+                          if($difference>0 && $difference<2){
+                            
+                            array_push($arr, $fet2['task']);
+
+                          }
+                          
+                        }
+                        $cou1=count($arr);
+                        $i=0;
+
+                        $count = $cou1+$count2+$count1;
+
+                        if($count>0){
+                          echo $count."</span>";
                         }
                         ?>
                         <script type="text/javascript">
@@ -202,17 +227,38 @@ $myuser=$_SESSION['user_name'];
                         }
                         </script>      
                   </a>
+                  <style type="text/css">
+                  .main{
+                    border: 2px solid black;
+                    border-radius: 10px;
+                    padding: 1%;
+                    margin: 1%;
+                    height: auto;
+                    display: block;
+                  }
+                  </style>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                       <?php
                         while($row1=mysqli_fetch_assoc($result1)){
-                          echo "<li><a href='javascript:;'>"."<b>Allocated task finished by </b><br>".$row1['username']." <b>Task is :</b>". $row1['task']."</a></li>";
+                          echo "<li><div class='main'><a href='javascript:;'>"."<b>Allocated task finished by </b><br>".$row1['username']." <b>Task is :</b>". $row1['task']."</a></div></li>";
                         }
                         while($row2=mysqli_fetch_assoc($result2)){
-                          echo "<li><a href='javascript:;'>"."<b>Allocate task </b><br>".$row2['task']." <b>Task is :</b>". $row2['duration']."</a></li>";
+                          echo "<li><div class='main'><a href='javascript:;'>"."<b>Allocate new task : </b><br>"." <b>Task is : </b>". $row2['task']."</a></div></li>";
                         }
-                        $query2="UPDATE notifyleader SET status='0' WHERE usergroup='$group1'";
-                        $result2=mysqli_query($connection,$query2);
-                      ?> 
+                        while ($i<$cou1) {
+                          echo "<li><div class='main'><a href='javascript:;'>"."<b>Your group has a task to complete before tomorrow : </b><br>"." <b>Task is : </b>". $arr[$i]."</a></div></li>";
+                          $i++;
+                        }
+                        $query3="UPDATE notifyleader SET status='0' WHERE usergroup='food'";
+                        $query4="UPDATE notifyadmin SET status_1='0' WHERE group_name='food'";
+                        $query5="UPDATE notifyadmin SET status_2='0' WHERE group_name='food'";
+                      
+                        $result3=mysqli_query($connection,$query3);
+                        $result4=mysqli_query($connection,$query4);
+                        $result5s=mysqli_query($connection,$query5);
+                        
+                      ?>
+
                   </ul>
                 </li>
               </ul>

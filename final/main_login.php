@@ -39,10 +39,11 @@ verify_query($result_set);
     //var_dump($user);
     $_SESSION['user_id']= $user['id'];
     $_SESSION['name']= $user['fname'];
-    $_SESSION['committee']= $user['team'];
+    $_SESSION['fname']= $user['fname'];
+    $_SESSION['committee']=$user['team'];
 
 
-   
+
 
     $result_set= mysqli_query($connection,$query);
 
@@ -50,23 +51,62 @@ verify_query($result_set);
       //die("database connection failed");
 
     if($user['position']=="admin"){
-    
-    //redirect users.php 
+
+    //redirect users.php
     header('location:Admin/progress.php');
   }
     if($user['position']=="leader"){
       if($user['team']=="food"){
-    
-    //redirect users.php 
+
+    //redirect users.php
     header('location:leaders/food/hleader.php');
     }
 
-   
+
       if($user['team']=="review"){
-    
-    //redirect users.php 
+
+    //redirect users.php
     header('location:review committee/test1.php');
     }
+  }
+  elseif ($user['position']=="member") {
+    switch ($user['team']) {
+    case 'ssponsorship':
+      header('Location: member/production/member/sponsorship/sponsorship.php');
+      break;
+
+    case 'keynote':
+      header('Location: member/production/member/keynote/keynote.php');
+      break;
+
+    case 'publicity':
+      header('Location: member/production/member/publicity/publicity.php');
+      break;
+
+    case 'paper':
+      header('Location: member/production/member/production/member/paper.php');
+      break;
+
+    case 'reviewer':
+      header('Location:member/production/member/reviewer.php');
+      break;
+
+    case 'hotel':
+      header('Location: member/production/member/hotel/hotel.php');
+      break;
+
+    case 'food':
+      header('Location: member/production/member/food/food.php');
+      break;
+
+    case 'bag':
+      header('Location: member/production/member/bag/bag.php');
+      break;
+
+    default:
+      # code...
+      break;
+    # code...
   }
   }else{
     //username password invalid
@@ -78,8 +118,9 @@ verify_query($result_set);
 
 
 //if not display error
-} 
- }
+}
+}
+}
 
 ?>
 
@@ -164,7 +205,7 @@ if (isset($errors) && !empty($errors)){
           </section>
         </div>
 
-       
+
       </div>
     </div>
   </body>

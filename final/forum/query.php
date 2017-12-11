@@ -16,7 +16,15 @@
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    $( function() {
+    $( "#datepicker" ).datepicker({dateFormat:"yy-mm-dd"});
+  } );
+  </script>
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -213,9 +221,10 @@
         <div class="right_col" role="main">
           <div class="query">
 
+
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon3">Enter the Date</span>
-              <input type="date" name="date_que" id="date_que" class="form-control" placeholder="YYYY-MM-DD"  aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" id="datepicker" name="date_que" class="form-control">
               <span class="input-group-btn">
                 <input type='submit' name='list' value='Search' class='btn btn-secondary' id="list">
               </span>
@@ -228,7 +237,7 @@
         </div>
 
     <!-- jQuery -->
-    <script src="jquery-3.2.1.min.js"></script>
+
 <!--
 <script>
 $(document).ready(function(){
@@ -254,11 +263,13 @@ $(document).ready(function(){
 });
 </script>
 -->
+<
+
 <script>
 $(document).ready(function(){
   $('#list').click(function(event){
     event.preventDefault();
-    var date_que=$('#date_que').val();
+    var date_que=$('#datepicker').val();
     if(date_que==''){
       alert('please enter the query');
       return false;
